@@ -7,7 +7,7 @@ import java.util.List;
 public interface TeamService {
 
     //登陆成功与否
-    boolean isLogin();
+    boolean isLogin(Team team);
 
     //添加运动员
     void addAthlete(Athlete athlete);
