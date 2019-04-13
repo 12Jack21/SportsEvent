@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.OrderDAO">
+
+    <resultMap id="OrderInf" type="po.Order">
+        <id property="id" column="Id"/>
+        <result property="cusName" column="Cus_Name"/>
+        <result property="cusPhone" column="Cus_PhoneNum"/>
+        <collection property="orderDetails" ofType="po.OrderDetail">
+            <id property="id" column="id"/>
+            <result property="name" column="Name"/>
+            <result property="unitPrice" column="UnitPrice"/>
+            <result property="quantity" column="Quantity"/>
+            <result property="orderId" column="Order_Id"/>
+        </collection>
+
+    </resultMap>
+
+    <select id="getAllOrders" resultMap="OrderInf" >
+        SELECT * FROM orders LEFT JOIN orderdetails ON orders.Id = orderdetails.Order_Id
+    </select>
+
+    <select id="getConditionalOrders" resultMap="OrderInf">
+        SELECT * FROM orders LEFT JOIN orderdetails ON orders.Id = orderdetails.Order_Id
+        <where>
+            <if test="param1!=null">
+                AND Id=#{param1},
+            </if>
+            <if test="param2!=null">
+                AND Cus_Name=#{param2}
+            </if>
+            <if test="param3!=null">
+                AND Cus_PhoneNum LIKE #{param3}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertOrder" parameterType="po.Order" keyColumn="Id">
+        INSERT INTO orders VALUES (#{id},#{cusName},#{cusPhone})
+    </insert>
+
+    <delete id="deleteOrder" parameterType="string">
+        DELETE FROM orders WHERE Id=#{id}
+    </delete>
+
+    <update id="updateOrder" parameterType="po.Order">
+        UPDATE orders
+        <set>
+            <if test="cusName!=null">
+                Cus_Name = #{cusName},
+            </if>
+            <if test="cusPhone!=null">
+                Cus_PhoneNum = #{cusPhone}
+            </if>
+        </set>
+        WHERE Id = #{id}
+    </update>
+
+</mapper>
