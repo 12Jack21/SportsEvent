@@ -32,8 +32,12 @@ public interface RefereeService {
     //得到个人全能分数（分为初赛和决赛）
     double getAthleteAllScore(int compType,int athid);
 
-    //得到某项比赛的 个人单项排名表
+    //得到每个类别的团体成绩
+    double getTeamScore(int teamid);
+
+    //得到某项比赛的 单项排名表
     List<Athlete> getAthleteRank(int compid);
 
-
+    //得到某项比赛的 决赛名单
+    List<Athlete> getFinalCompAthletes(int compid);
 }
