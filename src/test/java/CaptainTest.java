@@ -20,9 +20,9 @@ public class CaptainTest extends BaseTest {
 
     @Test
     public void testTeamCaptain(){
-        List<Captain> captains = captainDAO.getTeamCaptains(1);
+        Captain captain = captainDAO.getTeamCaptain(1);
 
-        Assert.assertEquals(1,captains.toArray().length);
+        Assert.assertEquals("22222",captain.getCapID());
 
     }
 

@@ -19,7 +19,7 @@
         SELECT c.id,c.name,c.phone,c.capID,c.teamid,t.name FROM captain c LEFT JOIN team t ON c.teamid=t.id
     </select>
 
-    <select id="getTeamCaptains" resultType="po.Captain" parameterType="int">
+    <select id="getTeamCaptain" resultType="po.Captain" parameterType="int">
         SELECT c.id,c.name,c.phone,c.capID FROM captain c WHERE c.teamid = #{teamid}
     </select>
 

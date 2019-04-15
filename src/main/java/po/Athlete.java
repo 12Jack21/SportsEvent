@@ -13,6 +13,13 @@ public class Athlete {
     public Athlete() {
     }
 
+    public Athlete(String name, int sex, int age, String athID, Team team) {
+        this.name = name;
+        this.sex = sex;
+        this.age = age;
+        this.athID = athID;
+        this.team = team;
+    }
 
     public int getId() {
         return id;

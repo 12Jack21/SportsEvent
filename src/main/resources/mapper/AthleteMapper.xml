@@ -30,7 +30,7 @@
         SELECT a.id,a.name,a.sex,a.age,a.athID,a.no FROM athlete a
         WHERE teamid = #{param1}
         AND sex = #{param2}
-        AND age IS BETWEEN (#{param3},#{param4})
+        AND age BETWEEN #{param3} AND #{param4}
     </select>
 
     <select id="getCompAthletes" resultType="po.Athlete">
@@ -65,6 +65,6 @@
     </update>
 
     <update id="updateNo">
-        UPDATE athlete SET no = #{param2} WHERE id = #{param2}
+        UPDATE athlete SET no = #{param2} WHERE id = #{param1}
     </update>
 </mapper>

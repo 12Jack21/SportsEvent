@@ -13,10 +13,10 @@ public class OrderTest extends BaseTest{
     @Test
     public void testGetAll(){
         ArrayList<Order> orders = orderDAO.getAllOrders();
-        Order o = orders.get(2);
+        Order o = orders.get(1);
 
-        Assert.assertEquals("Micheal",o.getCusName());
-
+        Assert.assertEquals("Sam",o.getCusName());
+        Assert.assertEquals(4,o.getOrderDetails().toArray().length);
     }
 
     @Test

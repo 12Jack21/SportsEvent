@@ -9,11 +9,11 @@ public class Team {
     private String password;
     private boolean isSign;
 
-    private Captain captain;
-    private List<Athlete> athletes;
-    private List<Coach> coaches;
-    private List<Referee> referees;
-    private List<Doctor> doctors;
+//    private Captain captain;
+//    private List<Athlete> athletes;
+//    private List<Coach> coaches;
+//    private List<Referee> referees;
+//    private List<Doctor> doctors;
 
     public Team() {
     }
@@ -69,43 +69,43 @@ public class Team {
         isSign = sign;
     }
 
-    public Captain getCaptain() {
-        return captain;
-    }
-
-    public void setCaptain(Captain captain) {
-        this.captain = captain;
-    }
-
-    public List<Athlete> getAthletes() {
-        return athletes;
-    }
-
-    public void setAthletes(List<Athlete> athletes) {
-        this.athletes = athletes;
-    }
-
-    public List<Coach> getCoaches() {
-        return coaches;
-    }
-
-    public void setCoaches(List<Coach> coaches) {
-        this.coaches = coaches;
-    }
-
-    public List<Referee> getReferees() {
-        return referees;
-    }
-
-    public void setReferees(List<Referee> referees) {
-        this.referees = referees;
-    }
-
-    public List<Doctor> getDoctors() {
-        return doctors;
-    }
-
-    public void setDoctors(List<Doctor> doctors) {
-        this.doctors = doctors;
-    }
+//    public Captain getCaptain() {
+//        return captain;
+//    }
+//
+//    public void setCaptain(Captain captain) {
+//        this.captain = captain;
+//    }
+//
+//    public List<Athlete> getAthletes() {
+//        return athletes;
+//    }
+//
+//    public void setAthletes(List<Athlete> athletes) {
+//        this.athletes = athletes;
+//    }
+//
+//    public List<Coach> getCoaches() {
+//        return coaches;
+//    }
+//
+//    public void setCoaches(List<Coach> coaches) {
+//        this.coaches = coaches;
+//    }
+//
+//    public List<Referee> getReferees() {
+//        return referees;
+//    }
+//
+//    public void setReferees(List<Referee> referees) {
+//        this.referees = referees;
+//    }
+//
+//    public List<Doctor> getDoctors() {
+//        return doctors;
+//    }
+//
+//    public void setDoctors(List<Doctor> doctors) {
+//        this.doctors = doctors;
+//    }
 }

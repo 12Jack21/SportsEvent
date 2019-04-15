@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.CompetitionDAO">
+    <resultMap id="CompetitionInf" type="po.Competition">
+        <id property="id" column="id"/>
+        <result property="project" column="project"/>
+        <result property="type" column="type"/>
+        <result property="sexgroup" column="sexgroup"/>
+        <result property="agegroup" column="agegroup"/>
+        <result property="place" column="place"/>
+        <result property="date" column="date"/>
+        <collection property="athletes" ofType="po.Athlete">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="sex" column="sex"/>
+            <result property="age" column="age"/>
+            <result property="athID" column="athID"/>
+            <result property="no" column="no"/>
+        </collection>
+    </resultMap>
+
+    <select id="getAllCompetitions" resultMap="CompetitionInf">
+        SELECT c.*,a.name,a.sex,a.age,a.athID,a.no
+        FROM competition c
+        LEFT JOIN participate p ON c.id=p.comp_id
+        LEFT JOIN athlete a ON p.ath_id=a.id
+    </select>
+
+    <!--    <select id="getAthCompetitions" resultMap="">-->
+
+    <!--    </select>-->
+
+    <!--    <select id="getRefCompetitions" resultMap="">-->
+
+    <!--    </select>-->
+
+    <!--    <select id="getUnEndCompetitions" resultMap="">-->
+
+    <!--    </select>-->
+
+    <insert id="addCompetition" parameterType="po.Competition" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO competition (project,type,sexgroup,agegroup,place,date) 
+        VALUES (#{project},#{type},#{sexgroup},#{agegroup},#{place},#{date}) 
+    </insert>
+
+    <delete id="deleteCompetition" parameterType="int">
+        DELETE FROM competition WHERE id = #{compid}
+    </delete>
+
+    <update id="updateCompetition" parameterType="po.Competition">
+        UPDATE competition
+        <set>
+            <if test="project!=null">
+                project = #{project},
+            </if>
+            <if test="type!=-1">
+                test = #{test},
+            </if>
+            <if test="sexgroup!=-1">
+                sex = #{sex},
+            </if>
+            <if test="agegroup!=-1">
+                agegroup = #{agegroup},
+            </if>
+            <if test="place!=null">
+                place = #{place},
+            </if>
+            <if test="date!=null">
+                date = #{date},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateCompetitionEnd" parameterType="int">
+        UPDATE competition SET isEnd = 1 WHERE id = #{compid}
+    </update>
+</mapper>

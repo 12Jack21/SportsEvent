@@ -20,5 +20,5 @@ public interface AthleteDAO {
 
     boolean updateAthlete(Athlete athlete);
 
-    boolean updateNo(int id,String no);
+    boolean updateNo(int athid,String no);
 }

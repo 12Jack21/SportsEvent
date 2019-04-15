@@ -8,7 +8,7 @@ public interface CaptainDAO {
 
     List<Captain> getAllCaptains();
 
-    List<Captain> getTeamCaptains(int teamid);
+    Captain getTeamCaptain(int teamid);
 
     boolean addCaptain(Captain captain);
 
