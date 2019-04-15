@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.AthleteDAO">
+    <resultMap id="AthleteInf" type="po.Athlete">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <result property="athID" column="athID"/>
+        <result property="no" column="no"/>
+        <association property="team" javaType="po.Team">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </association>
+    </resultMap>
+
+    <select id="getAllAthletes" resultMap="AthleteInf">
+        SELECT a.*,t.name
+        FROM athlete a LEFT JOIN team t ON a.teamid=t.id
+    </select>
+
+    <select id="getTeamAthletes" resultType="po.Athlete" parameterType="int">
+        SELECT * FROM athlete  WHERE athlete.teamid = #{teamid}
+    </select>
+
+    <select id="getGroupAthletes" resultType="po.Athlete">
+        SELECT a.id,a.name,a.sex,a.age,a.athID,a.no FROM athlete a
+        WHERE teamid = #{param1}
+        AND sex = #{param2}
+        AND age IS BETWEEN (#{param3},#{param4})
+    </select>
+
+    <select id="getCompAthletes" resultType="po.Athlete">
+        SELECT a.id,a.name,a.sex,a.age,a.athID,a.no FROM athlete a WHERE teamid=#{compid}
+    </select>
+
+    <insert id="addAthlete" parameterType="po.Athlete" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO athlete (name,sex,age,athID,teamid) VALUES (#{name},#{sex},#{age},#{athID},#{team.id})
+    </insert>
+
+    <delete id="deleteAthlete" parameterType="int">
+        DELETE FROM athlete WHERE id=#{athid}
+    </delete>
+
+    <update id="updateAthlete" parameterType="po.Athlete">
+        UPDATE athlete
+        <set>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="sex!=-1">
+                sex = #{sex},
+            </if>
+            <if test="age!=-1">
+                age = #{age},
+            </if>
+            <if test="athID!=null">
+                athID = #{athID},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateNo">
+        UPDATE athlete SET no = #{param2} WHERE id = #{param2}
+    </update>
+</mapper>

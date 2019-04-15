@@ -4,12 +4,27 @@ public class Captain {
     private int id;
     private String name;
     private String capID;
-    private int teamid;
+    private String phone;
 
-    public Captain(String name, String capID, int teamid) {
+    private Team team;
+
+    public Captain() {
+    }
+
+
+    public Captain(String name, String capID, String phone, Team team) {
         this.name = name;
         this.capID = capID;
-        this.teamid = teamid;
+        this.phone = phone;
+        this.team = team;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public int getId() {
@@ -36,11 +51,11 @@ public class Captain {
         this.capID = capID;
     }
 
-    public int getTeamid() {
-        return teamid;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTeamid(int teamid) {
-        this.teamid = teamid;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

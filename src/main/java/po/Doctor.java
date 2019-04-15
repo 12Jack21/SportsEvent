@@ -3,13 +3,25 @@ package po;
 public class Doctor {
     private int id;
     private String name;
+    private String phone;
     private String docID;
-    private int teamid;
 
-    public Doctor(String name, String docID, int teamid) {
+    private Team team;
+
+    public Doctor() {
+    }
+
+    public Doctor(String name, String phone, String docID, Team team) {
         this.name = name;
+        this.phone = phone;
         this.docID = docID;
-        this.teamid = teamid;
+        this.team = team;
+    }
+
+    public Doctor(String name, String phone, String docID) {
+        this.name = name;
+        this.phone = phone;
+        this.docID = docID;
     }
 
     public int getId() {
@@ -28,6 +40,14 @@ public class Doctor {
         this.name = name;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public String getDocID() {
         return docID;
     }
@@ -36,11 +56,11 @@ public class Doctor {
         this.docID = docID;
     }
 
-    public int getTeamid() {
-        return teamid;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeamid(int teamid) {
-        this.teamid = teamid;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

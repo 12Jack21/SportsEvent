@@ -7,12 +7,25 @@ public class Coach {
     private String phone;
     private String coachID;
 
-    public Coach(String name, int sex, String phone, String coachID, int teamid) {
+    private Team team;
+
+    public Coach() {
+    }
+
+    public Coach(String name, int sex, String phone, String coachID, Team team) {
         this.name = name;
         this.sex = sex;
         this.phone = phone;
         this.coachID = coachID;
-        this.teamid = teamid;
+        this.team = team;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public int getId() {
@@ -55,13 +68,5 @@ public class Coach {
         this.coachID = coachID;
     }
 
-    public int getTeamid() {
-        return teamid;
-    }
 
-    public void setTeamid(int teamid) {
-        this.teamid = teamid;
-    }
-
-    private int teamid;
 }

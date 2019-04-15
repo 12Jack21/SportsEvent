@@ -1,4 +1,4 @@
-package dao;
+package MyUtil;
 
 public class DAOFactory {
 }

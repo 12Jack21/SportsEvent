@@ -9,6 +9,9 @@ public interface TeamService {
     //登陆成功与否
     boolean isLogin(Team team);
 
+    //更改密码
+    void updatePassWord(Team team);
+
     //添加运动员
     void addAthlete(Athlete athlete);
 

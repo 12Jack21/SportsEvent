@@ -19,21 +19,21 @@ public interface RefereeService {
     //主裁判检查成绩是否有效
     boolean checkScore(TempScore tempScore);
 
-    //得到所有打分信息
+    //得到所有打分信息(主裁判)
     List<TempScore> getAllScores();
 
-    //得到指定运动员的打分信息
+    //得到指定运动员的打分信息（主）
     List<TempScore> getAthleteScores(int athid);
 
 
-    //计算并设置个人最终单项成绩
+    //计算并设置个人最终单项成绩（主）
     double figureResultScore(double D,double P,int athid,int compid);
 
-    //得到个人全能分数（分为初赛和决赛）
+    //得到个人全能分数（分为初赛和决赛，其参加的所有初赛或者决赛）
     double getAthleteAllScore(int compType,int athid);
 
     //得到每个类别的团体成绩
-    double getTeamScore(int teamid);
+    double getTeamScore(int teamid,int compid);
 
     //得到某项比赛的 单项排名表
     List<Athlete> getAthleteRank(int compid);

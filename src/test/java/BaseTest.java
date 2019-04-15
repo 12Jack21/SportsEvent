@@ -24,8 +24,5 @@ public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
         super.setDataSource(dataSource);
     }
 
-    @Test
-    public void test(){
-        Assert.assertTrue(true);
-    }
+
 }
