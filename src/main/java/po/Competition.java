@@ -12,6 +12,7 @@ public class Competition {
 
     private String place;
     private Date date;
+    private int isEnd;
 
     private List<Athlete> athletes;
     private List<Referee> referees;
@@ -83,6 +84,14 @@ public class Competition {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public int getIsEnd() {
+        return isEnd;
+    }
+
+    public void setIsEnd(int isEnd) {
+        this.isEnd = isEnd;
     }
 
     public List<Athlete> getAthletes() {

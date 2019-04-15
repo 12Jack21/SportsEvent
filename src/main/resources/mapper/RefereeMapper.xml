@@ -11,12 +11,12 @@
         <result property="phone" column="phone"/>
         <association property="team" javaType="po.Team">
             <id property="id" column="id"/>
-            <result property="name" column="name"/>
+            <result property="name" column="t_name"/>
         </association>
     </resultMap>
 
     <select id="getAllReferees" resultMap="RefereeInf">
-        SELECT r.*,t.name FROM referee r LEFT JOIN team t ON r.teamid = t.id
+        SELECT r.*,t.name t_name FROM referee r LEFT JOIN team t ON r.teamid = t.id
     </select>
 
     <select id="getTeamReferees" resultType="po.Referee" parameterType="int">

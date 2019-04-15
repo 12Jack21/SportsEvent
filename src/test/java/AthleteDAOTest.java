@@ -38,8 +38,8 @@ public class AthleteDAOTest extends BaseTest {
 
     @Test
     public void getCompAthletes(){
-        List<Athlete> athletes = athleteDAO.getTeamAthletes(2);
-        assertEquals(1,athletes.toArray().length);
+        List<Athlete> athletes = athleteDAO.getCompAthletes(1);
+        assertEquals(2,athletes.toArray().length);
     }
 
     @Test

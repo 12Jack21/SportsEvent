@@ -12,34 +12,42 @@
         <result property="agegroup" column="agegroup"/>
         <result property="place" column="place"/>
         <result property="date" column="date"/>
+        <result property="isEnd" column="isEnd"/>
         <collection property="athletes" ofType="po.Athlete">
-            <id property="id" column="id"/>
+            <id property="id" column="ath_id"/>
             <result property="name" column="name"/>
             <result property="sex" column="sex"/>
             <result property="age" column="age"/>
             <result property="athID" column="athID"/>
             <result property="no" column="no"/>
         </collection>
+<!--        <collection property="athletes" ofType="po.Athlete"-->
+<!--                    select="dao.AthleteDAO.getCompAthletes" column="id"/>-->
     </resultMap>
 
-    <select id="getAllCompetitions" resultMap="CompetitionInf">
-        SELECT c.*,a.name,a.sex,a.age,a.athID,a.no
+    <select id="getAllCompetitions" resultMap="CompetitionInf" >
+        SELECT c.*,a.id ath_id,a.name,a.sex,a.age,a.athID,a.no
         FROM competition c
         LEFT JOIN participate p ON c.id=p.comp_id
         LEFT JOIN athlete a ON p.ath_id=a.id
     </select>
 
-    <!--    <select id="getAthCompetitions" resultMap="">-->
+<!--    嵌套查询-->
+<!--    <select id="getAllCompetitions" resultMap="CompetitionInf" >-->
+<!--        SELECT * FROM competition-->
+<!--    </select>-->
 
-    <!--    </select>-->
+<!--    <select id="getAthCompetitions" resultMap="" parameterType="int">-->
+<!--        SELECT -->
+<!--    </select>-->
 
-    <!--    <select id="getRefCompetitions" resultMap="">-->
+<!--    <select id="getRefCompetitions" resultMap="">-->
 
-    <!--    </select>-->
+<!--    </select>-->
 
-    <!--    <select id="getUnEndCompetitions" resultMap="">-->
+<!--    <select id="getUnEndCompetitions" resultMap="">-->
 
-    <!--    </select>-->
+<!--    </select>-->
 
     <insert id="addCompetition" parameterType="po.Competition" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO competition (project,type,sexgroup,agegroup,place,date) 

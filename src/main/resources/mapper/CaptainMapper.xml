@@ -11,12 +11,12 @@
         <result property="phone" column="phone"/>
         <association property="team" javaType="po.Team">
             <id property="id" column="id"/>
-            <result property="name" column="name"/>
+            <result property="name" column="t_name"/>
         </association>
     </resultMap>
 
     <select id="getAllCaptains" resultMap="CaptainInf">
-        SELECT c.id,c.name,c.phone,c.capID,c.teamid,t.name FROM captain c LEFT JOIN team t ON c.teamid=t.id
+        SELECT c.id,c.name,c.phone,c.capID,c.teamid,t.name t_name FROM captain c LEFT JOIN team t ON c.teamid=t.id
     </select>
 
     <select id="getTeamCaptain" resultType="po.Captain" parameterType="int">

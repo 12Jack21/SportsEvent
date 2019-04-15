@@ -9,18 +9,17 @@
         <id property="id" column="Id"/>
         <result property="cusName" column="Cus_Name"/>
         <result property="cusPhone" column="Cus_PhoneNum"/>
-        <collection property="orderDetails" ofType="po.OrderDetail">
-            <id property="id" column="id"/>
+        <collection property="orderDetails" javaType="ArrayList" ofType="po.OrderDetail">
+            <id property="id" column="DetailId"/>
             <result property="name" column="Name"/>
             <result property="unitPrice" column="UnitPrice"/>
             <result property="quantity" column="Quantity"/>
-            <result property="orderId" column="Order_Id"/>
         </collection>
 
     </resultMap>
 
     <select id="getAllOrders" resultMap="OrderInf" >
-        SELECT * FROM orders LEFT JOIN orderdetails ON orders.Id = orderdetails.Order_Id
+        SELECT ord.*,o.id DetailId,o.Name,o.UnitPrice,o.Quantity FROM orders ord LEFT JOIN orderdetails o ON ord.Id = o.Order_Id
     </select>
 
     <select id="getConditionalOrders" resultMap="OrderInf">
