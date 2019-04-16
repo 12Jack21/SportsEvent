@@ -12,6 +12,10 @@ public class Referee {
     public Referee() {
     }
 
+    public Referee(int id) {
+        this.id = id;
+    }
+
     public Referee(String name, String refID, String phone, Team team) {
         this.name = name;
         this.refID = refID;

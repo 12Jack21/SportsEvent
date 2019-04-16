@@ -15,4 +15,5 @@ public interface TempScoreDAO {
     boolean deleteTempScore(int tempScoreid);
 
     boolean updateTempScore(int tempScoreid,Integer valid);
+
 }

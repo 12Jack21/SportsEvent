@@ -10,7 +10,8 @@ public interface RefereeDAO {
 
     List<Referee> getTeamReferees(int teamid);
 
-    List<Referee> getCompReferees(int compid);
+//    在JudgeDAO中得到了更好的实现
+//    List<Referee> getCompReferees(int compid);
 
     boolean addReferee(Referee referee);
 

@@ -18,5 +18,7 @@ public interface ParticipateDAO {
     boolean updateParticipate();
      */
 
+    boolean updateGroupNo(int athid,int compid,int groupno);
+
     boolean updateScore(int athid,int compid,double score);
 }

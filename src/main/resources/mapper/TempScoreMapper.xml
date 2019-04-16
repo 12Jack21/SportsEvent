@@ -5,26 +5,40 @@
 
 <mapper namespace="dao.TempScoreDAO">
     <resultMap id="AthTempSocre" type="po.TempScore">
-        <id property="id" column="tempScore_id"/>
+        <id property="id" column="t_id"/>
         <result property="score" column="score"/>
-        <association property="referee" javaType="po.Referee">
-            <id property="id" column="id"/>
-            <result property="name" column="name"/>
+        <result property="isValid" column="valid"/>
+        <association property="judge" javaType="po.Judge">
+            <id property="id" column="j_id"/>
+            <association property="referee" javaType="po.Referee">
+                <id property="id" column="r_id"/>
+                <result property="name" column="name"/>
+            </association>
         </association>
     </resultMap>
 
+<!--    <select id="getAthTempScores" resultMap="AthTempSocre" parameterType="int">-->
+<!--        SELECT r.*,t.id tempScore_id,t.score-->
+<!--        FROM tempscore t-->
+<!--        LEFT JOIN referee r-->
+<!--        ON t.ref_id=r.id-->
+<!--        WHERE t.ath_id = #{param1}-->
+<!--        AND t.comp_id = #{param2}-->
+<!--    </select>-->
     <select id="getAthTempScores" resultMap="AthTempSocre" parameterType="int">
-        SELECT r.*,t.id tempScore_id,t.score
+        SELECT r.id r_id,r.name,j.id j_id,t.id t_id,t.score,t.valid
         FROM tempscore t
+        LEFT JOIN judge j
+        ON t.judge_id = j.id
         LEFT JOIN referee r
-        ON t.ref_id=r.id
-        WHERE t.ath_id = #{param1}
-        AND t.comp_id = #{param2}
+        ON j.ref_id = r.id
+        WHERE j.comp_id = #{param2}
+        AND t.ath_id = #{param1}
     </select>
 
     <insert id="addTempScore" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="po.TempScore">
-        INSERT INTO tempscore (ref_id,comp_id,ath_id,score)
-        VALUES (#{refid},#{compid},#{athid},#{score})
+        INSERT INTO tempscore (judge_id,ath_id,score)
+        VALUES (#{judge.id},#{athid},#{score})
     </insert>
 
     <delete id="deleteTempScore">

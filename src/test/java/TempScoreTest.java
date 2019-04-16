@@ -1,6 +1,9 @@
 import dao.TempScoreDAO;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import po.Competition;
+import po.Judge;
+import po.Referee;
 import po.TempScore;
 
 import java.util.List;
@@ -13,16 +16,18 @@ public class TempScoreTest extends BaseTest {
     private static final double DELTA = 1e-15;
     @Test
     public void getAthTempScores(){
-        List<TempScore> tempScores = tempScoreDAO.getAthTempScores(1,2);
+        List<TempScore> tempScores = tempScoreDAO.getAthTempScores(2,1);
         TempScore t = tempScores.get(0);
-        assertEquals("Kelao",t.getReferee().getName());
-        assertEquals(90.10,t.getScore(),DELTA);
+        assertTrue(t.getJudge().getReferee().getName().equals("Kelao"));
+        assertEquals(100.0,t.getScore(),DELTA);
 
     }
 
     @Test
     public void addTempScore(){
-        TempScore t = new TempScore(1,2,3,22.1);
+        Judge j = new Judge(new Referee(1),new Competition(2),1,0);
+        j.setId(2);
+        TempScore t = new TempScore(1,100.2,j);
         boolean result = tempScoreDAO.addTempScore(t);
         assertTrue(result);
     }

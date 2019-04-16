@@ -1,17 +1,29 @@
 package po;
 
 public class Judge {
+    private int id;
     private Referee referee;
     private Competition competition;
+    private int groupno;
     private int reftype;
 
     public Judge() {
     }
 
-    public Judge(Referee referee, Competition competition, int reftype) {
+    public Judge(Referee referee, Competition competition, int groupno, int reftype) {
         this.referee = referee;
         this.competition = competition;
+        this.groupno = groupno;
         this.reftype = reftype;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Referee getReferee() {
@@ -28,6 +40,14 @@ public class Judge {
 
     public void setCompetition(Competition competition) {
         this.competition = competition;
+    }
+
+    public int getGroup() {
+        return groupno;
+    }
+
+    public void setGroup(int groupno) {
+        this.groupno = groupno;
     }
 
     public int getReftype() {

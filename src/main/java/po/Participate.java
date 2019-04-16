@@ -1,10 +1,9 @@
 package po;
 
 public class Participate {
-    /*TODO 是否要添加 participate表的自增主键，以减少tempscore表的外键数量
-      TODO 相应的mapper文件也应该修改*/
     private Athlete athlete;
     private Competition competition;
+    private int groupno;
     private double score;
 
     public Participate() {
@@ -29,6 +28,14 @@ public class Participate {
 
     public void setCompetition(Competition competition) {
         this.competition = competition;
+    }
+
+    public int getGroupno() {
+        return groupno;
+    }
+
+    public void setGroupno(int groupno) {
+        this.groupno = groupno;
     }
 
     public double getScore() {

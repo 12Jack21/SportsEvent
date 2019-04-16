@@ -2,23 +2,20 @@ package po;
 
 public class TempScore {
     private int id;
-    private int refid;
-    private int compid;
     private int athid;
     private double score;
     private Integer isValid;
 
     private Athlete athlete;
-    private Referee referee;
+    private Judge judge;
 
     public TempScore() {
     }
 
-    public TempScore(int refid, int compid, int athid, double score) {
-        this.refid = refid;
-        this.compid = compid;
+    public TempScore(int athid, double score, Judge judge) {
         this.athid = athid;
         this.score = score;
+        this.judge = judge;
     }
 
     public int getId() {
@@ -27,22 +24,6 @@ public class TempScore {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getRefid() {
-        return refid;
-    }
-
-    public void setRefid(int refid) {
-        this.refid = refid;
-    }
-
-    public int getCompid() {
-        return compid;
-    }
-
-    public void setCompid(int compid) {
-        this.compid = compid;
     }
 
     public int getAthid() {
@@ -69,19 +50,19 @@ public class TempScore {
         this.isValid = isValid;
     }
 
+    public Judge getJudge() {
+        return judge;
+    }
+
+    public void setJudge(Judge judge) {
+        this.judge = judge;
+    }
+
     public Athlete getAthlete() {
         return athlete;
     }
 
     public void setAthlete(Athlete athlete) {
         this.athlete = athlete;
-    }
-
-    public Referee getReferee() {
-        return referee;
-    }
-
-    public void setReferee(Referee referee) {
-        this.referee = referee;
     }
 }

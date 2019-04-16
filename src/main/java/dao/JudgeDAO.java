@@ -10,10 +10,10 @@ public interface JudgeDAO {
 
     List<Judge> getCompJudges(int compid);
 
-    boolean addJudge(int compid,int refid,int reftype);
+    boolean addJudge(Judge judge);
 
-    boolean deleteJudge(int compid,int refid);
+    boolean deleteJudge(int judgeid);
 
-    boolean updateJudge(int compid,int refid,int reftype);
+    boolean updateJudge(Judge judge);
 
 }

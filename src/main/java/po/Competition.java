@@ -20,6 +20,10 @@ public class Competition {
     public Competition() {
     }
 
+    public Competition(int id) {
+        this.id = id;
+    }
+
     public Competition(String project, int type, int sexgroup,
                        int agegroup, String place, Date date) {
         this.project = project;

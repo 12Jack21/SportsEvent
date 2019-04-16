@@ -1,7 +1,9 @@
 import dao.JudgeDAO;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import po.Competition;
 import po.Judge;
+import po.Referee;
 
 import java.util.List;
 
@@ -42,12 +44,13 @@ public class JudgeTest extends BaseTest{
 
     @Test
     public void addJudge(){
-        assertTrue(judgeDAO.addJudge(2,2,0));
+        Judge judge = new Judge(new Referee(1),new Competition(2),1,0);
+        assertTrue(judgeDAO.addJudge(judge));
     }
 
     @Test
     public void deleteJudge(){
-        assertTrue(judgeDAO.deleteJudge(2,3));
+        assertTrue(judgeDAO.deleteJudge(1));
     }
 
     /*不如删了再重新添加
@@ -56,6 +59,8 @@ public class JudgeTest extends BaseTest{
 
     @Test
     public void updateScore(){
-        assertTrue(judgeDAO.updateJudge(1,3,0));
+        Judge judge = new Judge(new Referee(1),new Competition(2),1,0);
+        judge.setId(2);
+        assertTrue(judgeDAO.updateJudge(judge));
     }
 }

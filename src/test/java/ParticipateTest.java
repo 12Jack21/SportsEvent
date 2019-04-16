@@ -2,6 +2,7 @@ import dao.ParticipateDAO;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import po.Participate;
 
 import java.util.List;
@@ -47,6 +48,11 @@ public class ParticipateTest extends BaseTest{
     /*不如删了再重新添加
     boolean updateParticipate();
      */
+//    @Rollback(false)
+    @Test
+    public void updateGroupNo(){
+        assertTrue(participateDAO.updateGroupNo(1,2,1));
+    }
 
     @Test
     public void updateScore(){

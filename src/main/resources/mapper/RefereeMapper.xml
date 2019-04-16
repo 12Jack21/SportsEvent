@@ -23,6 +23,9 @@
         SELECT * FROM referee WHERE teamid = #{teamid}
     </select>
 
+<!--    <select id="getCompReferees" resultType="po.Referee" parameterType="int">-->
+<!--        SELECT * FROM referee WHERE compid = #{teamid}-->
+<!--    </select>-->
 
     <insert id="addReferee" parameterType="po.Referee" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO referee (name,refID,phone,teamid)

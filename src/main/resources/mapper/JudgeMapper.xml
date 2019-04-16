@@ -7,7 +7,8 @@
 
 <!--    加上id 属性以区分 裁判类型相同的给分记录-->
     <resultMap id="RefJudges" type="po.Judge">
-        <id property="competition.id" column="id"/>
+        <id property="id" column="id"/>
+        <result property="groupno" column="groupno"/>
         <result property="reftype" column="reftype"/>
         <association property="competition" javaType="po.Competition">
             <id property="id" column="id"/>
@@ -22,8 +23,9 @@
     </resultMap>
 
     <resultMap id="CompJudges" type="po.Judge">
-        <id property="referee.id" column="id"/>
+        <id property="id" column="id"/>
         <result property="reftype" column="reftype"/>
+        <result property="groupno" column="groupno"/>
         <association property="referee" javaType="po.Referee">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
@@ -33,7 +35,7 @@
     </resultMap>
 
     <select id="getRefJudges" resultMap="RefJudges" parameterType="int">
-        SELECT c.*,j.reftype
+        SELECT c.*,j.groupno,j.reftype
         FROM judge j 
         LEFT JOIN competition c
         ON j.comp_id=c.id
@@ -41,29 +43,40 @@
     </select>
 
     <select id="getCompJudges" resultMap="CompJudges" parameterType="int">
-        SELECT r.*,j.reftype
+        SELECT r.*,j.groupno,j.reftype
         FROM judge j 
         LEFT JOIN referee r
         ON j.ref_id=r.id
         WHERE j.comp_id=#{compid}
     </select>
 
-    <insert id="addJudge" parameterType="po.Judge">
-        INSERT INTO judge (comp_id,ref_id,reftype)
-        VALUES (#{param1},#{param2},#{param3})
+    <insert id="addJudge" parameterType="po.Judge" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO judge (comp_id,ref_id,groupno,reftype)
+        VALUES (#{competition.id},#{referee.id},#{groupno},#{reftype})
     </insert>
 
     <delete id="deleteJudge">
         DELETE FROM judge
-        WHERE comp_id=#{param1}
-        AND ref_id=#{param2}
+        WHERE id = #{judgeid}
     </delete>
 
-    <update id="updateJudge">
+    <update id="updateJudge" parameterType="po.Judge">
         UPDATE judge
-        SET reftype = #{param3}
-        WHERE comp_id = #{param1}
-        AND ref_id = #{param2}
+        <set>
+            <if test="group!=-1">
+                groupno = #{groupno},
+            </if>
+            <if test="reftype!=-1">
+                reftype = #{reftype},
+            </if>
+        </set>
+        WHERE id = #{id}
     </update>
+<!--    <update id="updateJudge">-->
+<!--        UPDATE judge-->
+<!--        SET reftype = #{param3}-->
+<!--        WHERE comp_id = #{param1}-->
+<!--        AND ref_id = #{param2}-->
+<!--    </update>-->
 
 </mapper>
