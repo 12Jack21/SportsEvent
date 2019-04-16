@@ -7,7 +7,7 @@ public class Team {
     private String name;
     private String user;
     private String password;
-    private boolean isSign;
+    private int isSign;
 
 //    private Captain captain;
 //    private List<Athlete> athletes;
@@ -61,15 +61,15 @@ public class Team {
         this.password = password;
     }
 
-    public boolean isSign() {
+    public int getIsSign() {
         return isSign;
     }
 
-    public void setSign(boolean sign) {
-        isSign = sign;
+    public void setIsSign(int isSign) {
+        this.isSign = isSign;
     }
 
-//    public Captain getCaptain() {
+    //    public Captain getCaptain() {
 //        return captain;
 //    }
 //

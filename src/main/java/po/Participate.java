@@ -1,29 +1,34 @@
 package po;
 
 public class Participate {
-    private int athid;
-    private int compid;
+    /*TODO 是否要添加 participate表的自增主键，以减少tempscore表的外键数量
+      TODO 相应的mapper文件也应该修改*/
+    private Athlete athlete;
+    private Competition competition;
     private double score;
 
-    public Participate(int athid, int compid) {
-        this.athid = athid;
-        this.compid = compid;
+    public Participate() {
     }
 
-    public int getAthid() {
-        return athid;
+    public Participate(Athlete athlete, Competition competition) {
+        this.athlete = athlete;
+        this.competition = competition;
     }
 
-    public void setAthid(int athid) {
-        this.athid = athid;
+    public Athlete getAthlete() {
+        return athlete;
     }
 
-    public int getCompid() {
-        return compid;
+    public void setAthlete(Athlete athlete) {
+        this.athlete = athlete;
     }
 
-    public void setCompid(int compid) {
-        this.compid = compid;
+    public Competition getCompetition() {
+        return competition;
+    }
+
+    public void setCompetition(Competition competition) {
+        this.competition = competition;
     }
 
     public double getScore() {

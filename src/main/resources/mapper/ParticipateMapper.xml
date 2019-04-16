@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.ParticipateDAO">
+
+    <resultMap id="AthScores" type="po.Participate">
+        <id property="competition.id" column="id"/>
+        <result property="score" column="score"/>
+        <association property="competition" javaType="po.Competition">
+            <id property="id" column="id"/>
+            <result property="project" column="project"/>
+            <result property="type" column="type"/>
+            <result property="sexgroup" column="sexgroup"/>
+            <result property="agegroup" column="agegroup"/>
+            <result property="place" column="place"/>
+            <result property="date" column="date"/>
+            <result property="isEnd" column="isEnd"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="CompScores" type="po.Participate">
+        <id property="athlete.id" column="id"/>
+        <result property="score" column="score"/>
+        <association property="athlete" javaType="po.Athlete">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="sex" column="sex"/>
+            <result property="age" column="age"/>
+            <result property="athID" column="athID"/>
+            <result property="no" column="no"/>
+        </association>
+    </resultMap>
+
+    <select id="getAthScores" resultMap="AthScores" parameterType="int">
+        SELECT c.*,p.score FROM participate p
+        LEFT JOIN competition c
+        ON p.comp_id=c.id
+        WHERE p.ath_id=#{athid}
+    </select>
+
+    <select id="getCompScores" resultMap="CompScores" parameterType="int">
+        SELECT a.*,p.score FROM participate p
+        LEFT JOIN athlete a
+        ON p.ath_id=a.id
+        WHERE p.comp_id=#{compid}
+    </select>
+
+    <insert id="addParticipate" parameterType="po.Participate">
+        INSERT INTO participate (ath_id,comp_id)
+        VALUES (#{param1},#{param2})
+    </insert>
+
+    <delete id="deleteParticipate">
+        DELETE FROM participate
+        WHERE ath_id=#{param1}
+        AND comp_id=#{param2}
+    </delete>
+
+    <update id="updateScore">
+        UPDATE participate
+        SET score = #{param3}
+        WHERE ath_id = #{param1}
+        AND comp_id = #{param2}
+    </update>
+</mapper>

@@ -8,9 +8,9 @@ public interface CompetitionDAO {
 
     List<Competition> getAllCompetitions();
 
-    List<Competition> getAthCompetitions();
+    List<Competition> getAthCompetitions(int athid);
 
-    List<Competition> getRefCompetitions();
+    List<Competition> getRefCompetitions(int refid);
 
     List<Competition> getUnEndCompetitions();
 

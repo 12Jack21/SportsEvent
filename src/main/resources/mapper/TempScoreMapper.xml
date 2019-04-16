@@ -4,6 +4,32 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dao.TempScoreDAO">
-<!--    <resultMap id="TempSocreInd" type=""-->
-<!--    <select id="getAthTempScores"-->
+    <resultMap id="AthTempSocre" type="po.TempScore">
+        <id property="id" column="tempScore_id"/>
+        <result property="score" column="score"/>
+        <association property="referee" javaType="po.Referee">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </association>
+    </resultMap>
+
+    <select id="getAthTempScores" resultMap="AthTempSocre" parameterType="int">
+
+    </select>
+
+    <insert id="addTempScore" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO tempscore (ath_id,comp_id,ref_id,score)
+        VALUES (#{param1},#{param2},#{param3},#{param4})
+    </insert>
+
+    <delete id="deleteTempScore">
+        DELETE FROM tempscore
+        WHERE id = #{tempScoreid}
+    </delete>
+
+    <update id="updateTempScore" parameterType="int">
+        UPDATE tempscore
+        SET valid = #{param2}
+        WHERE id = #{param1}
+    </update>
 </mapper>

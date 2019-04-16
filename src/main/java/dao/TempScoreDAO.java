@@ -8,9 +8,11 @@ public interface TempScoreDAO {
 
 //    List<TempScore> getAllTempScores();
 
-    List<TempScore> getAthTempScores(String athno,int compid);
+    List<TempScore> getAthTempScores(int athid,int compid);
 
-    boolean addTempScore(TempScore tempScore);
+    boolean addTempScore(int athid,int compid,int refid,double score);
+
+    boolean deleteTempScore(int tempScoreid);
 
     boolean updateTempScore(int tempScoreid,int valid);
 }

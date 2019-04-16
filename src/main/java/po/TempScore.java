@@ -2,7 +2,7 @@ package po;
 
 public class TempScore {
     private int id;
-    private String athNo;
+    private int athid;
     private int refid;
     private int compid;
     private double score;
@@ -14,8 +14,8 @@ public class TempScore {
     public TempScore() {
     }
 
-    public TempScore(String athNo, int refid, int compid, double score) {
-        this.athNo = athNo;
+    public TempScore(int athid, int refid, int compid, double score) {
+        this.athid = athid;
         this.refid = refid;
         this.compid = compid;
         this.score = score;
@@ -29,12 +29,12 @@ public class TempScore {
         this.id = id;
     }
 
-    public String getAthNo() {
-        return athNo;
+    public int getAthid() {
+        return athid;
     }
 
-    public void setAthNo(String athNo) {
-        this.athNo = athNo;
+    public void setAthid(int athid) {
+        this.athid = athid;
     }
 
     public int getRefid() {
