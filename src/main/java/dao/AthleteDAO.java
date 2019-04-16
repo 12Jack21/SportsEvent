@@ -1,9 +1,11 @@
 package dao;
 
+import org.springframework.stereotype.Repository;
 import po.Athlete;
 
 import java.util.List;
 
+@Repository
 public interface AthleteDAO {
 
     List<Athlete> getAllAthletes();
@@ -14,7 +16,7 @@ public interface AthleteDAO {
 
     List<Athlete> getCompAthletes(int compid);
 
-    boolean addAthlete(Athlete athlete);
+    boolean addAthlete(Athlete athlete); //TODO 考虑 batch 批量增加或者删除、更新，其他的 DAO 也是一样
 
     boolean deleteAthlete(int athid);
 

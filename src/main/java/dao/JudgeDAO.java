@@ -1,9 +1,11 @@
 package dao;
 
+import org.springframework.stereotype.Repository;
 import po.Judge;
 
 import java.util.List;
 
+@Repository
 public interface JudgeDAO {
 
     List<Judge> getRefJudges(int refid);

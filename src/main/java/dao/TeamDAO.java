@@ -1,10 +1,14 @@
 package dao;
 
+import org.springframework.stereotype.Repository;
 import po.Team;
 
 import java.util.List;
 
+@Repository
 public interface TeamDAO {
+
+    String getPassWord(String user);
 
     List<Team> getAllTeams();
 

@@ -2,54 +2,80 @@ package service;
 
 import po.*;
 
+import java.io.File;
 import java.util.List;
 
 public interface TeamService {
 
     //登陆成功与否
-    boolean isLogin(Team team);
+    boolean canLogin(Team team);
 
     //更改密码
-    void updatePassWord(Team team);
+    boolean updatePassWord(Team team);
 
     //添加运动员
-    void addAthlete(Athlete athlete);
+    boolean addAthlete(Athlete athlete);
 
     //添加队医
-    void addDoctor(Doctor doctor);
+    boolean addDoctor(Doctor doctor);
 
     //添加教练
-    void addCoach(Coach coach);
+    boolean addCoach(Coach coach);
 
     //添加队长
-    void addCaptain(Captain captain);
+    boolean addCaptain(Captain captain);
 
     //添加裁判
-    void addReferee(Referee referee);
+    boolean addReferee(Referee referee);
 
     //更新运动员
-    void updateAthlete(Athlete athlete);
+    boolean updateAthlete(Athlete athlete);
 
     //更新队医
-    void updateDoctor(Doctor doctor);
+    boolean updateDoctor(Doctor doctor);
 
     //更新教练
-    void updateCoach(Coach coach);
+    boolean updateCoach(Coach coach);
 
     //更新队长
-    void updateCaptain(Captain captain);
+    boolean updateCaptain(Captain captain);
 
     //更新裁判
-    void updateReferee(Referee referee);
+    boolean updateReferee(Referee referee);
 
     //给运动员报名
-    void signupAthlete(int athid,int sexGroup,int ageGroup);
+    boolean signUpAthlete(int athid,int compid);
 
-    //查询所有运动员
-    List<Athlete> getAllAthletes();
+    //设置报名完成
+    boolean setSignUpFinish(int teamid);
+
+    //查询所有队伍中的运动员
+    List<Athlete> getTeamAthletes(int teamid);
+
+    //查询队伍中的所有队医
+    List<Doctor> getTeamDoctors(int teamid);
+
+    //查询队伍中的所有教练
+    List<Coach> getTeamCoaches(int teamid);
+
+    //查询队伍中的所有裁判
+    List<Referee> getTeamReferee(int teamid);
+
+    //查询队伍中的队长
+    Captain getTeamCaptain(int teamid);
 
     //查询所有比赛的信息
     List<Competition> getAllCompetition();
 
+    //查询未结束的比赛
+    List<Competition> getUnEndCompetition();
 
+    //查询已结束的比赛
+    List<Competition> getEndCompetition();
+
+    //得到每个类别比赛的团体成绩
+    List<Double> getCompScoresByTeam(int teamid);
+
+    //TODO 上传附件
+//    boolean uploadFile(File file);
 }

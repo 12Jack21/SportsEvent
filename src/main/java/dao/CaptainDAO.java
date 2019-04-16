@@ -1,9 +1,11 @@
 package dao;
 
+import org.springframework.stereotype.Repository;
 import po.Captain;
 
 import java.util.List;
 
+@Repository
 public interface CaptainDAO {
 
     List<Captain> getAllCaptains();

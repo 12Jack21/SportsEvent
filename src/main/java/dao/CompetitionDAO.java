@@ -1,9 +1,11 @@
 package dao;
 
+import org.springframework.stereotype.Repository;
 import po.Competition;
 
 import java.util.List;
 
+@Repository
 public interface CompetitionDAO {
 
     List<Competition> getAllCompetitions();

@@ -1,9 +1,11 @@
 package dao;
 
+import org.springframework.stereotype.Repository;
 import po.Referee;
 
 import java.util.List;
 
+@Repository
 public interface RefereeDAO {
 
     List<Referee> getAllReferees();

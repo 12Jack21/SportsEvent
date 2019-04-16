@@ -20,7 +20,6 @@ public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
     @Override
     @Resource(name = "dataSource")
     public void setDataSource(DataSource dataSource) {
-        // TODO Auto-generated method stub
         super.setDataSource(dataSource);
     }
 

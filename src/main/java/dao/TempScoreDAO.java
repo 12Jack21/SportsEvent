@@ -1,9 +1,11 @@
 package dao;
 
+import org.springframework.stereotype.Repository;
 import po.TempScore;
 
 import java.util.List;
 
+@Repository
 public interface TempScoreDAO {
 
 //    List<TempScore> getAllTempScores();

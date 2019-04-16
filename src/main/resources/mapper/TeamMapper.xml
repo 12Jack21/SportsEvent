@@ -5,6 +5,10 @@
 
 <mapper namespace="dao.TeamDAO">
 
+    <select id="getPassWord" parameterType="string" resultType="string">
+        SELECT password FROM team WHERE user = #{user}
+    </select>
+
     <select id="getAllTeams" resultType="po.Team">
         SELECT * FROM team
     </select>

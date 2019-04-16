@@ -42,6 +42,14 @@
         WHERE p.ath_id=#{athid}
     </select>
 
+    <select id="getAthScoresByCompName" resultMap="AthScores" parameterType="int">
+        SELECT c.*,p.groupno,p.score FROM participate p
+        LEFT JOIN competition c
+        ON p.comp_id=c.id
+        WHERE p.ath_id=#{param1}
+        AND c.name IS LIKE '%#{param2}%'
+    </select>
+
     <select id="getCompScores" resultMap="CompScores" parameterType="int">
         SELECT a.*,p.groupno,p.score FROM participate p
         LEFT JOIN athlete a

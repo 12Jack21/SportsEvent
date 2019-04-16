@@ -13,6 +13,11 @@ public class TeamDAOTest extends BaseTest {
     private TeamDAO teamDAO;
 
     @Test
+    public void getPassWord(){
+        assertEquals("789",teamDAO.getPassWord("scc"));
+    }
+
+    @Test
     public void getAllTeams(){
         List<Team> teams = teamDAO.getAllTeams();
         assertEquals(4,teams.toArray().length);
