@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class AthleteDAOTest extends BaseTest {
+public class AthleteTest extends BaseTest {
     @Autowired
     private AthleteDAO athleteDAO;
 

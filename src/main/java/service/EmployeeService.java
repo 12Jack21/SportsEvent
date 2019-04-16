@@ -1,7 +1,5 @@
 package service;
 
-import po.Employee;
-
 import java.util.ArrayList;
 
 public interface EmployeeService {

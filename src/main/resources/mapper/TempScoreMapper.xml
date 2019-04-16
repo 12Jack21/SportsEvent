@@ -14,12 +14,17 @@
     </resultMap>
 
     <select id="getAthTempScores" resultMap="AthTempSocre" parameterType="int">
-
+        SELECT r.*,t.id tempScore_id,t.score
+        FROM tempscore t
+        LEFT JOIN referee r
+        ON t.ref_id=r.id
+        WHERE t.ath_id = #{param1}
+        AND t.comp_id = #{param2}
     </select>
 
-    <insert id="addTempScore" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO tempscore (ath_id,comp_id,ref_id,score)
-        VALUES (#{param1},#{param2},#{param3},#{param4})
+    <insert id="addTempScore" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="po.TempScore">
+        INSERT INTO tempscore (ref_id,comp_id,ath_id,score)
+        VALUES (#{refid},#{compid},#{athid},#{score})
     </insert>
 
     <delete id="deleteTempScore">

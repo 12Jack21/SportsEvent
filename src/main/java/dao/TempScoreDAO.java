@@ -10,9 +10,9 @@ public interface TempScoreDAO {
 
     List<TempScore> getAthTempScores(int athid,int compid);
 
-    boolean addTempScore(int athid,int compid,int refid,double score);
+    boolean addTempScore(TempScore tempScore);
 
     boolean deleteTempScore(int tempScoreid);
 
-    boolean updateTempScore(int tempScoreid,int valid);
+    boolean updateTempScore(int tempScoreid,Integer valid);
 }

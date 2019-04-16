@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class CompetitionDAOTest extends BaseTest {
+public class CompetitionTest extends BaseTest {
     @Autowired
     private CompetitionDAO competitionDAO;
 
