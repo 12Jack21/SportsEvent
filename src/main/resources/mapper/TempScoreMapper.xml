@@ -3,11 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
 <mapper namespace="dao.TempScoreDAO">
     <resultMap id="AthTempSocre" type="po.TempScore">
         <id property="id" column="t_id"/>
         <result property="score" column="score"/>
-        <result property="isValid" column="valid"/>
+        <result property="isValid" column="isValid"/>
         <association property="judge" javaType="po.Judge">
             <id property="id" column="j_id"/>
             <association property="referee" javaType="po.Referee">
@@ -34,6 +35,18 @@
         ON j.ref_id = r.id
         WHERE j.comp_id = #{param2}
         AND t.ath_id = #{param1}
+    </select>
+
+    <select id="getAthValidScores" resultMap="AthTempSocre" parameterType="int">
+        SELECT r.id r_id,r.name,j.id j_id,t.id t_id,t.score,t.valid
+        FROM tempscore t
+        LEFT JOIN judge j
+        ON t.judge_id = j.id
+        LEFT JOIN referee r
+        ON j.ref_id = r.id
+        WHERE j.comp_id = #{param2}
+        AND t.ath_id = #{param1}
+        AND t.isValid = 1
     </select>
 
     <insert id="addTempScore" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="po.TempScore">

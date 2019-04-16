@@ -52,6 +52,10 @@
         WHERE r.id = #{refid}
     </select>
 
+    <select id="getEndCompetitions" resultType="po.Competition">
+        SELECT * FROM competition c WHERE c.isEnd = 1
+    </select>
+
     <select id="getUnEndCompetitions" resultType="po.Competition">
         SELECT * FROM competition c WHERE c.isEnd = 0
     </select>

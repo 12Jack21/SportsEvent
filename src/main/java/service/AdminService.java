@@ -1,5 +1,7 @@
 package service;
 
+import po.Competition;
+import po.Judge;
 import po.Referee;
 import po.Team;
 
@@ -11,31 +13,54 @@ public interface AdminService {
     boolean canLogin(String user,String password);
 
     //添加代表队的信息（账号密码）
-    void addTeamAccount(Team team);
+    boolean addTeamAccount(Team team);
 
-    //删除代表队的信息
-    void deleteTeamAccount(int teamid);
+    /**
+    *@Description 删除代表队的信息
+    *@Param [teamid]
+    *@Return boolean
+    */
+    boolean deleteTeamAccount(int teamid);
+    
+    /**
+    *@Description 更新代表队的信息
+    *@Param [teamid]
+    *@Return boolean
+    */
+    boolean updateTeamAccount(Team team);
 
-    //更新代表队的信息
-    void updateTeamAccount(int teamid);
-
-    //查询所有代表队的信息
+    //查询所有代表队的基本信息
     List<Team> getAllTeams();
 
-    //查询未报名完成的代表队的信息
+    //查询未报名完成的代表队的基本信息
     List<Team> getUnSighTeams();
 
     //查询所有裁判的信息（包括所属的代表队）
     List<Referee> getAllReferees();
 
-    //设置分组并生成赛事表
+    //查询所有比赛的信息
+    List<Competition> getAllCompetitions();
 
+    //查询未结束的比赛
+    List<Competition> getUnEndCompetition();
 
-    //设置某场比赛的裁判（包括一个主裁判和最多四个普通裁判）
-    void setRefereeInComp(int compid,int refid,int reftype);
+    //查询已结束的比赛
+    List<Competition> getEndCompetition();
+
+    //设置比赛类型（即添加比赛到赛事表中）
+    boolean addCompetition(Competition competition);
+
+    //更新比赛（如设置 地点，日期）
+    boolean updateCompetition(Competition competition);
+
+    //设置分组并生成赛事表(对运动员)
+    boolean setAthGroupNo(int athid,int compid,int groupno);
+
+    //设置某场比赛的某一组的裁判（包括一个主裁判和最多四个普通裁判）
+    boolean setRefereeInComp(Judge judge);
 
     //设置裁判的账户名
-    void addRefereeAccount(int refereeid,String user);
+    boolean addRefereeAccount(int refid,String user);
 
 
 }

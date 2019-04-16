@@ -12,6 +12,8 @@ public interface CompetitionDAO {
 
     List<Competition> getRefCompetitions(int refid);
 
+    List<Competition> getEndCompetitions();
+
     List<Competition> getUnEndCompetitions();
 
     boolean addCompetition(Competition competition);
