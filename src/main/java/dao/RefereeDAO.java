@@ -8,6 +8,8 @@ import java.util.List;
 @Repository
 public interface RefereeDAO {
 
+    String getUser(String name);
+
     List<Referee> getAllReferees();
 
     List<Referee> getTeamReferees(int teamid);

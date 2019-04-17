@@ -2,7 +2,6 @@ import dao.ParticipateDAO;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import po.Participate;
 
 import java.util.List;
@@ -14,15 +13,15 @@ public class ParticipateTest extends BaseTest{
     private static final double DELTA = 1e-15;
 
     @Test
-    public void getAthScores(){
-        List<Participate> participates = participateDAO.getAthScores(1);
+    public void getScoresByAth(){
+        List<Participate> participates = participateDAO.getScoresByAth(1);
         assertEquals(2,participates.toArray().length);
         assertEquals(90.2,participates.get(1).getScore(),DELTA);
     }
 
     @Test
-    public void getCompScores(){
-        List<Participate> participates = participateDAO.getCompScores(1);
+    public void getScoresByComp(){
+        List<Participate> participates = participateDAO.getScoresByComp(1);
         assertEquals(3,participates.toArray().length);
 
         boolean r = false;
@@ -33,6 +32,18 @@ public class ParticipateTest extends BaseTest{
             }
         }
         assertTrue(r);
+    }
+
+    @Test
+    public void getCompScoresByTeam(){
+        List<Participate> participates = participateDAO.getCompScoresByTeam(1,3);
+        assertEquals(401.0,participates.get(0).getScore(),DELTA);
+    }
+
+    @Test
+    public void getTotalCompScoreByTeam(){
+        Double score = participateDAO.getCompTotalScoreByTeam(1,3);
+        assertEquals(401.0,score,DELTA);
     }
 
     @Test

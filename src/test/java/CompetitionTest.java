@@ -21,7 +21,7 @@ public class CompetitionTest extends BaseTest {
 
     @Test
     public void getAthCompetitions(){
-        List<Competition> competitions = competitionDAO.getAthCompetitions(2);
+        List<Competition> competitions = competitionDAO.getCompetitionsByAth(2);
 
         assertEquals(1,competitions.toArray().length);
         assertEquals("单杠",competitions.get(0).getProject());
@@ -29,7 +29,7 @@ public class CompetitionTest extends BaseTest {
 
     @Test
     public void getRefCompetitions(){
-        List<Competition> competitions = competitionDAO.getRefCompetitions(3);
+        List<Competition> competitions = competitionDAO.getCompetitionsByRef(3);
         assertEquals(2,competitions.toArray().length);
         assertEquals(0,competitions.get(1).getIsEnd());
     }

@@ -38,18 +38,25 @@
         SELECT * FROM competition
     </select>
 
-    <select id="getAthCompetitions" resultType="po.Competition" parameterType="int">
+    <select id="getCompetitionsByAth" resultType="po.Competition" parameterType="int">
         SELECT c.* FROM competition c
         LEFT JOIN participate p ON c.id=p.comp_id
         LEFT JOIN athlete a ON a.id=p.ath_id
         WHERE a.id=#{athid}
     </select>
 
-    <select id="getRefCompetitions" resultType="po.Competition" parameterType="int">
+    <select id="getCompetitionsByRef" resultType="po.Competition" parameterType="int">
         SELECT c.* FROM competition c
         LEFT JOIN judge j ON c.id=j.comp_id
         LEFT JOIN referee r ON r.id=j.ref_id
         WHERE r.id = #{refid}
+    </select>
+
+    <select id="getCompetitionsByTeam" resultType="po.Competition" parameterType="int">
+        SELECT c.* FROM competition c
+        LEFT JOIN participate p ON c.id=p.comp_id
+        LEFT JOIN athlete a ON a.id=p.ath_id
+        WHERE a.teamid=#{teamid}
     </select>
 
     <select id="getEndCompetitions" resultType="po.Competition">

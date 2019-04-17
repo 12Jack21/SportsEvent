@@ -24,6 +24,12 @@ public class TempScoreTest extends BaseTest {
     }
 
     @Test
+    public void getAthResultScore(){
+        Double resultScore = tempScoreDAO.getAthResultScore(2,1);
+        assertEquals(null,resultScore);
+    }
+
+    @Test
     public void addTempScore(){
         Judge j = new Judge(new Referee(1),new Competition(2),1,0);
         j.setId(2);

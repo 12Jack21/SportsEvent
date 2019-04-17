@@ -10,11 +10,19 @@ import java.util.List;
 @Repository
 public interface ParticipateDAO {
 
-    List<Participate> getAthScores(int athid);
+    List<Participate> getScoresByAth(int athid);
 
     List<Participate> getAthScoresByCompName(int athid,String compName); //TODO 没有写对应的测试类来测试
 
-    List<Participate> getCompScores(int compid);
+    List<Participate> getAthletesRankByComp(int comid);
+
+    List<Participate> getScoresByComp(int compid);
+
+    List<Participate> getCompScoresByTeam(int compid,int teamid);
+
+    Double getPersonalScore(int athid,int compType); //TODO 此为单项成绩，若求成绩组则需要另写带有 GROUP BY语句的查询
+
+    Double getCompTotalScoreByTeam(int compid,int teamid);
 
     boolean addParticipate(int athid,int compid);
 

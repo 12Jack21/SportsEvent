@@ -8,9 +8,11 @@ import java.util.List;
 @Repository
 public interface JudgeDAO {
 
-    List<Judge> getRefJudges(int refid);
+    List<Judge> getJudgesByRef(int refid);
 
-    List<Judge> getCompJudges(int compid);
+    List<Judge> getJudgesByComp(int compid);
+
+    int getReftype(int refid,int compid);
 
     boolean addJudge(Judge judge);
 

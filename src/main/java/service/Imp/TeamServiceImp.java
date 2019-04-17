@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import po.*;
 import service.TeamService;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -24,6 +25,8 @@ public class TeamServiceImp implements TeamService {
     private CaptainDAO captainDAO;
     @Autowired
     private ParticipateDAO participateDAO;
+    @Autowired
+    private CompetitionDAO competitionDAO;
 
     @Override
     public boolean canLogin(Team team) {
@@ -103,41 +106,49 @@ public class TeamServiceImp implements TeamService {
 
     @Override
     public List<Doctor> getTeamDoctors(int teamid) {
-        return null;
+        return doctorDAO.getTeamDoctors(teamid);
     }
 
     @Override
     public List<Coach> getTeamCoaches(int teamid) {
-        return null;
+        return coachDAO.getTeamCoaches(teamid);
     }
 
     @Override
     public List<Referee> getTeamReferee(int teamid) {
-        return null;
+        return refereeDAO.getTeamReferees(teamid);
     }
 
     @Override
     public Captain getTeamCaptain(int teamid) {
-        return null;
+        return captainDAO.getTeamCaptain(teamid);
     }
 
     @Override
     public List<Competition> getAllCompetition() {
-        return null;
+        return competitionDAO.getAllCompetitions();
     }
 
     @Override
     public List<Competition> getUnEndCompetition() {
-        return null;
+        return competitionDAO.getUnEndCompetitions();
     }
 
     @Override
     public List<Competition> getEndCompetition() {
-        return null;
+        return competitionDAO.getEndCompetitions();
     }
 
     @Override
     public List<Double> getCompScoresByTeam(int teamid) {
-        return null;
+        List<Competition> competitions = competitionDAO.getCompetitionsByTeam(teamid);
+
+        List<Double> scores = new LinkedList<>();
+        Double score;
+        for(Competition c : competitions){//TODO 这个for循环是否是按顺序循环的?
+            score = participateDAO.getCompTotalScoreByTeam(c.getId(),teamid);
+            scores.add(score);
+        }
+        return scores;
     }
 }

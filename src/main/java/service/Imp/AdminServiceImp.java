@@ -2,6 +2,7 @@ package service.Imp;
 
 import dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import po.Competition;
 import po.Judge;
 import po.Referee;
@@ -10,6 +11,7 @@ import service.AdminService;
 
 import java.util.List;
 
+@Service
 public class AdminServiceImp implements AdminService {
     @Autowired
     private TeamDAO teamDAO;

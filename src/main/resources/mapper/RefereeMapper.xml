@@ -15,6 +15,10 @@
         </association>
     </resultMap>
 
+    <select id="getUser" resultType="string" parameterType="string">
+        SELECT user FROM referee WHERE name = #{name}
+    </select>
+
     <select id="getAllReferees" resultMap="RefereeInf">
         SELECT r.*,t.name t_name FROM referee r LEFT JOIN team t ON r.teamid = t.id
     </select>

@@ -49,6 +49,18 @@
         AND t.isValid = 1
     </select>
 
+    <select id="getAthResultScore" resultType="double" parameterType="int">
+        SELECT AVG (t.score)
+        FROM tempscore t
+        LEFT JOIN judge j
+        ON t.judge_id = j.id
+        LEFT JOIN referee r
+        ON j.ref_id = r.id
+        WHERE j.comp_id = #{param2}
+        AND t.ath_id = #{param1}
+        AND t.isValid = 1
+    </select>
+
     <insert id="addTempScore" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="po.TempScore">
         INSERT INTO tempscore (judge_id,ath_id,score)
         VALUES (#{judge.id},#{athid},#{score})

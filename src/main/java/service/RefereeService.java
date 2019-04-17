@@ -1,43 +1,41 @@
 package service;
 
-import po.Athlete;
-import po.Referee;
-import po.TempScore;
+import po.*;
 
 import java.util.List;
 
 public interface RefereeService {
     //登陆是否成功
-    boolean isLogin(Referee referee);
+    boolean canLogin(Referee referee);
 
-    //是否为主裁判
-    boolean isMajorReferee(Referee referee);
+    //是否为小组主裁判
+    boolean isMajorReferee(int refid,int compid);
 
-    //给运动员打分
-    void addScore(Athlete athlete,double score);
+    //普通裁判给运动员打分
+    boolean addScore(Judge judge, int athid, double score);
 
     //主裁判检查成绩是否有效
-    boolean checkScore(TempScore tempScore);
+    boolean checkScore(int tempid,int isValid);
 
-    //得到所有打分信息(主裁判)
-    List<TempScore> getAllScores();
+//    //得到所有打分信息(主裁判)
+//    List<TempScore> getAllTempScores();
 
-    //得到指定运动员的打分信息（主）
-    List<TempScore> getAthleteScores(int athid);
-
+    //得到指定运动员在某一场比赛的打分信息（主）
+    List<TempScore> getAthleteTempScores(int athid,int compid);
 
     //计算并设置个人最终单项成绩（主）
     double figureResultScore(double D,double P,int athid,int compid);
 
-    //得到个人全能分数（分为初赛和决赛，其参加的所有初赛或者决赛）
-    double getAthleteAllScore(int compType,int athid);
-
-    //得到每个类别的团体成绩
-    double getTeamScore(int teamid,int compid);
-
     //得到某项比赛的 单项排名表
-    List<Athlete> getAthleteRank(int compid);
+    List<Participate> getAthleteRank(int compid);
 
     //得到某项比赛的 决赛名单
-    List<Athlete> getFinalCompAthletes(int compid);
+    List<Participate> getFinalCompAthletes(int compid);
+
+
+    //得到个人全能分数（分为初赛和决赛，其参加的所有初赛或者决赛）
+//    double getAthleteAllScore(int compType,int athid);
+//
+//    //得到每个类别的团体成绩
+//    double getTeamScore(int teamid,int compid);
 }

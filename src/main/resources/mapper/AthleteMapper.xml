@@ -39,6 +39,14 @@
         WHERE p.comp_id = #{compid}
     </select>
 
+    <select id="getMaleAthleteIdsNotTeam" resultType="integer" parameterType="int">
+        SELECT id
+        FROM athlete
+        GROUP BY teamid
+        HAVING teamid != #{teamid}
+        WHERE sex = 1
+        ORDER BY name
+    </select>
     <insert id="addAthlete" parameterType="po.Athlete" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO athlete (name,sex,age,athID,teamid) VALUES (#{name},#{sex},#{age},#{athID},#{team.id})
     </insert>
@@ -68,5 +76,13 @@
 
     <update id="updateNo">
         UPDATE athlete SET no = #{param2} WHERE id = #{param1}
+    </update>
+
+    <update id="updateAllMaleNo" parameterType="list">
+        <foreach collection="athNos" item="it" index="index">
+            UPDATE athlete
+            SET no = #{it.no}
+            WHERE id = #{it.athid}
+        </foreach>
     </update>
 </mapper>

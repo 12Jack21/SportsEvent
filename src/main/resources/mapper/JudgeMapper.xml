@@ -6,7 +6,7 @@
 <mapper namespace="dao.JudgeDAO">
 
 <!--    加上id 属性以区分 裁判类型相同的给分记录-->
-    <resultMap id="RefJudges" type="po.Judge">
+    <resultMap id="CompJudges" type="po.Judge">
         <id property="id" column="id"/>
         <result property="groupno" column="groupno"/>
         <result property="reftype" column="reftype"/>
@@ -22,7 +22,7 @@
         </association>
     </resultMap>
 
-    <resultMap id="CompJudges" type="po.Judge">
+    <resultMap id="RefJudges" type="po.Judge">
         <id property="id" column="id"/>
         <result property="reftype" column="reftype"/>
         <result property="groupno" column="groupno"/>
@@ -34,7 +34,7 @@
         </association>
     </resultMap>
 
-    <select id="getRefJudges" resultMap="RefJudges" parameterType="int">
+    <select id="getJudgesByRef" resultMap="CompJudges" parameterType="int">
         SELECT c.*,j.groupno,j.reftype
         FROM judge j 
         LEFT JOIN competition c
@@ -42,12 +42,16 @@
         WHERE j.ref_id=#{refid}
     </select>
 
-    <select id="getCompJudges" resultMap="CompJudges" parameterType="int">
+    <select id="getJudgesByComp" resultMap="RefJudges" parameterType="int">
         SELECT r.*,j.groupno,j.reftype
         FROM judge j 
         LEFT JOIN referee r
         ON j.ref_id=r.id
         WHERE j.comp_id=#{compid}
+    </select>
+
+    <select id="getReftype" resultType="int" parameterType="int">
+        SELECT j.reftype FROM judge WHERE ref_id=#{param1} AND comp_id=#{param2}
     </select>
 
     <insert id="addJudge" parameterType="po.Judge" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
