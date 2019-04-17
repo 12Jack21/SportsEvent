@@ -1,3 +1,6 @@
+package daoTest;
+
+import baseTest.BaseTest;
 import dao.ParticipateDAO;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -6,7 +9,7 @@ import po.Participate;
 
 import java.util.List;
 
-public class ParticipateTest extends BaseTest{
+public class ParticipateTest extends BaseTest {
     @Autowired
     private ParticipateDAO participateDAO;
 

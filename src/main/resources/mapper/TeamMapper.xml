@@ -21,6 +21,10 @@
         SELECT * FROM team WHERE isSign = 0
     </select>
 
+    <select id="getHostTeam" resultType="po.Team">
+        SELECT * FROM team WHERE isHost = 1
+    </select>
+
     <insert id="addTeam" parameterType="po.Team">
         INSERT INTO team (name,user,password) VALUES (#{name},#{user},#{password})
     </insert>
@@ -47,5 +51,9 @@
 
     <update id="updateTeamSign" parameterType="int">
         UPDATE team SET isSign = 1 WHERE id = #{teamid}
+    </update>
+
+    <update id="updateTeamHost" parameterType="int">
+        UPDATE team SET isHost = 1 WHERE id = #{teamid}
     </update>
 </mapper>

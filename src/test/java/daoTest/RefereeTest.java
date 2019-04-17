@@ -1,3 +1,6 @@
+package daoTest;
+
+import baseTest.BaseTest;
 import dao.RefereeDAO;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

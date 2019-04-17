@@ -83,10 +83,10 @@
                 project = #{project},
             </if>
             <if test="type!=-1">
-                test = #{test},
+                type = #{type},
             </if>
             <if test="sexgroup!=-1">
-                sex = #{sex},
+                sexgroup = #{sexgroup},
             </if>
             <if test="agegroup!=-1">
                 agegroup = #{agegroup},

@@ -21,6 +21,11 @@ public class Athlete {
         this.team = team;
     }
 
+    public Athlete(int id, String no) {
+        this.id = id;
+        this.no = no;
+    }
+
     public int getId() {
         return id;
     }

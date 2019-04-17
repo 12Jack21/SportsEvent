@@ -1,5 +1,6 @@
 package po;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class Competition {
     private int agegroup;
 
     private String place;
-    private Date date;
+    private Timestamp date;
     private int isEnd;
 
     private List<Athlete> athletes;
@@ -25,7 +26,7 @@ public class Competition {
     }
 
     public Competition(String project, int type, int sexgroup,
-                       int agegroup, String place, Date date) {
+                       int agegroup, String place, Timestamp date) {
         this.project = project;
         this.type = type;
         this.sexgroup = sexgroup;
@@ -82,11 +83,11 @@ public class Competition {
         this.place = place;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 

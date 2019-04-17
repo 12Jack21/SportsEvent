@@ -1,3 +1,6 @@
+package daoTest;
+
+import baseTest.BaseTest;
 import dao.TeamDAO;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +11,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class TeamDAOTest extends BaseTest {
+public class TeamTest extends BaseTest {
     @Autowired
     private TeamDAO teamDAO;
 
@@ -39,6 +42,7 @@ public class TeamDAOTest extends BaseTest {
     @Test
     public void addTeam(){
         Team team = new Team("Hainan","HNn","qqqaz");
+
         boolean result = teamDAO.addTeam(team);
 
         assertTrue(result);

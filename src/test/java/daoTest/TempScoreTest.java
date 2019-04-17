@@ -1,3 +1,6 @@
+package daoTest;
+
+import baseTest.BaseTest;
 import dao.TempScoreDAO;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

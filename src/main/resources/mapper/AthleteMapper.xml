@@ -39,14 +39,36 @@
         WHERE p.comp_id = #{compid}
     </select>
 
-    <select id="getMaleAthleteIdsNotTeam" resultType="integer" parameterType="int">
-        SELECT id
-        FROM athlete
-        GROUP BY teamid
-        HAVING teamid != #{teamid}
+    <select id="getMaleAthletes" resultType="po.Athlete" parameterType="int" >
+       (SELECT *
+        FROM athlete a
         WHERE sex = 1
-        ORDER BY name
+        AND teamid &lt;&gt; #{teamid}
+        )
+        UNION
+        (SELECT *
+        FROM athlete a
+        WHERE sex = 1
+        AND teamid = #{teamid}
+        )
+        ORDER BY teamid
     </select>
+
+    <select id="getFemaleAthletes" resultType="po.Athlete" parameterType="int">
+        (SELECT *
+        FROM athlete a
+        WHERE sex = 0
+        AND teamid &lt;&gt; #{teamid}
+        )
+        UNION
+        (SELECT *
+        FROM athlete a
+        WHERE sex = 0
+        AND teamid = #{teamid}
+        )
+        ORDER BY teamid
+    </select>
+
     <insert id="addAthlete" parameterType="po.Athlete" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO athlete (name,sex,age,athID,teamid) VALUES (#{name},#{sex},#{age},#{athID},#{team.id})
     </insert>
@@ -78,11 +100,18 @@
         UPDATE athlete SET no = #{param2} WHERE id = #{param1}
     </update>
 
-    <update id="updateAllMaleNo" parameterType="list">
-        <foreach collection="athNos" item="it" index="index">
-            UPDATE athlete
-            SET no = #{it.no}
-            WHERE id = #{it.athid}
+    <update id="updateNoBatch" parameterType="list">
+        UPDATE athlete
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="no =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id=#{item.id} then #{item.no}
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item.id}
         </foreach>
     </update>
 </mapper>

@@ -1,3 +1,6 @@
+package daoTest;
+
+import baseTest.BaseTest;
 import dao.DoctorDAO;
 import org.junit.Assert;
 import org.junit.Test;

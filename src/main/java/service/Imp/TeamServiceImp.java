@@ -145,7 +145,7 @@ public class TeamServiceImp implements TeamService {
 
         List<Double> scores = new LinkedList<>();
         Double score;
-        for(Competition c : competitions){//TODO 这个for循环是否是按顺序循环的?
+        for(Competition c : competitions){
             score = participateDAO.getCompTotalScoreByTeam(c.getId(),teamid);
             scores.add(score);
         }

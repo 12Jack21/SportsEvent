@@ -8,6 +8,7 @@ public class Team {
     private String user;
     private String password;
     private int isSign;
+    private int isHost;
 
 //    private Captain captain;
 //    private List<Athlete> athletes;
@@ -67,6 +68,14 @@ public class Team {
 
     public void setIsSign(int isSign) {
         this.isSign = isSign;
+    }
+
+    public int getIsHost() {
+        return isHost;
+    }
+
+    public void setIsHost(int isHost) {
+        this.isHost = isHost;
     }
 
     //    public Captain getCaptain() {

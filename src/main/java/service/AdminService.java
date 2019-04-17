@@ -12,7 +12,7 @@ public interface AdminService {
     //登陆成功与否
     boolean canLogin(String user,String password);
 
-    //添加代表队的信息（账号密码）
+    //添加代表队的信息（包括名字、账号密码以及是否为 东道主）
     boolean addTeamAccount(Team team);
 
     /**

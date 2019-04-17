@@ -1,3 +1,6 @@
+package daoTest;
+
+import baseTest.BaseTest;
 import dao.JudgeDAO;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +11,7 @@ import po.Referee;
 import java.util.List;
 
 import static org.junit.Assert.*;
-public class JudgeTest extends BaseTest{
+public class JudgeTest extends BaseTest {
     @Autowired
     private JudgeDAO judgeDAO;
 

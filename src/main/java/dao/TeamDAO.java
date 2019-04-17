@@ -16,6 +16,8 @@ public interface TeamDAO {
 
     List<Team> getUnSignTeams();
 
+    Team getHostTeam();
+
     boolean addTeam(Team team);
 
     boolean deleteTeam(int teamid);
@@ -23,4 +25,6 @@ public interface TeamDAO {
     boolean updateTeam(Team team);
 
     boolean updateTeamSign(int teamid);
+
+    boolean updateTeamHost(int teamid);
 }

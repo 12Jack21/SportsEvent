@@ -1,3 +1,5 @@
+package baseTest;
+
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Assert;
 import org.junit.Test;

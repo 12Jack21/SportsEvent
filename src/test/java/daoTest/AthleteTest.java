@@ -1,8 +1,10 @@
+package daoTest;
+
 import MyUtil.MyConvertor;
+import baseTest.BaseTest;
 import dao.AthleteDAO;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import po.Athlete;
 import po.Team;
 
@@ -40,6 +42,12 @@ public class AthleteTest extends BaseTest {
     public void getCompAthletes(){
         List<Athlete> athletes = athleteDAO.getCompAthletes(1);
         assertEquals(2,athletes.toArray().length);
+    }
+
+    @Test
+    public void getMaleAthleteIds(){
+        List<Athlete> males = athleteDAO.getMaleAthletes(2);
+        assertEquals(3,males.get(1).getId());
     }
 
     @Test

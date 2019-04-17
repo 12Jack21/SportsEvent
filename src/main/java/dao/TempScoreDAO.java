@@ -11,7 +11,7 @@ public interface TempScoreDAO {
 //    List<TempScore> getAllTempScores();
 
     List<TempScore> getAthTempScores(int athid,int compid);
-//TODO 考虑在Mapper文件中使用 <sql></sql>减少重复sql语句的使用
+
     List<TempScore> getAthValidScores(int athid,int compid);
 
     Double getAthResultScore(int athid,int compid);
