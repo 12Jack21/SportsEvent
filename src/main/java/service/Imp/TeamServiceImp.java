@@ -91,7 +91,7 @@ public class TeamServiceImp implements TeamService {
 
     @Override
     public boolean signUpAthlete(int athid, int compid) {
-        return participateDAO.addParticipate(athid,compid);
+        return participateDAO.addParticipate(athid, compid);
     }
 
     @Override
@@ -140,14 +140,24 @@ public class TeamServiceImp implements TeamService {
     }
 
     @Override
-    public List<Double> getCompScoresByTeam(int teamid) {
+    public List<Double> getCompScoresByTeam(int teamid) {//TODO Not test
         List<Competition> competitions = competitionDAO.getCompetitionsByTeam(teamid);
 
         List<Double> scores = new LinkedList<>();
+        List<Participate> compScores = null;
         Double score;
-        for(Competition c : competitions){
-            score = participateDAO.getCompTotalScoreByTeam(c.getId(),teamid);
-            scores.add(score);
+        for (Competition c : competitions) {
+            compScores = participateDAO.getCompScoresByTeam(c.getId(), teamid);
+            //少于四个则不计算成绩，即记为 0.0
+            if (compScores.toArray().length < 4)
+                scores.add(0.0);
+            //取前四名来计算成绩总和
+            else
+            {
+                score = compScores.get(0).getScore() + compScores.get(1).getScore() +
+                        compScores.get(2).getScore() + compScores.get(3).getScore();
+                scores.add(score);
+            }
         }
         return scores;
     }

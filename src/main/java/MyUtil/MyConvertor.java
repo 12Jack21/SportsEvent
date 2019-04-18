@@ -1,5 +1,6 @@
 package MyUtil;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,9 +25,9 @@ public class MyConvertor {
             group += "女子";
         else
             group += "男子";
-        if (age >= 7 && age <= 8)
+        if (age <= 8)
             group += "7-8岁年龄组";
-        else if(age >= 9 && age <= 10)
+        else if(age <= 10)
             group += "9-10岁年龄组";
         else
             group += "11-12岁年龄组";
@@ -62,5 +63,10 @@ public class MyConvertor {
             return "主裁判";
     }
 
-
+    //DateTime转变成 TimeStamp, 然后再通过删去TimeStamp小数点来得到显示在界面中的时间
+    public static String dateString(Timestamp timestamp){
+        String s = timestamp.toString();
+        int index = s.lastIndexOf(".");
+        return s.substring(0,index);
+    }
 }

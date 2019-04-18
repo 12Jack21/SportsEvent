@@ -22,7 +22,7 @@ public interface ParticipateDAO {
 
     Double getPersonalScore(int athid,int compType); //TODO 此为单项成绩，若求成绩组则需要另写带有 GROUP BY语句的查询
 
-    Double getCompTotalScoreByTeam(int compid,int teamid);
+    Double getCompTotalScoreByTeam(int compid,int teamid);//这里应只取前四名的成绩来计算，所以用getCompScoreByTeam更好
 
     boolean addParticipate(int athid,int compid);
 

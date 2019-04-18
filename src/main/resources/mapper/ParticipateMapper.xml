@@ -71,6 +71,7 @@
         ON p.ath_id=a.id
         WHERE p.comp_id=#{param1}
         AND a.teamid = #{param2}
+        ORDER BY p.score DESC
     </select>
 
     <select id="getPersonalScore" resultType="double" parameterType="int">
