@@ -16,4 +16,12 @@ public class AthleteServiceTest extends BaseTest {
         assertTrue(result);
     }
 
+    @Test
+    public void testString(){
+        String s1 = "if";
+        String s2 = new String("if");
+
+        assertTrue(s1.equals(s2));
+    }
+
 }
