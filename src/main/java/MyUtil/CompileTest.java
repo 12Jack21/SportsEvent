@@ -1,6 +1,7 @@
 package MyUtil;
 
 import java.io.*;
+import java.util.*;
 
 public class CompileTest {
 
@@ -19,6 +20,7 @@ public class CompileTest {
         String s = "x := 9; \n" +
                 "if x > 0 then x. := (x-3) / 10 else x:=1;#";
         pro = s.toCharArray();
+
     }
 
     //是否为符号或者 下划线
@@ -87,8 +89,7 @@ public class CompileTest {
                     if (ch == '=') {
                         token[j++] = ch;
                         code = 17; //赋值号的 符号码
-                    } else
-                    {
+                    } else {
                         p--;
                         code = 16;
                     }
@@ -100,12 +101,10 @@ public class CompileTest {
                     if (ch == '=') {
                         token[j++] = ch;
                         code = 22; //小于等于号的 符号码
-                    }
-                    else if(ch == '>') {
+                    } else if (ch == '>') {
                         token[j++] = ch;
                         code = 23;
-                    }
-                    else {
+                    } else {
                         code = 20; //小于号的 符号码
                         p--;
                     }
@@ -175,6 +174,7 @@ public class CompileTest {
 //            File f = new File(fileName);
             FileInputStream fis = new FileInputStream(fileName);
 
+            //用于读取程序
             StringBuffer sbuf = new StringBuffer();
             String line = "";
             BufferedReader br = new BufferedReader(new InputStreamReader(fis));
@@ -187,16 +187,21 @@ public class CompileTest {
             p = 0;
             row = 1;
 
+            //存储整形数和标识符
+            Set intTokens = new HashSet();
+            Set idTokens = new HashSet();
+
             /* 写入Txt文件 */
-            File write = new File("./MyOutput.txt"); // 相对路径，如果没有则要建立一个新的output。txt文件
-            write.createNewFile(); // 创建新文件
+            File write = new File("./MyOutput.txt"); // 相对路径，如果没有则要建立一个新的output.txt文件
+//            write.createNewFile(); // 创建新文件
             BufferedWriter out = new BufferedWriter(new FileWriter(write));
             do {
                 ch = pro[p++];
                 doScan();
                 switch (code) {
                     case 11://数字
-                        out.write("< " + code + " , " + num + " >" + " ");
+                        out.write("< " + code + " , " + num + " >" + " " + "\n");
+                        intTokens.add(num);
                         break;
                     case -1:
                         out.write("\nError in row " + row + ", character: '" + String.valueOf(token) + "'" + "\n");
@@ -205,11 +210,39 @@ public class CompileTest {
                         out.write("\n");
                         break;
                     default:
-                        out.write("< " + code + " , " + String.valueOf(token) + " >" + " ");
+                        out.write("< " + code + " , " + String.valueOf(token) + " >" + " " + "\n");
+                        if (code == 21)
+                            idTokens.add(String.valueOf(token));
                         break;
                 }
             }
             while (code != 0);
+
+            //整形数符号表
+            StringBuilder intStringBuilder = new StringBuilder();
+            intStringBuilder.append("\n无符号整数符号表\n");
+            intStringBuilder.append("Index" + "\t" + "Name" + "\n");
+            int intCount = 1;
+            Iterator it1 = intTokens.iterator();
+            while (it1.hasNext()) {
+                intStringBuilder.append((intCount++) + "\t\t");
+                intStringBuilder.append((int) it1.next() + "\n");
+            }
+
+            //标识符符号表
+            StringBuilder idStringBuilder = new StringBuilder();
+            idStringBuilder.append("\n标识符符号表\n");
+            idStringBuilder.append("Index" + "\t" + "Name" + "\n");
+            int idCount = 1;
+            Iterator it2 = idTokens.iterator();
+            while (it2.hasNext()) {
+                idStringBuilder.append((idCount++) + "\t\t");
+                idStringBuilder.append(it2.next() + "\n");
+            }
+
+            out.write("\n");
+            out.write(intStringBuilder.toString());
+            out.write(idStringBuilder.toString());
 
             out.flush(); // 把缓存区内容压入文件
             out.close(); // 最后记得关闭文件

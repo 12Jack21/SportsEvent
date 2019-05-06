@@ -1,0 +1,230 @@
+.borderAround {
+    border-top: 1px solid #e3e6f0;
+    border-left: 1px solid #e3e6f0;
+    border-right: 1px solid #e3e6f0;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    transition-duration: 0.8s;
+}
+
+.borderBottom {
+    border-bottom: 1px solid #e3e6f0;
+    transition-duration: 0.8s;
+}
+
+.borderBottom:hover {
+    background-color: #e3e6f0;
+}
+
+.borderAround2 {
+    border-left: 1px solid #e3e6f0;
+    border-right: 1px solid #e3e6f0;
+    border-bottom: 1px solid #e3e6f0;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    transition-duration: 0.5s;
+}
+
+.message {
+    box-shadow: 0 0.125rem 0.8rem rgba(0, 0, 0, 0.1);
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.message:hover {
+    text-decoration-line: none;
+    color: #f9f9f9;
+!important;
+    background-color: #4e73d2;
+!important;
+    transition-duration: 0.8s;
+}
+
+.message:not(:hover) {
+    color: #4e73df;
+!important;
+    background-color: white;
+!important;
+    transition-duration: 0.8s;
+}
+
+.roundy {
+
+    border-radius: 15px;
+}
+
+.athleteAdd {
+    position: fixed;
+    right: 2%;
+    bottom: 10%;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    border-radius: 50%;
+    border: 1px solid #e3e6f0;
+    box-shadow: 0 0.125rem 0.8rem rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    font-size: 2em;
+    background-color: #34d256;
+}
+
+.myOperate {
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    border-radius: 50%;
+    border: 1px solid #e3e6f0;
+    box-shadow: 0 0.125rem 0.8rem rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    font-size: 2em;
+    background-color: white;
+    /*z-index: inherit;*/
+}
+
+.athleteAdd:hover {
+    text-decoration-line: none;
+    color: white;
+!important;
+    background-color: #34d256;
+!important;
+    transition-duration: 0.8s;
+    cursor: pointer;
+}
+
+.athleteAdd:not(:hover) {
+    color: #34d256;
+!important;
+    background-color: white;
+!important;
+    transition-duration: 0.8s;
+}
+
+.myAdd:hover {
+    color: white;
+    background-color: #4e73df;
+    transition-duration: inherit;
+    cursor: pointer;
+}
+
+.myAdd:not(:hover) {
+    color: #4e73df;
+    background-color: white;
+    transition-duration: inherit;
+}
+
+.myUpdate:hover {
+    color: white;
+    background-color: #f6c23e; /* warning */
+    transition-duration: inherit;
+    cursor: pointer;
+}
+
+.myUpdate:not(:hover) {
+    color: #f6c23e;
+    background-color: white;
+    transition-duration: inherit;
+}
+
+.myDelete:hover {
+    color: white;
+    background-color: #e74a3b;
+    transition-duration: inherit;
+    cursor: pointer;
+}
+
+.myDelete:not(:hover) {
+    color: #e74a3b;
+    background-color: white;
+    transition-duration: inherit;
+}
+.myHost:hover{
+    color: white;
+    background-color: #34d256;
+    transition-duration: inherit;
+    cursor: pointer;
+}
+.myHost:not(:hover){
+    color: #34d256;
+    background-color: white;
+    transition-duration: inherit;
+}
+
+.newAdd {
+    position: relative;
+    width: 300px;
+}
+div.groupAdd{
+
+}
+div.groupAdd:before{
+    height: 60px;
+    width: 60px;
+    border-radius: 60px;
+}
+div.groupAdd .btnContent{
+    left: 50%;
+    line-height: 30px;
+    margin-top: 5%;
+    font-size: 1.6em;
+    color: #4e73df;
+    transition: all 1s ease;
+}
+div.groupAdd:hover:before{
+    width: 220px;
+}
+div.groupAdd:hover .btnContent{
+    left: 24%;
+}
+.newAdd .btnContent {
+    opacity: 0;
+    position: absolute;
+    left: 60%;
+    line-height: 60px;
+    margin-top: 3%;
+    font-size: 1.6em;
+    float: left;
+    color: #4e73df;
+    transition: all 1s ease;
+}
+
+.newAdd:before {
+    content: "";
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    border-radius: 80px;
+    border: 1px solid #e3e6f0;
+    box-shadow: 0 0.125rem 0.8rem rgba(0, 0, 0, 0.1);
+    padding: 1%;
+    background-color: white;
+    float: left;
+    transition: all 1s ease;
+}
+
+.newAdd:hover:before {
+    width: 200px;
+    cursor: pointer;
+    transition: all 1s ease;
+}
+
+.newAdd:hover .btnContent {
+    opacity: 1;
+    left: 31%;
+    cursor: pointer;
+    transition: all 1s ease;
+}
+
+.myPlus {
+    position: absolute;
+    left: 6%;
+    margin-top: 4%;
+    color: #4e73df;
+    transition:all 1s ease;
+}
+.myPlus:hover{
+    cursor: pointer;
+    /*color: #49c1ff;*/
+    transition:all 1s ease;
+}
