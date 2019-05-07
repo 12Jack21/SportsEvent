@@ -1,3 +1,4 @@
+
 // Call the dataTables jQuery plugin
 $(document).ready(function () {
     $('.dataTableDefault').DataTable();
@@ -110,4 +111,6 @@ $(document).ready(function () {
         }]
     });
 
+
+    $("#coachDataTable").DataTable();
 });

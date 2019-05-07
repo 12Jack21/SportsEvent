@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Hello , index page</h1>
+<h1>Hello , index page,<% Wow%></h1>
 </body>
 </html>

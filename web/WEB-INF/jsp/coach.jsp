@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Johnson
@@ -6,6 +7,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<% String prefix = "/sports"; %>
+
 <html>
 <head>
     <title>Coach</title>
@@ -34,7 +37,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover" id="dataTable">
+                            <table class="table table-bordered table-hover" id="coachDataTable">
                                 <thead>
                                 <tr>
                                     <th>id</th>
@@ -54,84 +57,15 @@
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Tokyo</td>
-                                    <td>63</td>
-                                    <td>2011/07/25</td>
-                                    <td>$170,750</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>San Francisco</td>
-                                    <td>66</td>
-                                    <td>2009/01/12</td>
-                                    <td>$86,000</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Edinburgh</td>
-                                    <td>22</td>
-                                    <td>2012/03/29</td>
-                                    <td>$433,060</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Tokyo</td>
-                                    <td>33</td>
-                                    <td>2008/11/28</td>
-                                    <td>$162,700</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>New York</td>
-                                    <td>61</td>
-                                    <td>2012/12/02</td>
-                                    <td>$372,000</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>San Francisco</td>
-                                    <td>59</td>
-                                    <td>2012/08/06</td>
-                                    <td>$137,500</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Tokyo</td>
-                                    <td>55</td>
-                                    <td>2010/10/14</td>
-                                    <td>$327,900</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>San Francisco</td>
-                                    <td>59</td>
-                                    <td>2012/08/06</td>
-                                    <td>$137,500</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Tokyo</td>
-                                    <td>55</td>
-                                    <td>2010/10/14</td>
-                                    <td>$327,900</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>San Francisco</td>
-                                    <td>59</td>
-                                    <td>2012/08/06</td>
-                                    <td>$137,500</td>
-                                </tr>
-
+<%--                                <c:forEach items="${coaches}" var="coach">--%>
+<%--                                    <tr>--%>
+<%--                                        <td>${coach.id}</td>--%>
+<%--                                        <td>${coach.name}</td>--%>
+<%--                                        <td>${coach.sex}</td>--%>
+<%--                                        <td>${coach.phone}</td>--%>
+<%--                                        <td>${coach.coachID}</td>--%>
+<%--                                    </tr>--%>
+<%--                                </c:forEach>--%>
                                 </tbody>
                             </table>
                         </div>
@@ -146,14 +80,14 @@
 
         <!--对教练的操作按钮-->
         <div class="position-fixed btn-group" style="right: 2%;bottom: 9%;transition-duration: 0.8s;z-index: 3">
-            <div class="myOperate myAdd" data-toggle="modal" data-target="#addModal" >
-                <i class="fa fa-plus" ></i>
+            <div class="myOperate myAdd" data-toggle="modal" data-target="#addModal">
+                <i class="fa fa-plus" style="margin-top: 10%;"></i>
             </div>
-            <div class="myOperate myUpdate" data-toggle="modal" data-target="#updateModal" >
-                <i class="fa fa-wrench" ></i>
+            <div class="myOperate myUpdate" data-toggle="modal" data-target="#updateModal">
+                <i class="fa fa-wrench" style="margin-top: 10%;"></i>
             </div>
-            <div class="myOperate myDelete" data-toggle="modal" data-target="#deleteModal" >
-                <i class="fa fa-trash"></i>
+            <div class="myOperate myDelete" data-toggle="modal" data-target="#deleteModal">
+                <i class="fa fa-trash" style="margin-top: 10%;"></i>
             </div>
         </div>
         <!-- Footer -->
@@ -210,29 +144,28 @@
                 </button>
             </div>
             <div class="modal-body text-lg">
-                <form>
+                <form id="addCoach" action="${pageContext.request.contextPath}/json/coach/add">
                     <div class="form-group">
                         <label for="nameAdd">Name</label>
-                        <input type="text" class="form-control" id="nameAdd" placeholder="your name">
+                        <input type="text" class="form-control" id="nameAdd" placeholder="your name" name="name">
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="maleradioAdd" value="male" name="gender">
+                        <input class="form-check-input" type="radio" id="maleradioAdd" value="1" name="sex">
                         <label class="form-check-label" for="maleradioAdd">Male</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="femaleradioAdd" value="female"
-                               name="gender">
+                        <input class="form-check-input" type="radio" id="femaleradioAdd" value="0" name="sex">
                         <label class="form-check-label" for="femaleradioAdd">Female</label>
                     </div>
                     <div class="form-group">
                         <label for="phoneAdd">Phone</label>
-                        <input type="text" class="form-control" id="phoneAdd" placeholder="phone number">
+                        <input type="text" class="form-control" id="phoneAdd" placeholder="phone number" name="phone">
                     </div>
                     <div class="form-group">
                         <label for="IDUpdate">ID</label>
-                        <input type="text" class="form-control" id="IDAdd" placeholder="your id">
+                        <input type="text" class="form-control" id="IDAdd" placeholder="your id" name="coachID">
                     </div>
-                    <button type="submit" class="btn btn-lg btn-primary ">Submit</button>
+                    <button type="submit" class="btn btn-lg btn-primary">Submit</button>
                 </form>
             </div>
         </div>
@@ -300,4 +233,5 @@
 
 </body>
 
+<script src="/sports/js/coach.js"></script>
 </html>

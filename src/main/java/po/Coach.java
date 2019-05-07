@@ -1,6 +1,8 @@
 package po;
 
-public class Coach {
+import java.io.Serializable;
+
+public class Coach implements Serializable {
     private int id;
     private String name;
     private int sex;
