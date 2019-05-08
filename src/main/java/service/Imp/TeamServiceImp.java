@@ -65,6 +65,31 @@ public class TeamServiceImp implements TeamService {
     }
 
     @Override
+    public boolean deleteAthlete(int id) {
+        return athleteDAO.deleteAthlete(id);
+    }
+
+    @Override
+    public boolean deleteDoctor(int id) {
+        return doctorDAO.deleteDoctor(id);
+    }
+
+    @Override
+    public boolean deleteCoach(int id) {
+        return coachDAO.deleteCoach(id);
+    }
+
+    @Override
+    public boolean deleteCaptain(int id) {
+        return captainDAO.deleteCaptain(id);
+    }
+
+    @Override
+    public boolean deleteReferee(int id) {
+        return refereeDAO.deleteReferee(id);
+    }
+
+    @Override
     public boolean updateAthlete(Athlete athlete) {
         return athleteDAO.updateAthlete(athlete);
     }

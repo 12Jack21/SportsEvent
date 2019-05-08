@@ -43,6 +43,22 @@ public interface TeamService {
     //更新裁判
     boolean updateReferee(Referee referee);
 
+
+    //删除运动员
+    boolean deleteAthlete(int id);
+
+    //删除队医
+    boolean deleteDoctor(int id);
+
+    //删除教练
+    boolean deleteCoach(int id);
+
+    //删除队长
+    boolean deleteCaptain(int id);
+
+    //删除裁判
+    boolean deleteReferee(int id);
+
     //给运动员报名
     boolean signUpAthlete(int athid,int compid);
 

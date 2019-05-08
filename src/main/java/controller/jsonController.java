@@ -2,9 +2,11 @@ package controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import po.Coach;
 import po.Team;
@@ -55,4 +57,26 @@ public class jsonController {
         return "inxx";
     }
 
+    @ResponseBody
+    @Transactional
+    @RequestMapping("/coach/delete")
+    public Object deleteCoach(@RequestParam(value = "data")String[] data){
+        boolean success = true;
+        for(int i = 0;i < data.length;i++){
+            System.out.println(data[i]);
+            if(success == false)
+                break;
+//            success = teamService.deleteCoach(data[i]);
+        }
+        return success;
+    }
+
+    @ResponseBody
+    @RequestMapping("/coach/update")
+    public Object updateCoach(@RequestParam(value = "data")String[] data){ //TODO 尝试用JSON parse
+        boolean success = true;
+        Coach coach = new Coach();
+
+        return success;
+    }
 }

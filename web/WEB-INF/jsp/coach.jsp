@@ -31,13 +31,45 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
+                <!--select警告框-->
+                <div class="alert alert-warning fade show" role="alert" id="selectAlert" hidden="hidden">
+                    <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong></strong>
+                </div>
+
+                <!--add警告框-->
+                <div class="alert fade show" role="alert" id="addAlert" hidden="hidden">
+                    <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong></strong>
+                </div>
+
+                <!--update警告框-->
+                <div class="alert fade show" role="alert" id="updateAlert" hidden="hidden">
+                    <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong></strong>
+                </div>
+
+                <!--delete警告框-->
+                <div class="alert fade show" role="alert" id="deleteAlert" hidden="hidden">
+                    <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong></strong>
+                </div>
+
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h4 class="m-0 font-weight-bold text-primary">Coach DataTable</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover" id="coachDataTable">
+                            <table class="table table-bordered table-hover active" id="coachDataTable">
                                 <thead>
                                 <tr>
                                     <th>id</th>
@@ -56,17 +88,6 @@
                                     <th>ID</th>
                                 </tr>
                                 </tfoot>
-                                <tbody>
-<%--                                <c:forEach items="${coaches}" var="coach">--%>
-<%--                                    <tr>--%>
-<%--                                        <td>${coach.id}</td>--%>
-<%--                                        <td>${coach.name}</td>--%>
-<%--                                        <td>${coach.sex}</td>--%>
-<%--                                        <td>${coach.phone}</td>--%>
-<%--                                        <td>${coach.coachID}</td>--%>
-<%--                                    </tr>--%>
-<%--                                </c:forEach>--%>
-                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -83,10 +104,10 @@
             <div class="myOperate myAdd" data-toggle="modal" data-target="#addModal">
                 <i class="fa fa-plus" style="margin-top: 10%;"></i>
             </div>
-            <div class="myOperate myUpdate" data-toggle="modal" data-target="#updateModal">
+            <div class="myOperate myUpdate" onclick="updateBtn()">
                 <i class="fa fa-wrench" style="margin-top: 10%;"></i>
             </div>
-            <div class="myOperate myDelete" data-toggle="modal" data-target="#deleteModal">
+            <div class="myOperate myDelete" id="deleteBtn">
                 <i class="fa fa-trash" style="margin-top: 10%;"></i>
             </div>
         </div>
@@ -184,18 +205,20 @@
                 </button>
             </div>
             <div class="modal-body text-lg">
-                <form>
+                <form id="updateCoach" action="${pageContext.request.contextPath}/json/coach/update">
+                    <div class="form-group">
+                        <input type="hidden" name="id" id="coach_idUpdate">
+                    </div>
                     <div class="form-group">
                         <label for="nameUpdate">Name</label>
-                        <input type="text" class="form-control" id="nameUpdate" placeholder="your name">
+                        <input type="text" class="form-control" id="nameUpdate" placeholder="your name" name="name">
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="maleradioUpdate" value="male" name="gender">
+                        <input class="form-check-input" type="radio" id="maleradioUpdate" value="1" name="sex">
                         <label class="form-check-label" for="maleradioUpdate">Male</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="femaleradioUpdate" value="female"
-                               name="gender">
+                        <input class="form-check-input" type="radio" id="femaleradioUpdate" value="0" name="sex">
                         <label class="form-check-label" for="femaleradioUpdate">Female</label>
                     </div>
                     <div class="form-group">
@@ -221,10 +244,11 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="deleteModalLabelTitle">Sure to delete?</h5>
             </div>
-            <div class="modal-body">Select "Delete" below if you are ready to delete the coaches you select.</div>
+            <div class="modal-body">Select "Delete" below if you are ready to delete the
+                <span class="text-danger" id="confirmDelete"></span> you select.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-danger" href="defaultPage/login.html">Delete</a>
+                <button class="btn btn-danger" type="button" onclick="deleteCoach(this)">Delete</button>
             </div>
         </div>
     </div>
