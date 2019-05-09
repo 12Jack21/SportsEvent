@@ -69,7 +69,9 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover active" id="coachDataTable">
+                            <!--加了 width 后表格才实现了 自适应-->
+                            <table class="table table-bordered table-hover active responsive no-wrap display"
+                                   style="width: 100%;" id="coachDataTable" >
                                 <thead>
                                 <tr>
                                     <th>id</th>
@@ -223,13 +225,22 @@
                     </div>
                     <div class="form-group">
                         <label for="phoneUpdate">Phone</label>
-                        <input type="text" class="form-control" id="phoneUpdate" placeholder="age">
+                        <input type="text" class="form-control" id="phoneUpdate" placeholder="age" name="phone">
                     </div>
                     <div class="form-group">
                         <label for="IDUpdate">ID</label>
-                        <input type="text" class="form-control" id="IDUpdate" placeholder="your id">
+                        <input type="text" class="form-control" id="IDUpdate" placeholder="your id" name="coachID">
                     </div>
                     <button type="submit" class="btn btn-lg btn-warning ">Submit</button>
+
+                    <!--未更改表单的警告框-->
+                    <div class="alert alert-warning fade show" role="alert" id="uAlert" hidden="hidden">
+                        <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>You should change some form attributes before you update.</strong>
+                    </div>
+
                 </form>
             </div>
         </div>

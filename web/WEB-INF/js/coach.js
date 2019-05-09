@@ -1,4 +1,6 @@
 var table = null;
+
+var updateData = null;
 $(document).ready(function () {
     var selectAlert = $("#selectAlert");
     var operateAlert = $("#operateAlert");
@@ -7,8 +9,9 @@ $(document).ready(function () {
         // "retrieve":true,
         "select":true, //开启选择
         "searching":true,
+        "responsive":true,
         "ajax": {
-            url:"list/1",
+            url:"list/1", //TODO 需要改成 session
             dataSrc:""
         },
         "columns": [
@@ -17,7 +20,28 @@ $(document).ready(function () {
             {"data":"sex"},
             {"data":"phone"},
             {"data":"coachID"}
-        ]
+        ],
+        "columnDefs": [{
+            //隐藏第一列 id
+            "targets":0,
+            "searchable":false,
+            "visible":false
+        },{
+            // 定义操作列
+            "targets": 2,//操作按钮目标列
+            "render": function (data,type,row) {
+                //性别显示的修正
+                if(data == 0)
+                    return "female";
+                else
+                    return "male";
+            }
+        },{
+            //对 coachID 关闭搜索功能
+            "targets":4,
+            "searchable":false
+        }]
+
     });
 
     $('#coachDataTable tbody').on( 'click', 'tr', function () {
@@ -79,7 +103,6 @@ $("#addCoach").submit(function (event) {
 
             add.children("strong").text("Add coach success !!!");
             add.removeClass("alert-danger").addClass("alert-success");
-            $("#addModal").modal("hide");
             table.ajax.reload();//刷新DataTable
             $form[0].reset();
         },
@@ -88,6 +111,7 @@ $("#addCoach").submit(function (event) {
             add.removeClass("alert-danger").addClass("alert-success");
         },
         complete:function () {
+            $("#addModal").modal("hide");
             alertReport(add);
         }
     });
@@ -118,42 +142,61 @@ function updateBtn(){
             $("#maleradioUpdate").attr("checked",true);
         $("#IDUpdate").val(coach[0].coachID);
 
+        //用于比较是否更改了表单
+        updateData = [coach[0].name,coach[0].phone,$("#maleradioUpdate").prop("checked"),coach[0].coachID];
     }
 }
 
 //更新教练表单
 $("#updateCoach").submit(function (event) {
     event.preventDefault();
-    var $form = $(this);
-    var url = $form.attr("action");
-    var update = $("#updateAlert");
+    console.log(updateData);
+    console.log($("#nameUpdate").val());
+    console.log($("#phoneUpdate").val());
+    console.log($("#maleradioUpdate").prop("checked"));
+    console.log($("#IDUpdate").val());
 
-    $.ajax({
-        type: "POST",//方法类型
-        dataType: "json",//预期服务器返回的数据类型
-        url: url,
-        traditional:true,
-        data: {
-            data:$form.serialize()
-        },
-        success: function (result) {
-            console.log(result, status);//打印服务端返回的数据(调试用)
-            var as1 = status;
+    if(updateData[0] == $("#nameUpdate").val() && updateData[1] == $("#phoneUpdate").val()
+        && updateData[2] == $("#maleradioUpdate").prop("checked") && updateData[3] == $("#IDUpdate").val()){
+        //表单未更新
+        alertReport($("#uAlert"));
 
-            update.children("strong").text("Update coach success !!!");
-            update.removeClass("alert-danger").removeClass("alert-warning").addClass("alert-success");
-            $("#updateModal").modal("hide");
-            table.ajax.reload();//刷新DataTable
-            $form[0].reset();
-        },
-        error : function() {
-            update.children("strong").text("Update coach fail !!!");
-            update.addClass("alert-danger").removeClass("alert-success").removeClass("alert-warning");
-        },
-        complete:function () {
-            alertReport(update);
-        }
-    });
+    }else {
+        var $form = $(this);
+        var data = $form.serialize();
+        console.log(data);
+        // var send = JSON.parse(data);
+        // console.log(send);
+        var url = $form.attr("action");
+        console.log(url);
+        var update = $("#updateAlert");
+
+        $.ajax({
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: url,
+            traditional:true,
+            data: data,
+            success: function (result) {
+                console.log(result, status);//打印服务端返回的数据(调试用)
+                var as1 = status;
+
+                update.children("strong").text("Update coach success !!!");
+                update.removeClass("alert-danger").removeClass("alert-warning").addClass("alert-success");
+                table.ajax.reload();//刷新DataTable
+            },
+            error : function() {
+                update.children("strong").text("Update coach fail !!!");
+                update.addClass("alert-danger").removeClass("alert-success").removeClass("alert-warning");
+            },
+            complete:function () {
+                $("#updateModal").modal("hide");
+                alertReport(update);
+
+            }
+        });
+    }
+
 });
 
 //删除教练表单
@@ -181,7 +224,6 @@ function deleteCoach(btn){
 
             del.children("strong").text("Delete operation success !!!");
             del.removeClass("alert-danger").addClass("alert-success");
-            $("#deleteModal").modal("hide");
             table.ajax.reload();//刷新DataTable
         },
         error : function() {
@@ -189,6 +231,7 @@ function deleteCoach(btn){
             del.addClass("alert-danger").removeClass("alert-success");
         },
         complete:function () {
+            $("#deleteModal").modal("hide");
             alertReport(del);
         }
     });
