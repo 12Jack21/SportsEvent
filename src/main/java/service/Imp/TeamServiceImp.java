@@ -140,7 +140,7 @@ public class TeamServiceImp implements TeamService {
     }
 
     @Override
-    public List<Referee> getTeamReferee(int teamid) {
+    public List<Referee> getTeamReferees(int teamid) {
         return refereeDAO.getTeamReferees(teamid);
     }
 

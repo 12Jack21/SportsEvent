@@ -3,7 +3,7 @@ var table = null;
 var updateData = null;
 $(document).ready(function () {
 
-    table = $("#coachDataTable").DataTable({
+    table = $("#docDataTable").DataTable({
         // "retrieve":true,
 
         "select":true, //开启选择
@@ -16,9 +16,8 @@ $(document).ready(function () {
         "columns": [
             {"data":"id"},
             {"data":"name"},
-            {"data":"sex"},
             {"data":"phone"},
-            {"data":"coachID"}
+            {"data":"docID"}
         ],
         "columnDefs": [{
             //隐藏第一列 id
@@ -26,24 +25,14 @@ $(document).ready(function () {
             "searchable":false,
             "visible":false
         },{
-            // 定义操作列
-            "targets": 2,//操作按钮目标列
-            "render": function (data,type,row) {
-                //性别显示的修正
-                if(data == 0)
-                    return "female";
-                else
-                    return "male";
-            }
-        },{
-            //对 coachID 关闭搜索功能
-            "targets":4,
+            //对 docID 关闭搜索功能
+            "targets":3,
             "searchable":false
         }]
 
     });
 
-    $('#coachDataTable tbody').on( 'click', 'tr', function () {
+    $('#docDataTable tbody').on( 'click', 'tr', function () {
         $(this).toggleClass('selected');
         $(this).toggleClass('table-active');
     } );
@@ -54,14 +43,14 @@ $(document).ready(function () {
         var alert = $("#selectAlert");
         var modal = $("#deleteModal");
         if(len == 0){
-            $("#selectAlert strong").text("Cannot delete: Your haven't select a coach yet !");
+            $("#selectAlert strong").text("Cannot delete: Your haven't select a doctor yet !");
             alertReport(alert);
 
         }else if(len == 1){
-            selectCount.text("coach");
+            selectCount.text("doctor");
             modal.modal("show");
         }else{
-            selectCount.text(len + " coaches");
+            selectCount.text(len + " doctors");
             modal.modal("show");
         }
 
@@ -85,8 +74,8 @@ function hideAlert(ele){
     alert.hide();
 }
 
-//添加教练表单
-$("#addCoach").submit(function (event) {
+//添加医生表单
+$("#addDoc").submit(function (event) {
     event.preventDefault();
     var $form = $(this);
     var add = $("#addAlert");
@@ -100,13 +89,13 @@ $("#addCoach").submit(function (event) {
             console.log(result, status);//打印服务端返回的数据(调试用)
             console.log(result);
 
-            add.children("strong").text("Add coach success !!!");
+            add.children("strong").text("Add doctor success !!!");
             add.removeClass("alert-danger").addClass("alert-success");
             table.ajax.reload();//刷新DataTable
             $form[0].reset();
         },
         error : function() {
-            add.children("strong").text("Add coach fail !!!");
+            add.children("strong").text("Add doctor fail !!!");
             add.removeClass("alert-danger").addClass("alert-success");
         },
         complete:function () {
@@ -119,44 +108,39 @@ $("#addCoach").submit(function (event) {
 //更新按钮 判断
 function updateBtn(){
     var update = $("#updateAlert");
-    var coach = table.rows(".selected").data();
-    if(coach.length == 0){
+    var doc = table.rows(".selected").data();
+    if(doc.length == 0){
         update.removeClass("alert-danger").removeClass("alert-success").addClass("alert-warning");
-        update.children("strong").text("You haven't selected a coach to update yet !!!");
+        update.children("strong").text("You haven't selected a doctor to update yet !!!");
         alertReport(update);
-    }else if(coach.length > 1){
+    }else if(doc.length > 1){
         update.removeClass("alert-danger").removeClass("alert-success").addClass("alert-warning");
-        update.children("strong").text("You have selected more than one coach to update !!!");
+        update.children("strong").text("You have selected more than one doctor to update !!!");
         alertReport(update);
-    }else if(coach.length == 1){
+    }else if(doc.length == 1){
         $("#updateModal").modal("show");
 
         //填充表单数据
-        $("#coach_idUpdate").val(coach[0].id);
-        $("#nameUpdate").val(coach[0].name);
-        $("#phoneUpdate").val(coach[0].phone);
-        if(coach[0].sex == 0)
-            $("#femaleradioUpdate").attr("checked",true);
-        else
-            $("#maleradioUpdate").attr("checked",true);
-        $("#IDUpdate").val(coach[0].coachID);
+        $("#doc_idUpdate").val(doc[0].id);
+        $("#nameUpdate").val(doc[0].name);
+        $("#phoneUpdate").val(doc[0].phone);;
+        $("#IDUpdate").val(doc[0].docID);
 
         //用于比较是否更改了表单
-        updateData = [coach[0].name,coach[0].phone,$("#maleradioUpdate").prop("checked"),coach[0].coachID];
+        updateData = [doc[0].name,doc[0].phone,doc[0].docID];
     }
 }
 
-//更新教练表单
-$("#updateCoach").submit(function (event) {
+//更新医生表单
+$("#updateDoc").submit(function (event) {
     event.preventDefault();
     console.log(updateData);
     console.log($("#nameUpdate").val());
     console.log($("#phoneUpdate").val());
-    console.log($("#maleradioUpdate").prop("checked"));
     console.log($("#IDUpdate").val());
 
     if(updateData[0] == $("#nameUpdate").val() && updateData[1] == $("#phoneUpdate").val()
-        && updateData[2] == $("#maleradioUpdate").prop("checked") && updateData[3] == $("#IDUpdate").val()){
+        && updateData[2] == $("#IDUpdate").val()){
         //表单未更新
         alertReport($("#uAlert"));
 
@@ -179,12 +163,12 @@ $("#updateCoach").submit(function (event) {
             success: function (result) {
                 console.log(result, status);//打印服务端返回的数据(调试用)
 
-                update.children("strong").text("Update coach success !!!");
+                update.children("strong").text("Update doctor success !!!");
                 update.removeClass("alert-danger").removeClass("alert-warning").addClass("alert-success");
                 table.ajax.reload();//刷新DataTable
             },
             error : function() {
-                update.children("strong").text("Update coach fail !!!");
+                update.children("strong").text("Update doctor fail !!!");
                 update.addClass("alert-danger").removeClass("alert-success").removeClass("alert-warning");
             },
             complete:function () {
@@ -197,8 +181,8 @@ $("#updateCoach").submit(function (event) {
 
 });
 
-//删除教练表单
-function deleteCoach(btn){
+//删除医生表单
+function deleteDoc(btn){
 
     var selection = table.rows(".selected").data();
     console.log(selection);
@@ -212,17 +196,16 @@ function deleteCoach(btn){
         type: "POST",//方法类型
         dataType: "json",//预期服务器返回的数据类型
         data:{
-          data:deleteIds
+            data:deleteIds
         },
         traditional:true,////这里设置为true,使传递参数变成 data:1
-        url: "/sports/team/coach/delete",
+        url: "/sports/team/doctor/delete",
         success: function (result) {
             console.log(result, status);//打印服务端返回的数据(调试用)
 
             del.children("strong").text("Delete operation success !!!");
             del.removeClass("alert-danger").addClass("alert-success");
             table.ajax.reload();//刷新DataTable
-
 
         },
         error : function() {

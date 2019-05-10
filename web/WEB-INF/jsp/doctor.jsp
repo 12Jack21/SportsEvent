@@ -11,7 +11,7 @@
 
 <html>
 <head>
-    <title>Coach</title>
+    <title>Doctor</title>
     <jsp:include page="commom_css_js.jsp"></jsp:include>
 </head>
 <body id="page-top">
@@ -65,18 +65,17 @@
 
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h4 class="m-0 font-weight-bold text-primary">Coach DataTable</h4>
+                        <h4 class="m-0 font-weight-bold text-primary">Doctor DataTable</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <!--加了 width 后表格才实现了 自适应-->
                             <table class="table table-bordered table-hover active responsive no-wrap display"
-                                   style="width: 100%;" id="coachDataTable" >
+                                   style="width: 100%;" id="docDataTable" >
                                 <thead>
                                 <tr>
                                     <th>id</th>
                                     <th>Name</th>
-                                    <th>Gender</th>
                                     <th>Phone</th>
                                     <th>ID</th>
                                 </tr>
@@ -85,7 +84,6 @@
                                 <tr>
                                     <th>id</th>
                                     <th>Name</th>
-                                    <th>Gender</th>
                                     <th>Phone</th>
                                     <th>ID</th>
                                 </tr>
@@ -101,7 +99,7 @@
         </div>
         <!-- End of Main Content -->
 
-        <!--对教练的操作按钮-->
+        <!--对医生的操作按钮-->
         <div class="position-fixed btn-group" style="right: 2%;bottom: 9%;transition-duration: 0.8s;z-index: 3">
             <div class="myOperate myAdd" data-toggle="modal" data-target="#addModal">
                 <i class="fa fa-plus" style="margin-top: 10%;"></i>
@@ -155,47 +153,40 @@
     </div>
 </div>
 
-<!--添加教练-->
+<!--添加医生-->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
      aria-hidden="true">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-primary" id="addModalLabelTitle">New Coach information</h5>
+                <h5 class="modal-title text-primary" id="addModalLabelTitle">New doctor information</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body text-lg">
-                <form id="addCoach" action="${pageContext.request.contextPath}/team/coach/add">
+                <form id="addDoc" action="${pageContext.request.contextPath}/team/doctor/add">
                     <div class="form-group">
                         <label for="nameAdd">Name</label>
                         <input type="text" class="form-control" id="nameAdd" placeholder="your name" name="name">
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="maleradioAdd" value="1" name="sex">
-                        <label class="form-check-label" for="maleradioAdd">Male</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="femaleradioAdd" value="0" name="sex">
-                        <label class="form-check-label" for="femaleradioAdd">Female</label>
                     </div>
                     <div class="form-group">
                         <label for="phoneAdd">Phone</label>
                         <input type="text" class="form-control" id="phoneAdd" placeholder="phone number" name="phone">
                     </div>
                     <div class="form-group">
-                        <label for="IDUpdate">ID</label>
-                        <input type="text" class="form-control" id="IDAdd" placeholder="your id" name="coachID">
+                        <label for="IDAdd">ID</label>
+                        <input type="text" class="form-control" id="IDAdd" placeholder="your id" name="docID">
                     </div>
-                    <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+
+                    <button type="submit" class="btn btn-lg btn-primary" >Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<!--修改教练-->
+<!--修改医生-->
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
      aria-hidden="true">
     <div class="modal-dialog " role="document">
@@ -207,21 +198,10 @@
                 </button>
             </div>
             <div class="modal-body text-lg">
-                <form id="updateCoach" action="${pageContext.request.contextPath}/team/coach/update">
-                    <div class="form-group">
-                        <input type="hidden" name="id" id="coach_idUpdate">
-                    </div>
+                <form id="updateDoc" action="${pageContext.request.contextPath}/team/doctor/update">
                     <div class="form-group">
                         <label for="nameUpdate">Name</label>
                         <input type="text" class="form-control" id="nameUpdate" placeholder="your name" name="name">
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="maleradioUpdate" value="1" name="sex">
-                        <label class="form-check-label" for="maleradioUpdate">Male</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="femaleradioUpdate" value="0" name="sex">
-                        <label class="form-check-label" for="femaleradioUpdate">Female</label>
                     </div>
                     <div class="form-group">
                         <label for="phoneUpdate">Phone</label>
@@ -229,10 +209,10 @@
                     </div>
                     <div class="form-group">
                         <label for="IDUpdate">ID</label>
-                        <input type="text" class="form-control" id="IDUpdate" placeholder="your id" name="coachID">
+                        <input type="text" class="form-control" id="IDUpdate" placeholder="your id" name="docID">
                     </div>
-                    <button type="submit" class="btn btn-lg btn-warning ">Submit</button>
 
+                    <button type="submit" class="btn btn-lg btn-warning ">Submit</button>
                     <!--未更改表单的警告框-->
                     <div class="alert alert-warning fade show" role="alert" id="uAlert" hidden="hidden">
                         <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
@@ -240,14 +220,13 @@
                         </button>
                         <strong>You should change some form attributes before you update.</strong>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<!--删除教练-->
+<!--删除医生-->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -259,14 +238,13 @@
                 <span class="text-danger" id="confirmDelete"></span> you select.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-danger" type="button" onclick="deleteCoach(this)">Delete</button>
+                <button class="btn btn-danger" type="button" onclick="deleteDoc(this)">Delete</button>
             </div>
         </div>
     </div>
 </div>
 
-
 </body>
 
-<script src="/sports/js/coach.js"></script>
+<script src="/sports/js/doctor.js"></script>
 </html>

@@ -8,6 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<base href="/sports">--%>
 
+<!--页面设置不缓存-->
+<%
+    response.setHeader("Pragma","No-cache");
+    response.setHeader("Cache-Control","no-cache");
+    response.setDateHeader("Expires", 0);
+%>
+
 <% String prefix = "/sports"; %>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

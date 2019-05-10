@@ -75,7 +75,7 @@ public interface TeamService {
     List<Coach> getTeamCoaches(int teamid);
 
     //查询队伍中的所有裁判
-    List<Referee> getTeamReferee(int teamid);
+    List<Referee> getTeamReferees(int teamid);
 
     //查询队伍中的队长
     Captain getTeamCaptain(int teamid);
