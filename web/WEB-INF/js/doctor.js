@@ -10,7 +10,7 @@ $(document).ready(function () {
         "searching":true,
         "responsive":true,
         "ajax": {
-            url:"list", //TODO 需要改成 session
+            url:"doctor/list", //TODO 需要改成 session
             dataSrc:""
         },
         "columns": [

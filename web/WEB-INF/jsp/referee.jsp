@@ -116,10 +116,10 @@
         <div class="position-fixed btn-group" id="operateBtn"
              style="right: 2%;bottom: 9%;transition-duration: 0.8s;z-index: 3">
             <div class="myOperate myAdd" data-toggle="modal" data-target="#addModal">
-                <i class="fa fa-plus"></i>
+                <i class="fa fa-plus" style="margin-top: 10%;"></i>
             </div>
-            <div class="myOperate myDelete" >
-                <i class="fa fa-trash"></i>
+            <div class="myOperate myDelete" id="deleteBtn">
+                <i class="fa fa-trash" style="margin-top: 10%;"></i>
             </div>
         </div>
         
@@ -177,7 +177,7 @@
                 </button>
             </div>
             <div class="modal-body text-lg">
-                <form id="addReferee" action="${pageContext.request.contextPath}/team/coach/add">
+                <form id="addReferee" action="${pageContext.request.contextPath}/team/referee/add">
                     <div class="form-group">
                         <label for="nameAdd">Name</label>
                         <input type="text" class="form-control" id="nameAdd" placeholder="your name" name="name">
@@ -188,7 +188,7 @@
                     </div>
                     <div class="form-group">
                         <label for="IDAdd">ID</label>
-                        <input type="text" class="form-control" id="IDAdd" placeholder="your id" name="refID">
+                        <input type="text" class="form-control" id="IDAdd" placeholder="your ID" name="refID">
                     </div>
                     <button type="submit" class="btn btn-lg btn-primary">Submit</button>
                 </form>
@@ -209,9 +209,9 @@
                 </button>
             </div>
             <div class="modal-body text-lg">
-                <form id="updateReferee" action="${pageContext.request.contextPath}/team/coach/update">
+                <form id="updateReferee" action="${pageContext.request.contextPath}/team/referee/update">
                     <div class="form-group">
-                        <input type="hidden" name="id" id="coach_idUpdate">
+                        <input type="hidden" name="id" id="ref_idUpdate">
                     </div>
                     <div class="form-group">
                         <label for="nameUpdate">Name</label>

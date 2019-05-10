@@ -10,7 +10,7 @@ $(document).ready(function () {
         "searching":true,
         "responsive":true,
         "ajax": {
-            url:"list", //TODO 需要改成 session
+            url:"referee/list", //TODO 需要改成 session
             dataSrc:""
         },
         "columns": [
@@ -35,9 +35,8 @@ $(document).ready(function () {
             "data": null,
             "render": function (data, type, row) {
                 var id = '"' + row.id + '"';
-                var html = "<a href='javascript:void(0);'  class='delete btn btn-default btn-xs'  ><i class='fa fa-file-alt'></i> 查看</a>";
-                html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs'><i class='fa fa-edit'></i> 编辑</a>";
-                // html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-trash'></i> 删除</a>"
+                var html = "<a href='/team/referee/" + data.id + " ' class='delete btn btn-default btn-xs' ><i class='fa fa-file-alt'></i>查看</a>";
+                html += "<a href='javascript:void(0)' class='up btn btn-default btn-xs' onclick='updateRef(this)'><i class='fa fa-edit'></i>编辑</a>";
                 return html;
             }
         }]
@@ -69,6 +68,26 @@ $(document).ready(function () {
     })
 
 });
+
+//编辑裁判按钮链接
+function updateRef(alink) { //TODO 解决hover问题
+
+    var tr = $(alink).parent().parent();
+    console.log(tr);
+
+    var data = table.rows(tr).data()[0];
+    console.log(data);
+
+    $("#updateModal").modal("show");
+
+    //更新表单 的数据填充
+    $("#ref_idUpdate").val(data.id);
+    $("#nameUpdate").val(data.name);
+    $("#phoneUpdate").val(data.phone);
+    $("#IDUpdate").val(data.refID);
+
+    updateData = [data.name,data.phone,data.refID];
+}
 
 //进行相关操作后用警告框通知前端
 function alertReport($alert) {
@@ -116,32 +135,6 @@ $("#addReferee").submit(function (event) {
         }
     });
 })
-
-//更新按钮 判断
-function updateBtn(){
-    var update = $("#updateAlert");
-    var referee = table.rows(".selected").data();
-    if(referee.length == 0){
-        update.removeClass("alert-danger").removeClass("alert-success").addClass("alert-warning");
-        update.children("strong").text("You haven't selected a referee to update yet !!!");
-        alertReport(update);
-    }else if(referee.length > 1){
-        update.removeClass("alert-danger").removeClass("alert-success").addClass("alert-warning");
-        update.children("strong").text("You have selected more than one referee to update !!!");
-        alertReport(update);
-    }else if(referee.length == 1){
-        $("#updateModal").modal("show");
-
-        //填充表单数据
-        $("#referee_idUpdate").val(referee[0].id);
-        $("#nameUpdate").val(referee[0].name);
-        $("#phoneUpdate").val(referee[0].phone);
-        $("#IDUpdate").val(referee[0].refereeID);
-
-        //用于比较是否更改了表单
-        updateData = [referee[0].name,referee[0].phone,referee[0].refID];
-    }
-}
 
 //更新裁判表单
 $("#updateReferee").submit(function (event) {
@@ -193,7 +186,7 @@ $("#updateReferee").submit(function (event) {
 
 });
 
-//删除裁判表单
+//删除裁判
 function deleteReferee(btn){
 
     var selection = table.rows(".selected").data();
