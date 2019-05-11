@@ -33,6 +33,7 @@ $(document).ready(function () {
         },{
             "targets": 5,//操作按钮目标列
             "data": null,
+            "select":null,
             "render": function (data, type, row) {
                 var id = '"' + row.id + '"';
                 var html = "<a href='/team/referee/" + data.id + " ' class='delete btn btn-default btn-xs' ><i class='fa fa-file-alt'></i>查看</a>";
@@ -43,10 +44,15 @@ $(document).ready(function () {
 
     });
 
-    $('#refereeDataTable tbody').on( 'click', 'tr', function () {
-        $(this).toggleClass('selected');
-        $(this).toggleClass('table-active');
+    $('#refereeDataTable tbody').on( 'click', 'td', function () {
+        console.log($(this).children("a"));
+        if($(this).children("a").length == 0){
+            $(this).parent().toggleClass('selected');
+            $(this).parent().toggleClass('table-active');
+        }
+
     } );
+
 
     $("#deleteBtn").click(function () {
         var len = table.rows(".selected").data().length;
@@ -65,7 +71,7 @@ $(document).ready(function () {
             modal.modal("show");
         }
 
-    })
+    });
 
 });
 
