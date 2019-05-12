@@ -13,6 +13,9 @@ public interface TeamService {
     //更改密码
     boolean updatePassWord(Team team);
 
+    //取得运动员的信息
+    Athlete getAthlete(int athid);
+
     //添加运动员
     boolean addAthlete(Athlete athlete);
 
@@ -82,6 +85,18 @@ public interface TeamService {
 
     //查询所有比赛的信息
     List<Competition> getAllCompetition();
+
+    //查询特定的比赛信息
+    Competition getCompetition(int compid);
+
+    //查询某比赛的运动员
+    List<Participate> getParticipateByComp(int compid);
+
+    //查询某比赛的裁判
+    List<Judge> getJudgeByComp(int compid);
+
+    //根据比赛类型进行查询
+    List<Competition> getCompetitionByType(int type);
 
     //查询未结束的比赛
     List<Competition> getUnEndCompetition();

@@ -36,7 +36,7 @@ $(document).ready(function () {
             "select":null,
             "render": function (data, type, row) {
                 var id = '"' + row.id + '"';
-                var html = "<a href='/team/referee/" + data.id + " ' class='delete btn btn-default btn-xs' ><i class='fa fa-file-alt'></i>查看</a>";
+                var html = "<a href='/sports/team/referee/" + data.id + " ' class='delete btn btn-default btn-xs' ><i class='fa fa-file-alt'></i>查看</a>";
                 html += "<a href='javascript:void(0)' class='up btn btn-default btn-xs' onclick='updateRef(this)'><i class='fa fa-edit'></i>编辑</a>";
                 return html;
             }

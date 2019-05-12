@@ -10,6 +10,8 @@ public interface AthleteDAO {
 
     List<Athlete> getAllAthletes();
 
+    Athlete getAthlete(int athid);
+
     List<Athlete> getTeamAthletes(int teamid);
 
     List<Athlete> getGroupAthletes(int teamid,int sex,int ageStart,int ageEnd);

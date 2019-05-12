@@ -11,6 +11,12 @@ public interface RefereeService {
     //是否为小组主裁判
     boolean isMajorReferee(int refid,int compid);
 
+    //取得裁判信息
+    Referee getReferee(int refid);
+
+    //获得裁判 吹判的比赛(作为主裁判或者作为普通裁判)
+    List<Judge> getJudges(int refid,int refType);
+
     //普通裁判给运动员打分
     boolean addScore(Judge judge, int athid, double score);
 

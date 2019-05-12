@@ -27,6 +27,8 @@ public class TeamServiceImp implements TeamService {
     private ParticipateDAO participateDAO;
     @Autowired
     private CompetitionDAO competitionDAO;
+    @Autowired
+    private JudgeDAO judgeDAO;
 
     @Override
     public boolean canLogin(Team team) {
@@ -37,6 +39,11 @@ public class TeamServiceImp implements TeamService {
     @Override
     public boolean updatePassWord(Team team) {
         return teamDAO.updateTeam(team);
+    }
+
+    @Override
+    public Athlete getAthlete(int athid) {
+        return athleteDAO.getAthlete(athid);
     }
 
     @Override
@@ -152,6 +159,26 @@ public class TeamServiceImp implements TeamService {
     @Override
     public List<Competition> getAllCompetition() {
         return competitionDAO.getAllCompetitions();
+    }
+
+    @Override
+    public Competition getCompetition(int compid) {
+        return competitionDAO.getCompetition(compid);
+    }
+
+    @Override
+    public List<Participate> getParticipateByComp(int compid) {
+        return participateDAO.getScoresByComp(compid);
+    }
+
+    @Override
+    public List<Judge> getJudgeByComp(int compid) {
+        return judgeDAO.getJudgesByComp(compid);
+    }
+
+    @Override
+    public List<Competition> getCompetitionByType(int type) {
+        return  competitionDAO.getCompetitionsByType(type);
     }
 
     @Override

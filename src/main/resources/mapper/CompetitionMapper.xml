@@ -34,8 +34,15 @@
 <!--    </select>-->
 
 <!--    如果需要，则可以进行嵌套查询-->
-    <select id="getAllCompetitions" resultMap="CompetitionInf" >
+    <select id="getAllCompetitions" resultType="po.Competition" >
         SELECT * FROM competition
+    </select>
+
+    <select id="getCompetition" resultType="po.Competition" parameterType="int">
+        SELECT * FROM competition WHERE id= #{compid}
+    </select>
+    <select id="getCompetitionsByType" resultType="po.Competition" parameterType="int">
+        SELECT * FROM competition WHERE type = #{type}
     </select>
 
     <select id="getCompetitionsByAth" resultType="po.Competition" parameterType="int">

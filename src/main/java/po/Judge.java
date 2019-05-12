@@ -1,9 +1,12 @@
 package po;
 
+import vo.CompetitionVO;
+
 public class Judge {
     private int id;
     private Referee referee;
     private Competition competition;
+    private CompetitionVO competitionVO;
     private int groupno;
     private int reftype;
 
@@ -42,11 +45,11 @@ public class Judge {
         this.competition = competition;
     }
 
-    public int getGroup() {
+    public int getGroupno() {
         return groupno;
     }
 
-    public void setGroup(int groupno) {
+    public void setGroupno(int groupno) {
         this.groupno = groupno;
     }
 
@@ -56,5 +59,13 @@ public class Judge {
 
     public void setReftype(int reftype) {
         this.reftype = reftype;
+    }
+
+    public CompetitionVO getCompetitionVO() {
+        return competitionVO;
+    }
+
+    public void setCompetitionVO(CompetitionVO competitionVO) {
+        this.competitionVO = competitionVO;
     }
 }

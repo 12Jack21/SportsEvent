@@ -10,6 +10,10 @@ public interface CompetitionDAO {
 
     List<Competition> getAllCompetitions();
 
+    Competition getCompetition(int compid);
+
+    List<Competition> getCompetitionsByType(int type);
+
     List<Competition> getCompetitionsByAth(int athid);
 
     List<Competition> getCompetitionsByRef(int refid);

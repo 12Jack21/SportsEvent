@@ -27,6 +27,10 @@
         SELECT * FROM referee WHERE teamid = #{teamid}
     </select>
 
+    <select id="getReferee" parameterType="int" resultType="po.Referee">
+        SELECT * FROM referee WHERE id = #{refid}
+    </select>
+
 <!--    <select id="getCompReferees" resultType="po.Referee" parameterType="int">-->
 <!--        SELECT * FROM referee WHERE compid = #{teamid}-->
 <!--    </select>-->

@@ -32,6 +32,9 @@
             <result property="age" column="age"/>
             <result property="athID" column="athID"/>
             <result property="no" column="no"/>
+            <association property="team" javaType="po.Team">
+                <result property="name" column="teamName"/>
+            </association>
         </association>
     </resultMap>
 
@@ -59,10 +62,15 @@
     </select>
 
     <select id="getScoresByComp" resultMap="AthScores" parameterType="int">
-        SELECT a.*,p.groupno,p.score FROM participate p
-        LEFT JOIN athlete a
-        ON p.ath_id=a.id
-        WHERE p.comp_id=#{compid}
+        SELECT a.*,p.groupno,p.score,t.`name` teamName
+        FROM
+            participate p
+                LEFT JOIN athlete a ON p.ath_id = a.id
+                LEFT JOIN team t ON a.teamid = t.id
+        WHERE
+            p.comp_id = #{compid}
+        ORDER BY
+            t.`name`
     </select>
 
     <select id="getCompScoresByTeam" resultMap="AthScores" parameterType="int">

@@ -1,10 +1,46 @@
 package MyUtil;
 
+import po.Competition;
+import vo.CompetitionVO;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MyConvertor {
+
+    public static CompetitionVO convertComp(Competition competition){
+        CompetitionVO c = new CompetitionVO();
+        c.setId(competition.getId());
+        c.setProject(competition.getProject());
+        c.setDate(competition.getDate());
+        c.setPlace(competition.getPlace());
+
+        if(competition.getSexgroup() == 0)
+            c.setSexgroup("女子");
+        else
+            c.setSexgroup("男子");
+
+        int ageGroup = competition.getAgegroup();
+        if(ageGroup == 0)
+            c.setAgegroup("7-8岁");
+        else if (ageGroup == 1)
+            c.setAgegroup("9-10岁");
+        else
+            c.setAgegroup("11-12岁");
+
+        if(competition.getType() == 0)
+            c.setType("初赛");
+        else
+            c.setType("决赛");
+
+        if(competition.getIsEnd() == 0)
+            c.setIsEnd("否");
+        else
+            c.setIsEnd("是");
+
+        return c;
+    }
 
     //将数字转换成 年龄组别的字符串
     public static String ageGroupString(int ageGroup){

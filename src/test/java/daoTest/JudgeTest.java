@@ -17,7 +17,7 @@ public class JudgeTest extends BaseTest {
 
     @Test
     public void getRefJudges(){
-        List<Judge> judges = judgeDAO.getJudgesByRef(3);
+        List<Judge> judges = judgeDAO.getJudgesByRef(3,0);
         assertEquals(2,judges.toArray().length);
         boolean r= false;
         for(Judge j : judges){

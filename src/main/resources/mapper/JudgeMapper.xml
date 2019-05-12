@@ -39,7 +39,8 @@
         FROM judge j 
         LEFT JOIN competition c
         ON j.comp_id=c.id
-        WHERE j.ref_id=#{refid}
+        WHERE j.ref_id= #{param1}
+        AND j.reftype= #{param2}
     </select>
 
     <select id="getJudgesByComp" resultMap="RefJudges" parameterType="int">

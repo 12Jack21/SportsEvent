@@ -22,6 +22,9 @@
         FROM athlete a LEFT JOIN team t ON a.teamid=t.id
     </select>
 
+    <select id="getAthlete" resultType="po.Athlete" parameterType="int">
+        SELECT * FROM athlete WHERE id = #{athid}
+    </select>
     <select id="getTeamAthletes" resultType="po.Athlete" parameterType="int">
         SELECT * FROM athlete  WHERE athlete.teamid = #{teamid}
     </select>

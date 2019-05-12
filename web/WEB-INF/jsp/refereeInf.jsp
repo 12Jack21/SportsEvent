@@ -34,60 +34,11 @@
                 <!--面包屑导航-->
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="__athlete.html">Athlete List</a></li>
+                        <li class="breadcrumb-item"><a href="">Athlete List</a></li>
                         <li class="breadcrumb-item"><a href="#">Library</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Data</li>
                     </ol>
                 </nav>
-
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h4 class="m-0 font-weight-bold text-primary">Referee DataTable</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover display"
-                                   id="refereeDataTable" style="width: 100%;">
-                                <thead>
-                                <tr>
-                                    <th>id</th>
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>ID</th>
-                                    <th>User</th>
-                                    <th>Operation</th>
-                                </tr>
-                                </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>id</th>
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>ID</th>
-                                    <th>User</th>
-                                    <th>Operation</th>
-                                </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!--select警告框-->
-                <div class="alert alert-warning fade show" role="alert" id="selectAlert" hidden="hidden">
-                    <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong></strong>
-                </div>
-
-                <!--update警告框-->
-                <div class="alert fade show" role="alert" id="updateAlert" hidden="hidden">
-                    <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong></strong>
-                </div>
 
                 <!--裁判信息-->
                 <div class="card shadow mb-12">
@@ -114,22 +65,19 @@
                         <div class="row">
                             <div class="col-lg-3 ">
                                 <div class="">
-                                    <img src="../img/avatar-2.jpg" alt="avatra-2"
+                                    <img src="" alt="avatra-2"
                                          style="border-radius: 50%;overflow: auto;"/>
                                 </div>
                             </div>
                             <div class="col-lg-6 offset-md-1 offset-lg-0">
                                 <div style="margin-bottom: 4%">
-                                    <h3 style="float: left;margin-right: 1%">${referee.name}</h3>
-                                    <!--修改信息-->
-                                    <button class="btn" data-toggle="modal" data-target="#editModal" id="editBtn">
-                                        <i class="fas fa-lg fa-edit"></i></button>
+                                    <!--删除style来保持样式-->
+                                    <h3 style="">${referee.name}</h3>
                                 </div>
                                 <div>
                                     <span class="text-lg float-left">Phone: </span>
                                     <p class="text-lg " style="margin-left: 22%">
                                         ${referee.phone}
-                                        <i class="fas fa-lg fa-mars"></i>
                                     </p>
                                 </div>
                                 <div>
@@ -193,6 +141,35 @@
                             <!--面板-->
                             <div class="tab-pane fade in active borderAround2" id="initial">
                                 <div class="table-responsive">
+                                    <table class="table table-bordered table-hover dataTableOfRef ">
+                                        <thead>
+                                        <tr>
+                                            <th hidden="hidden">id</th>
+                                            <th>Project</th>
+                                            <th>SexGroup</th>
+                                            <th>AgeGroup</th>
+                                            <th>Type</th>
+                                            <th>GroupNo</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <c:forEach items="${majors}" var="major">
+                                            <tr>
+                                                <td hidden="hidden">${major.competitionVO.id}</td>
+                                                <td>${major.competitionVO.project}</td>
+                                                <td>${major.competitionVO.sexgroup}</td>
+                                                <td>${major.competitionVO.agegroup}</td>
+                                                <td>${major.competitionVO.type}</td>
+                                                <td>${major.groupno}</td>
+                                            </tr>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane fade in borderAround2" id="final">
+                                <div class="table-responsive">
                                     <table class="table table-bordered table-hover dataTableOfRef">
                                         <thead>
                                         <tr>
@@ -204,64 +181,15 @@
                                             <th>GroupNo</th>
                                         </tr>
                                         </thead>
-                                        <tfoot>
-                                        <tr>
-                                            <th hidden="hidden">id</th>
-                                            <th>Project</th>
-                                            <th>SexGroup</th>
-                                            <th>AgeGroup</th>
-                                            <th>Type</th>
-                                            <th>GroupNo</th>
-                                        </tr>
-                                        </tfoot>
                                         <tbody>
-                                        <c:forEach items="initials" var="in">
+                                        <c:forEach items="${normals}" var="normal">
                                             <tr>
-                                                <td hidden="hidden">${in.id}</td>
-                                                <td>${in.project}</td>
-                                                <td>${in.sexgroup}</td>
-                                                <td>${in.agegroup}</td>
-                                                <td>${in.groupno}</td>
-                                                <td></td>
-                                            </tr>
-                                        </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                            <div class="tab-pane fade in borderAround2" id="final">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover dataTableOfRef" >
-                                        <thead>
-                                        <tr>
-                                            <th hidden="hidden">id</th>
-                                            <th>Project</th>
-                                            <th>SexGroup</th>
-                                            <th>AgeGroup</th>
-                                            <th>Type</th>
-                                            <th>GroupNo</th>
-                                        </tr>
-                                        </thead>
-                                        <tfoot>
-                                        <tr>
-                                            <th hidden="hidden">id</th>
-                                            <th>Project</th>
-                                            <th>SexGroup</th>
-                                            <th>AgeGroup</th>
-                                            <th>Type</th>
-                                            <th>GroupNo</th>
-                                        </tr>
-                                        </tfoot>
-                                        <tbody>
-                                        <c:forEach items="finals" var="fi">
-                                            <tr>
-                                                <td hidden="hidden">${fi.id}</td>
-                                                <td>${fi.project}</td>
-                                                <td>${fi.sexgroup}</td>
-                                                <td>${fi.agegroup}</td>
-                                                <td>${fi.groupno}</td>
-                                                <td></td>
+                                                <td hidden="hidden">${normal.competitionVO.id}</td>
+                                                <td>${normal.competitionVO.project}</td>
+                                                <td>${normal.competitionVO.sexgroup}</td>
+                                                <td>${normal.competitionVO.agegroup}</td>
+                                                <td>${normal.competitionVO.type}</td>
+                                                <td>${normal.groupno}</td>
                                             </tr>
                                         </c:forEach>
                                         </tbody>

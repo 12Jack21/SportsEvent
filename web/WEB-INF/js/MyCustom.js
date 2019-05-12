@@ -1,12 +1,34 @@
-var ini = $("#iniTab");
-var fi = $("#finTab");
-var initial = $("#initial");
-var final = $("#final");
+
 $(document).ready(function () {
-    ini.addClass("text-gray-700");
-    ini.addClass("borderAround");
+    var ini = $("#iniTab");
+    var fi = $("#finTab");
+    var initial = $("#initial");
+    var final = $("#final");
+    console.log(ini);
+    console.log(initial);
+    ini.addClass("text-gray-700").addClass("borderAround");
     fi.addClass("borderBottom");
     ini.tab('show');
+
+
+    ini.click(function (e) {
+        console.log("ini click");
+        e.preventDefault();
+        $(this).tab('show');
+        $(this).removeClass("borderBottom").addClass("borderAround");
+        fi.removeClass("borderAround").removeClass("active").addClass("borderBottom").removeClass("text-gray-700").addClass("text-primary");
+        ini.removeClass("text-primary").addClass("text-gray-700");
+    });
+
+    fi.click(function (e) {
+        console.log("fi click");
+        e.preventDefault();
+        $(this).tab('show');
+        $(this).removeClass("borderBottom").addClass("borderAround");
+        ini.removeClass("borderAround").removeClass("active").removeClass("text-gray-700").addClass("text-primary").addClass("borderBottom");
+        fi.removeClass("text-primary").addClass("text-gray-700");
+    });
+
 
 });
 
@@ -28,33 +50,4 @@ $(document).ready(function () {
 //     $(this).css("background-color", "white");
 // });
 
-ini.click(function (e) {
-    console.log("ini click");
-    e.preventDefault();
-    $(this).tab('show');
-    $(this).removeClass("borderBottom");
-    fi.removeClass("borderAround");
-    fi.removeClass("active");
-    $(this).addClass("borderAround");
-    fi.addClass("borderBottom");
 
-    ini.removeClass("text-primary");
-    ini.addClass("text-gray-700");
-    fi.removeClass("text-gray-700");
-    fi.addClass("text-primary");
-});
-fi.click(function (e) {
-    console.log("fi click");
-    e.preventDefault();
-    $(this).tab('show');
-    $(this).removeClass("borderBottom");
-    ini.removeClass("borderAround");
-    ini.removeClass("active");
-    $(this).addClass("borderAround");
-    ini.addClass("borderBottom");
-
-    fi.removeClass("text-primary");
-    fi.addClass("text-gray-700");
-    ini.removeClass("text-gray-700");
-    ini.addClass("text-primary");
-});
