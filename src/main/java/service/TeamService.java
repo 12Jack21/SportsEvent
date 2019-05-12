@@ -16,6 +16,9 @@ public interface TeamService {
     //取得运动员的信息
     Athlete getAthlete(int athid);
 
+    //根据年龄组获取运动员
+    List<Athlete> getAthletesByAgegGroup(int ageGroup,int teamid);
+
     //添加运动员
     boolean addAthlete(Athlete athlete);
 

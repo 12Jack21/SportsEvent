@@ -18,7 +18,7 @@ public interface AthleteService {
 //    void setMatchGroup();
 
     //得到个人所有成绩详情
-    List<Participate> getAthScores(int athid);
+    List<Participate> getAthScores(int athid,int type);
 
     //得到相应的名称比赛的个人成绩
     List<Participate> getAthScoresByCompName(int athid,String compName);

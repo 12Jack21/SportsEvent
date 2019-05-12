@@ -17,7 +17,7 @@ public class ParticipateTest extends BaseTest {
 
     @Test
     public void getScoresByAth(){
-        List<Participate> participates = participateDAO.getScoresByAth(1);
+        List<Participate> participates = participateDAO.getScoresByAth(1,0);
         assertEquals(2,participates.toArray().length);
         assertEquals(90.2,participates.get(1).getScore(),DELTA);
     }

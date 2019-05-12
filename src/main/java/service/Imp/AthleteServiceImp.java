@@ -49,8 +49,8 @@ public class AthleteServiceImp implements AthleteService {
         return result1 && result2;
     }
 
-    public List<Participate> getAthScores(int athid) {
-        return participateDAO.getScoresByAth(athid);
+    public List<Participate> getAthScores(int athid,int type) {
+        return participateDAO.getScoresByAth(athid,type);
     }
 
     @Override

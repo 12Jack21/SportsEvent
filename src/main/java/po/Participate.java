@@ -1,8 +1,12 @@
 package po;
 
+import vo.CompetitionVO;
+
 public class Participate {
     private Athlete athlete;
     private Competition competition;
+    private CompetitionVO competitionVO;
+
     private int groupno;
     private double score;
 
@@ -28,6 +32,14 @@ public class Participate {
 
     public void setCompetition(Competition competition) {
         this.competition = competition;
+    }
+
+    public CompetitionVO getCompetitionVO() {
+        return competitionVO;
+    }
+
+    public void setCompetitionVO(CompetitionVO competitionVO) {
+        this.competitionVO = competitionVO;
     }
 
     public int getGroupno() {

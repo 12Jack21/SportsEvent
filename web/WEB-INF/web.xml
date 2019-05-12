@@ -59,9 +59,9 @@
         <!--<welcome-file>/index.jsp</welcome-file>-->
     <!--</welcome-file-list>-->
 
-    <!--TODO Session 时间设置为100分钟，方便调试-->
+    <!--TODO Session 时间设置为24*60分钟，方便调试-->
     <session-config>
-        <session-timeout>100</session-timeout>
+        <session-timeout>1440</session-timeout>
     </session-config>
 
 </web-app>

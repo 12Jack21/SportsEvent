@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface ParticipateDAO {
 
-    List<Participate> getScoresByAth(int athid);
+    List<Participate> getScoresByAth(int athid,int type);
 
     List<Participate> getAthScoresByCompName(int athid,String compName); //TODO 没有写对应的测试类来测试
 

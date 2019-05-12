@@ -2,16 +2,14 @@
 <%--
   Created by IntelliJ IDEA.
   User: Johnson
-  Date: 2019/5/6
-  Time: 22:58
+  Date: 2019/5/12
+  Time: 11:20
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% String prefix = "/sports"; %>
-
 <html>
 <head>
-    <title>RefereeInf</title>
+    <title>AthleteInf</title>
     <jsp:include page="commom_css_js.jsp"></jsp:include>
 </head>
 <body id="page-top">
@@ -34,62 +32,57 @@
                 <!--面包屑导航-->
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="">Athlete List</a></li>
+                        <li class="breadcrumb-item"><a href="__athlete.html">Athlete List</a></li>
                         <li class="breadcrumb-item"><a href="#">Library</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Data</li>
                     </ol>
                 </nav>
 
-                <!--裁判信息-->
+                <!--运动员信息-->
                 <div class="card shadow mb-12">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-1 d-flex flex-row align-items-center justify-content-between">
                         <h4 class="m-0 font-weight-bold text-primary">Information</h4>
-                        <div class="dropdown no-arrow">
-                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                 aria-labelledby="dropdownMenuLink">
-                                <div class="dropdown-header">Dropdown Header:</div>
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-3 ">
                                 <div class="">
-                                    <img src="" alt="avatra-2"
+                                    <img src="../img/avatar-2.jpg" alt="avatra-2"
                                          style="border-radius: 50%;overflow: auto;"/>
                                 </div>
                             </div>
                             <div class="col-lg-6 offset-md-1 offset-lg-0">
                                 <div style="margin-bottom: 4%">
-                                    <!--删除style来保持样式-->
-                                    <h3 style="">${referee.name}</h3>
+                                    <h3 style="float: left;margin-right: 1%">${athlete.name}</h3>
+                                    <!--修改信息-->
+                                    <button class="btn" data-toggle="modal" data-target="#editModal"><i
+                                            class="fas fa-lg fa-edit"></i></button>
                                 </div>
                                 <div>
-                                    <span class="text-lg float-left">Phone: </span>
+                                    <span class="text-lg float-left">Gender: </span>
                                     <p class="text-lg " style="margin-left: 22%">
-                                        ${referee.phone}
+                                        ${athlete.sex}
+                                        <i class="fas fa-lg fa-mars"></i>
+                                    </p>
+                                </div>
+                                <div>
+                                    <span class="text-lg float-left">Age: </span>
+                                    <p class="text-lg " style="margin-left: 22%">
+                                        ${athlete.age}
                                     </p>
                                 </div>
                                 <div>
                                     <span class="text-lg float-left">ID: </span>
                                     <p class="text-lg " style="margin-left: 22%">
-                                        ${referee.refID}
+                                        ${athlete.athID}
                                     </p>
                                 </div>
                                 <div>
-                                    <span class="text-lg float-left">User: </span>
+                                    <span class="text-lg float-left">No: </span>
                                     <p class="text-lg " style="margin-left: 22%">
-                                        ${referee.user}
+                                        ${athlete.no}
                                     </p>
                                 </div>
                             </div>
@@ -100,13 +93,13 @@
                 <!--分隔上下卡片-->
                 <div style="margin-bottom: 30px"></div>
 
-                <!--判决信息-->
+                <!--参赛信息-->
                 <div class="card shadow mb-12">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h3 class="m-0 font-weight-bold text-primary">Judge Competition</h3>
+                        <h3 class="m-0 font-weight-bold text-primary">Participation</h3>
                         <div class="dropdown no-arrow">
-                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink0"
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                             </a>
@@ -127,13 +120,13 @@
                             <div class="col-lg-6 text-center text-primary" id="iniTab" href="#initial"
                                  data-toggle="tab">
                                 <div style="margin-top: 10px;margin-bottom: 10px;">
-                                    <a class="text-lg">Major Referee</a>
+                                    <a class="text-lg">Initial Game</a>
                                 </div>
                             </div>
                             <div class="col-lg-6 text-center text-primary" id="finTab" href="#final"
                                  data-toggle="tab">
                                 <div style="margin-top: 10px;margin-bottom: 10px;">
-                                    <a class=" text-lg">Normal Referee</a>
+                                    <a class=" text-lg">Final Game</a>
                                 </div>
                             </div>
                         </div>
@@ -141,7 +134,7 @@
                             <!--面板-->
                             <div class="tab-pane fade in active borderAround2" id="initial">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-hover dataTableOfRef ">
+                                    <table class="table table-bordered table-hover dataTableOfRef " id="iniTable">
                                         <thead>
                                         <tr>
                                             <th hidden="hidden">id</th>
@@ -150,10 +143,11 @@
                                             <th>AgeGroup</th>
                                             <th>Type</th>
                                             <th>GroupNo</th>
+                                            <th>Score</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach items="${majors}" var="ini">
+                                        <c:forEach items="${initials}" var="ini">
                                             <tr>
                                                 <td hidden="hidden">${ini.competitionVO.id}</td>
                                                 <td>${ini.competitionVO.project}</td>
@@ -161,10 +155,14 @@
                                                 <td>${ini.competitionVO.agegroup}</td>
                                                 <td>${ini.competitionVO.type}</td>
                                                 <td>${ini.groupno}</td>
+                                                <td>${ini.score}</td>
                                             </tr>
                                         </c:forEach>
                                         </tbody>
                                     </table>
+                                    <div class="text-center">
+                                        <h3 id="iniTotal"></h3>
+                                    </div>
                                 </div>
 
                             </div>
@@ -179,10 +177,11 @@
                                             <th>AgeGroup</th>
                                             <th>Type</th>
                                             <th>GroupNo</th>
+                                            <th>Score</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach items="${normals}" var="fi">
+                                        <c:forEach items="${finals}" var="fi">
                                             <tr>
                                                 <td hidden="hidden">${fi.competitionVO.id}</td>
                                                 <td>${fi.competitionVO.project}</td>
@@ -190,117 +189,94 @@
                                                 <td>${fi.competitionVO.agegroup}</td>
                                                 <td>${fi.competitionVO.type}</td>
                                                 <td>${fi.groupno}</td>
+                                                <td>${fi.score}</td>
                                             </tr>
                                         </c:forEach>
                                         </tbody>
                                     </table>
+                                    <div class="text-center">
+                                        <h3 id="fiTotal"></h3>
+                                    </div>
                                 </div>
 
                             </div>
 
                         </div>
+
                     </div>
                     <!-- /.container-fluid -->
                 </div>
                 <!-- End of Main Content -->
 
+                <div class="row">
+                </div>
+                <!-- End of Main Content -->
+
+
             </div>
-            <!-- /.container-fluid -->
+            <!-- End of Content Wrapper -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2019</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
 
         </div>
-        <!-- End of Main Content -->
+        <!-- End of Page Wrapper -->
 
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2019</span>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!--TODO  Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="logoutModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="defaultPage/login.html">Logout</a>
+                    </div>
                 </div>
             </div>
-        </footer>
-        <!-- End of Footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
-
-
-</div>
-<!-- End of Page Wrapper -->
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="defaultPage/login.html">Logout</a>
-            </div>
         </div>
+
     </div>
 </div>
-
-<!--修改裁判-->
-<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog " role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-warning" id="editModalLabel">Update information</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body text-lg">
-                <form id="updateReferee" action="${pageContext.request.contextPath}/team/referee/update">
-                    <div class="form-group">
-                        <input type="hidden" name="id" id="ref_idUpdate">
-                    </div>
-                    <div class="form-group">
-                        <label for="nameUpdate">Name</label>
-                        <input type="text" class="form-control" id="nameUpdate" placeholder="your name" name="name">
-                    </div>
-                    <div class="form-group">
-                        <label for="phoneUpdate">Phone</label>
-                        <input type="text" class="form-control" id="phoneUpdate" placeholder="age" name="phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="IDUpdate">ID</label>
-                        <input type="text" class="form-control" id="IDUpdate" placeholder="your id" name="refID">
-                    </div>
-                    <button type="submit" class="btn btn-lg btn-warning ">Submit</button>
-
-                    <!--未更改表单的警告框-->
-                    <div class="alert alert-warning fade show" role="alert" id="uAlert" hidden="hidden">
-                        <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong>You should change some form attributes before you update.</strong>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-</body>
 
 <script>
+    $(document).ready(function () {
+        var iniTotal = 0.0;
+        var fiTotal = 0.0;
 
+        var child = $("#iniTable tbody tr td:nth-child(7)");
 
+        for(let i=0; i<child.length;i++){
+            console.log($(child[i]).text());
+        }
+
+        var inis = $("#iniTable tbody tr td:eq(6)");
+        console.log(inis);
+        // for(var i in $("#initial tbody tr:eq(6)") ){
+        //     iniTotal += i.val();
+        //     console.log($(i).val());
+        //     console.log($(i).text());
+        // }
+
+    })
 </script>
+</body>
+
 </html>

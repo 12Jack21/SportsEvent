@@ -42,7 +42,8 @@
         SELECT c.*,p.groupno,p.score FROM participate p
         LEFT JOIN competition c
         ON p.comp_id=c.id
-        WHERE p.ath_id=#{athid}
+        WHERE p.ath_id=#{param1}
+        AND c.type = #{param2}
     </select>
 
     <select id="getAthScoresByCompName" resultMap="AthScores" parameterType="int">

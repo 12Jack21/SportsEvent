@@ -32,8 +32,12 @@
     <select id="getGroupAthletes" resultType="po.Athlete">
         SELECT a.id,a.name,a.sex,a.age,a.athID,a.no FROM athlete a
         WHERE teamid = #{param1}
-        AND sex = #{param2}
-        AND age BETWEEN #{param3} AND #{param4}
+        <if test="param2!=-1">
+            AND sex = #{param2}
+        </if>
+        <if test="param3!=-1">
+            AND age BETWEEN #{param3} AND #{param4}
+        </if>
     </select>
 
     <select id="getCompAthletes" resultType="po.Athlete" parameterType="int">

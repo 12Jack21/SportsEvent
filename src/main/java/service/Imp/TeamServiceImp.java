@@ -47,6 +47,16 @@ public class TeamServiceImp implements TeamService {
     }
 
     @Override
+    public List<Athlete> getAthletesByAgegGroup(int ageGroup,int teamid) {
+        if(ageGroup == 0)
+            return athleteDAO.getGroupAthletes(teamid,-1,7,8);
+        else if(ageGroup == 1)
+            return athleteDAO.getGroupAthletes(teamid,-1,9,10);
+        else
+            return athleteDAO.getGroupAthletes(teamid,-1,11,12);
+    }
+
+    @Override
     public boolean addAthlete(Athlete athlete) {
         return athleteDAO.addAthlete(athlete);
     }
