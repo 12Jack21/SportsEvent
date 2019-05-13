@@ -4,7 +4,7 @@ var updateData = null;
 $(document).ready(function () {
 
     table = $("#coachDataTable").DataTable({
-        // "retrieve":true,
+        "retrieve":true,
 
         "select":true, //开启选择
         "searching":true,

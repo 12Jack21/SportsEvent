@@ -231,7 +231,7 @@
 
         <!--添加运动员-->
         <div class="athleteAdd" data-toggle="modal" data-target="#addModal" >
-            <i class="fa fa-plus" ></i>
+            <i class="fa fa-plus" style="margin-top: 12%;"></i>
         </div>
 
         <!-- Footer -->

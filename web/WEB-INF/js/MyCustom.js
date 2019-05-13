@@ -51,3 +51,18 @@ $(document).ready(function () {
 // });
 
 
+//进行相关操作后用警告框通知前端
+function alertReport($alert) {
+    $alert.removeAttr("hidden").show();
+    //设置为 5 秒后自动关闭警告框
+    return setTimeout(function () {
+        $alert.hide();
+    },5000);
+}
+
+//关闭警告框
+function hideAlert(ele){
+    var alert = $(ele).parent();
+    console.log(alert);
+    alert.hide();
+}

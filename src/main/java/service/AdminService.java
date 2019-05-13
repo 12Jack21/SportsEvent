@@ -53,6 +53,8 @@ public interface AdminService {
     //更新比赛（如设置 地点，日期）
     boolean updateCompetition(Competition competition);
 
+    boolean deleteCompetition(int compid);
+
     //设置分组并生成赛事表(对运动员)
     boolean setAthGroupNo(int athid,int compid,int groupno);
 

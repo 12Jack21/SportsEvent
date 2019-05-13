@@ -38,6 +38,13 @@
                     </ol>
                 </nav>
 
+                <!--update警告框-->
+                <div class="alert fade show" role="alert" id="updateAlert" hidden="hidden">
+                    <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong></strong>
+                </div>
                 <!--运动员信息-->
                 <div class="card shadow mb-12">
                     <!-- Card Header - Dropdown -->
@@ -53,17 +60,20 @@
                                          style="border-radius: 50%;overflow: auto;"/>
                                 </div>
                             </div>
-                            <div class="col-lg-6 offset-md-1 offset-lg-0">
+                            <div class="col-lg-6 offset-md-1 offset-lg-0" id="athInf">
                                 <div style="margin-bottom: 4%">
                                     <h3 style="float: left;margin-right: 1%">${athlete.name}</h3>
-                                    <!--修改信息-->
-                                    <button class="btn" data-toggle="modal" data-target="#editModal"><i
-                                            class="fas fa-lg fa-edit"></i></button>
+                                    <!--TODO 修改信息 undid-->
+                                    <button class="btn" data-toggle="modal" id="editBtn">
+                                        <i class="fas fa-lg fa-edit"></i></button>
                                 </div>
                                 <div>
                                     <span class="text-lg float-left">Gender: </span>
                                     <p class="text-lg " style="margin-left: 22%">
-                                        ${athlete.sex}
+                                        <c:choose><c:when
+                                                test="${athlete.sex == 0}">女</c:when>
+                                            <c:otherwise>男</c:otherwise>
+                                        </c:choose>
                                         <i class="fas fa-lg fa-mars"></i>
                                     </p>
                                 </div>
@@ -134,7 +144,7 @@
                             <!--面板-->
                             <div class="tab-pane fade in active borderAround2" id="initial">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-hover dataTableOfRef " >
+                                    <table class="table table-bordered table-hover dataTableOfRef ">
                                         <thead>
                                         <tr>
                                             <th hidden="hidden">id</th>
@@ -212,9 +222,9 @@
                 </div>
                 <!-- End of Main Content -->
 
-
             </div>
             <!-- End of Content Wrapper -->
+
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -253,32 +263,168 @@
             </div>
         </div>
 
+        <!--Edit Modal-->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-primary" id="editModalLabel">Update information</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-lg">
+                        <form id="athInfUpdate" action="${pageContext.request.contextPath}/team/athlete/update">
+                            <input name="id" value="${athlete.id}" hidden="hidden">
+                            <div class="form-group">
+                                <label for="nameInput">Name</label>
+                                <input type="text" class="form-control" id="nameInput" placeholder="your new name"
+                                       name="name">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="maleradio" value="1" name="sex">
+                                <label class="form-check-label" for="maleradio">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="femaleradio" value="0" name="sex">
+                                <label class="form-check-label" for="femaleradio">Female</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="ageInput">Age</label>
+                                <input type="number" class="form-control" id="ageInput" placeholder="age" name="age">
+                            </div>
+                            <div class="form-group">
+                                <label for="IDInput">ID</label>
+                                <input type="text" class="form-control" id="IDInput" placeholder="your id" name="athID">
+                            </div>
+                            <button type="submit" class="btn btn-lg btn-primary ">Submit</button>
+                        </form>
+                        <hr style="height: 10%;">
+                        <!--未更改表单的警告框-->
+                        <div class="alert alert-warning fade show" role="alert" id="uAlert" hidden="hidden">
+                            <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>You should change some form attributes before you update.</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
 <script>
+    var updateData = null;
     $(document).ready(function () {
+        getTotalScore();
+
+        $("#editBtn").click(function (e) {
+            var name = $("#athInf div h3").text();
+            var sex = $("#athInf div:nth-child(2) p").text();
+            var age = parseInt($("#athInf div:nth-child(3) p").text());
+
+            //TODO 说明jsp 的EL表达式可以用在 js 中
+            var athID = $("#athInf div:nth-child(4) p").text().trim();
+            console.log(sex.trim());
+            updateData = [name,sex.trim(),age,athID];
+
+            $("#nameInput").val(name);
+            if(sex.trim() == "男")
+                $("#maleradio").attr("checked",true);
+            else
+                $("#femaleradio").attr("checked",true);
+            $("#ageInput").val(age);
+            $("#IDInput").val(athID);
+
+            $("#editModal").modal("show");
+        })
+
+    });
+
+    function getTotalScore(){
         var iniTotal = 0.0;
         var fiTotal = 0.0;
 
         var ini = $("#initial tbody tr td:nth-child(7)");
         var fi = $("#final tbody tr td:nth-child(7)");
 
-        console.log(ini);
-        for(let i=0; i<ini.length;i++){
-            console.log($(ini[i]).text());
+        for (let i = 0; i < ini.length; i++) {
             iniTotal += parseFloat($(ini[i]).text());
         }
 
-        for(let i=0; i<fi.length;i++){
-            console.log($(fi[i]).text());
+        for (let i = 0; i < fi.length; i++) {
             fiTotal += parseFloat($(fi[i]).text());
         }
 
         $("#iniTotal").text("Initial total score: " + iniTotal);
         $("#fiTotal").text("Final total score: " + fiTotal);
+    }
 
-    })
+    $("#athInfUpdate").submit(function (event) {
+        event.preventDefault();
+        var name = $("#nameInput").val();
+        var age = $("#ageInput").val();
+        var ID = $("#IDInput").val();
+        var maleCheck = $("#maleradio").prop("checked");
+
+        var male = null;
+        if(updateData[1] == "男")
+            male = true;
+        else
+            male = false;
+
+        console.log(updateData);
+        if (updateData[0] == name && male == maleCheck
+            && updateData[2] == age && updateData[3] == ID) {
+            //表单未更新
+            alertReport($("#uAlert"));
+
+        } else {
+            var $form = $(this);
+            var data = $form.serialize();
+            console.log(data);
+            var url = $form.attr("action");
+            console.log(url);
+            var update = $("#updateAlert");
+
+            $.ajax({
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: url,
+                traditional: true,
+                data: data,
+                success: function (result) {
+                    console.log(result, status);//打印服务端返回的数据(调试用)
+
+                    update.children("strong").text("Update athlete success !!!");
+                    update.removeClass("alert-danger").removeClass("alert-warning").addClass("alert-success");
+
+                    //刷新运动员信息
+                    $("#athInf div h3").text(name);
+                    if(maleCheck == true)
+                        $("#athInf div:nth-child(2) p").text("男");
+                    else
+                        $("#athInf div:nth-child(2) p").text("女");
+                    $("#athInf div:nth-child(3) p").text(age);
+                    $("#athInf div:nth-child(4) p").text(ID);
+                },
+                error: function () {
+                    update.children("strong").text("Update athlete fail !!!");
+                    update.addClass("alert-danger").removeClass("alert-success").removeClass("alert-warning");
+                },
+                complete: function () {
+                    $("#editModal").modal("hide");
+                    alertReport(update);
+
+                }
+            });
+        }
+
+    });
+
 </script>
 </body>
 

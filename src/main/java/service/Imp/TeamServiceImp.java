@@ -29,6 +29,8 @@ public class TeamServiceImp implements TeamService {
     private CompetitionDAO competitionDAO;
     @Autowired
     private JudgeDAO judgeDAO;
+    @Autowired
+    private SignDAO signDAO;
 
     @Override
     public boolean canLogin(Team team) {
@@ -114,6 +116,11 @@ public class TeamServiceImp implements TeamService {
     @Override
     public boolean deleteReferee(int id) {
         return refereeDAO.deleteReferee(id);
+    }
+
+    @Override
+    public List<Sign> getSignByTeam(int teamid) {
+        return signDAO.getSignsByTeam(teamid);
     }
 
     @Override

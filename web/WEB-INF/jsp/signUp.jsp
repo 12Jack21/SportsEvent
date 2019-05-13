@@ -28,6 +28,7 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
+
                 <!--sign警告框-->
                 <div class="alert fade show" role="alert" id="signAlert" hidden="hidden">
                     <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
@@ -41,7 +42,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover dataTableOfSign display" id="compDataTable">
+                            <table class="table table-bordered table-hover dataTableOfSign display" id="compDataTable" width="100%">
                                 <thead>
                                 <tr >
                                     <th>id</th>
@@ -52,8 +53,6 @@
                                     <th>Operation</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -67,7 +66,7 @@
 
         <!--上传附件-->
         <div class="athleteAdd" data-toggle="modal" data-target="#uploadModal" style="z-index: 3;">
-            <i class="fa fa-plus" ></i>
+            <i class="fa fa-plus" style="margin-top: 12%;"></i>
         </div>
 
         <!-- Footer -->
@@ -125,25 +124,31 @@
             <div class="modal-body text-lg">
                 <p class="text-primary">Select 5 athletes to sign this game up.</p>
                 <form>
-                    <div class="table-responsive">
+                    <div class="table-responsive align-content-center">
                         <table class="table table-bordered table-hover dataTableOfSign" id="athDataTableOfSign">
                             <thead>
                             <tr>
                                 <th>id</th>
                                 <th>Name</th>
+                                <th>Gander</th>
                                 <th>Age</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
+                    <hr style="height: 5%;">
                     <button type="submit" class="btn btn-lg btn-primary " id="signUpSub">Submit</button>
+
+                    <!--select警告框-->
+                    <div class="alert alert-warning fade show" role="alert" id="selectAlert" hidden="hidden">
+                        <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong></strong>
+                    </div>
+
                 </form>
             </div>
         </div>
@@ -162,7 +167,7 @@
                 </button>
             </div>
             <div class="modal-body text-lg">
-                <form>
+                <form id="uploadForm">
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputFileGroup">Upload</span>
@@ -172,8 +177,7 @@
                             <label class="custom-file-label" for="inputFile">Choose file</label>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-lg btn-primary ">Submit</button>
-
+                    <button type="button" class="btn btn-lg btn-primary ">Submit</button>
                 </form>
             </div>
         </div>

@@ -68,13 +68,15 @@ public interface TeamService {
     //删除裁判
     boolean deleteReferee(int id);
 
+    List<Sign> getSignByTeam(int teamid);
+
     //给运动员报名
     boolean signUpAthlete(int athid,int compid);
 
     //设置报名完成
     boolean setSignUpFinish(int teamid);
 
-    //查询某比赛是否以报名
+    //查询某比赛是否已报名
     boolean ifSignUpForComp(int teamid,int compid);
 
     //查询所有队伍中的运动员

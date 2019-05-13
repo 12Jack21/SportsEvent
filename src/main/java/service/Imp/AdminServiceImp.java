@@ -91,6 +91,11 @@ public class AdminServiceImp implements AdminService {
     }
 
     @Override
+    public boolean deleteCompetition(int compid) {
+        return competitionDAO.deleteCompetition(compid);
+    }
+
+    @Override
     public boolean setAthGroupNo(int athid, int compid, int groupno) {
         return participateDAO.updateGroupNo(athid, compid, groupno);
     }
