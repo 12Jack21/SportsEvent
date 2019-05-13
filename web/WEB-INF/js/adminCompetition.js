@@ -3,13 +3,12 @@ var table = null;
 $(document).ready(function () {
 
     table = $("#dataTableOfAdminCompetition").DataTable({
-        "retrieve": true,
-
+        // "retrieve": true,
         "select": true, //开启选择
         "searching": true,
         "responsive": true,
         "ajax": {
-            url: "list", //TODO 需要改成 session
+            url: "competition/list", //TODO 需要改成 session
             dataSrc: ""
         },
         "columns": [
@@ -89,7 +88,7 @@ $("#addForm").submit(function (event) {
         },
         error: function () {
             add.children("strong").text("Add competition fail !!!");
-            add.removeClass("alert-danger").addClass("alert-success");
+            add.removeClass("alert-success").addClass("alert-danger");
         },
         complete: function () {
             $("#addModal").modal("hide");
@@ -136,18 +135,3 @@ function deleteComp(btn) {
         }
     });
 }
-
-
-//管理员界面的比赛表
-$('#dataTableOfAdminCompetition').DataTable({
-    "columnDefs": [{
-        // 定义操作列,######以下是重点########
-        "targets": 6,//操作按钮目标列
-        "data": null,
-        "render": function (data, type, row) {
-            var id = '"' + row.id + '"';
-            var html = "<a href='__adminGroup.html'><button type='submit' class='btn btn-primary'>设置分组</button></a>";
-            return html;
-        }
-    }]
-});

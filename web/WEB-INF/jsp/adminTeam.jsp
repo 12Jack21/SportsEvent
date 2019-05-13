@@ -1,15 +1,14 @@
 <%--
   Created by IntelliJ IDEA.
   User: Johnson
-  Date: 2019/5/6
-  Time: 22:47
+  Date: 2019/5/13
+  Time: 23:53
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>AdminCompetition</title>
+    <title>AdminTeam</title>
     <jsp:include page="commom_css_js.jsp"></jsp:include>
 </head>
 <body id="page-top">
@@ -36,6 +35,7 @@
                     </button>
                     <strong></strong>
                 </div>
+
                 <!--add警告框-->
                 <div class="alert fade show" role="alert" id="addAlert" hidden="hidden">
                     <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
@@ -43,6 +43,15 @@
                     </button>
                     <strong></strong>
                 </div>
+
+                <!--update警告框-->
+                <div class="alert fade show" role="alert" id="updateAlert" hidden="hidden">
+                    <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong></strong>
+                </div>
+
                 <!--delete警告框-->
                 <div class="alert fade show" role="alert" id="deleteAlert" hidden="hidden">
                     <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
@@ -52,22 +61,29 @@
                 </div>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h4 class="m-0 font-weight-bold text-primary">Competition DataTable</h4>
+                        <h4 class="m-0 font-weight-bold text-primary">Team DataTable</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover" id="dataTableOfAdminCompetition">
+                            <table class="table table-bordered table-hover display" id="teamTable" width="100%">
                                 <thead>
                                 <tr>
                                     <th>id</th>
-                                    <th>Project</th>
-                                    <th>SexGroup</th>
-                                    <th>AgeGroup</th>
-                                    <th>Place</th>
-                                    <th>Date</th>
-                                    <th>Operation</th>
+                                    <th>Name</th>
+                                    <th>User</th>
+                                    <th>Password</th>
+                                    <th>isSign</th>
                                 </tr>
                                 </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>id</th>
+                                    <th>Name</th>
+                                    <th>User</th>
+                                    <th>Password</th>
+                                    <th>isSign</th>
+                                </tr>
+                                </tfoot>
                                 <tbody>
                                 </tbody>
                             </table>
@@ -81,13 +97,19 @@
         </div>
         <!-- End of Main Content -->
 
-        <!--对比赛的操作按钮-->
+        <!--对队伍的操作按钮-->
         <div class="position-fixed btn-group" style="right: 2%;bottom: 9%;transition-duration: 0.8s;z-index: 3">
             <div class="myOperate myAdd" data-toggle="modal" data-target="#addModal" >
-                <i class="fa fa-plus" ></i>
+                <i class="fa fa-plus" style="margin-top: 10%;"></i>
+            </div>
+            <div class="myOperate myUpdate " data-toggle="modal" onclick="updateBtn()">
+                <i class="fa fa-wrench" style="margin-top: 10%;"></i>
             </div>
             <div class="myOperate myDelete" data-toggle="modal"  id="deleteBtn">
-                <i class="fa fa-trash"></i>
+                <i class="fa fa-trash" style="margin-top: 10%;"></i>
+            </div>
+            <div class="myOperate myHost" data-toggle="modal" data-target="#hostModal">
+                <i class="fa fa-pen-alt" style="margin-top: 10%;"></i>
             </div>
         </div>
 
@@ -133,7 +155,7 @@
     </div>
 </div>
 
-<!--添加比赛-->
+<!--添加队伍-->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
      aria-hidden="true">
     <div class="modal-dialog " role="document">
@@ -145,48 +167,18 @@
                 </button>
             </div>
             <div class="modal-body text-lg">
-                <form id="addForm" action="${pageContext.request.contextPath}/admin/competition/add">
+                <form id="addTeam" action="${pageContext.request.contextPath}/admin/team/add">
                     <div class="form-group">
-                        <label for="projectAdd">Project</label>
-                        <input type="text" class="form-control" id="projectAdd" placeholder="project" name="project">
+                        <label for="nameAdd">Name</label>
+                        <input type="text" class="form-control" id="nameAdd" placeholder="team name" name="name">
                     </div>
                     <div class="form-group">
-                        <label style="margin-right: 20px">SexGroup</label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="maleradioAdd" value="1" name="sexgroup">
-                            <label class="form-check-label" for="maleradioAdd">Male</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="femaleradioAdd" value="0" name="sexgroup">
-                            <label class="form-check-label" for="femaleradioAdd">Female</label>
-                        </div>
-                    </div>
-                    <hr class="col-lg-8">
-                    <div class="form-group">
-                        <label style="margin-right: 20px;display: block !important;">AgeGroup</label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="ageGroup0Add" value="0"
-                                   name="agegroup">
-                            <label class="form-check-label" for="ageGroup0Add">7-8 year old</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="ageGroup1Add" value="1"
-                                   name="agegroup">
-                            <label class="form-check-label" for="ageGroup1Add">9-10 year old</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="ageGroup2Add" value="2"
-                                   name="agegroup">
-                            <label class="form-check-label" for="ageGroup2Add">11-12 year old</label>
-                        </div>
+                        <label for="userAdd">User</label>
+                        <input type="text" class="form-control" id="userAdd" placeholder="user" name="user">
                     </div>
                     <div class="form-group">
-                        <label for="placeAdd">Place</label><!--TODO 选择框 select-->
-                        <input type="text" class="form-control" id="placeAdd" placeholder="place to hold" name="place">
-                    </div>
-                    <div class="form-group">
-                        <label for="dateAdd">Date</label>
-                        <input type="date" class="form-control" id="dateAdd" name="date">
+                        <label for="passAdd">Password</label>
+                        <input type="text" class="form-control" id="passAdd" name="password">
                     </div>
                     <button type="submit" class="btn btn-lg btn-primary ">Submit</button>
                 </form>
@@ -195,7 +187,49 @@
     </div>
 </div>
 
-<!--删除比赛-->
+<!--修改队伍-->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-warning" id="editModalLabel">Update information</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body text-lg">
+                <form id="updateTeam" action="${pageContext.request.contextPath}/admin/team/update">
+                    <div class="form-group">
+                        <label for="nameUpdate">Name</label>
+                        <input type="text" class="form-control" id="nameUpdate" placeholder="team name" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="userUpdate">User</label>
+                        <input type="text" class="form-control" id="userUpdate" placeholder="user" name="user">
+                    </div>
+                    <div class="form-group">
+                        <label for="passUpdate">Password</label>
+                        <input type="text" class="form-control" id="passUpdate" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-primary ">Submit</button>
+
+                    <hr style="height: 10%;">
+                    <!--未更改表单的警告框-->
+                    <div class="alert alert-warning fade show" role="alert" id="uAlert" hidden="hidden">
+                        <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>You should change some form attributes before you update.</strong>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--删除队伍-->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -207,15 +241,31 @@
                 <span class="text-danger" id="confirmDelete"></span> you select.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-danger text-white" onclick="deleteComp(this)">Delete</a>
+                <a class="btn btn-danger text-white" onclick="deleteTeam(this)">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--设置队伍为主办方-->
+<div class="modal fade" id="hostModal" tabindex="-1" role="dialog" aria-labelledby="hostModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hostModalLabelTitle">Confirm</h5>
+            </div>
+            <div class="modal-body">Are you sure to set this team as the host team ?</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger" onclick="setHost()">Confirm</a>
             </div>
         </div>
     </div>
 </div>
 
 
-<script src="/sports/js/adminCompetition.js"></script>
-
+<script src="/sports/js/adminTeam.js"></script>
 </body>
 
 </html>

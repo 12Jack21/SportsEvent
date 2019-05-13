@@ -1,5 +1,7 @@
 package po;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +14,9 @@ public class Competition {
     private int agegroup;
 
     private String place;
-    private Timestamp date;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date date;
     private int isEnd;
 
     private List<Athlete> athletes;
@@ -83,11 +87,11 @@ public class Competition {
         this.place = place;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

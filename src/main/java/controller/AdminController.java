@@ -3,12 +3,12 @@ package controller;
 import MyUtil.MyConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import po.Coach;
 import po.Competition;
+import po.Team;
 import service.AdminService;
 import service.TeamService;
 import vo.CompetitionVO;
@@ -64,6 +64,48 @@ public class AdminController {
     @RequestMapping("/group/{compid}")
     public String adminGroup(@PathVariable int compid, ModelMap map){
 
-        return "adminGroup";
+        return "adminGroup";//TODO not done
     }
+
+    @RequestMapping("/team")
+    public String team(){
+        return "adminTeam";
+    }
+
+    @ResponseBody
+    @RequestMapping("/team/list")
+    public Object teamList(){
+        List<Team> teams = adminService.getAllTeams();
+        return teams;
+    }
+
+    @ResponseBody
+    @RequestMapping("/team/add")
+    public Object addTeam(Team team) {
+        boolean success = false;
+        success = adminService.addTeamAccount(team);
+        return success;
+    }
+
+    @ResponseBody
+    @Transactional
+    @RequestMapping("/team/delete")
+    public Object deleteTeam(@RequestParam(value = "data") int[] data) {
+        boolean success = true;
+        for (int i = 0; i < data.length; i++) {
+            success = adminService.deleteTeamAccount(data[i]);
+            if (success == false)
+                break;
+        }
+        return success;
+    }
+
+    @ResponseBody
+    @RequestMapping("/team/update")
+    public Object updateTeam(Team team) {
+        boolean success = false;
+        success = adminService.updateTeamAccount(team);
+        return success;
+    }
+
 }

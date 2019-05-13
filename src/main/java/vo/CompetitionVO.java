@@ -1,9 +1,11 @@
 package vo;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import po.Athlete;
 import po.Referee;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 public class CompetitionVO {
@@ -14,7 +16,9 @@ public class CompetitionVO {
     private String agegroup;
 
     private String place;
-    private Timestamp date;
+
+    private String date;
+
     private String isEnd;
 
     public CompetitionVO() {
@@ -68,11 +72,11 @@ public class CompetitionVO {
         this.place = place;
     }
 
-    public Timestamp getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

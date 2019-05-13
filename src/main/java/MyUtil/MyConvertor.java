@@ -13,7 +13,10 @@ public class MyConvertor {
         CompetitionVO c = new CompetitionVO();
         c.setId(competition.getId());
         c.setProject(competition.getProject());
-        c.setDate(competition.getDate());
+        if(competition.getDate() != null){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            c.setDate(sdf.format(competition.getDate()));
+        }
         c.setPlace(competition.getPlace());
 
         if(competition.getSexgroup() == 0)
