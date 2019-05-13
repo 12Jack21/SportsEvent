@@ -134,7 +134,7 @@
                             <!--面板-->
                             <div class="tab-pane fade in active borderAround2" id="initial">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-hover dataTableOfRef " id="iniTable">
+                                    <table class="table table-bordered table-hover dataTableOfRef " >
                                         <thead>
                                         <tr>
                                             <th hidden="hidden">id</th>
@@ -261,19 +261,22 @@
         var iniTotal = 0.0;
         var fiTotal = 0.0;
 
-        var child = $("#iniTable tbody tr td:nth-child(7)");
+        var ini = $("#initial tbody tr td:nth-child(7)");
+        var fi = $("#final tbody tr td:nth-child(7)");
 
-        for(let i=0; i<child.length;i++){
-            console.log($(child[i]).text());
+        console.log(ini);
+        for(let i=0; i<ini.length;i++){
+            console.log($(ini[i]).text());
+            iniTotal += parseFloat($(ini[i]).text());
         }
 
-        var inis = $("#iniTable tbody tr td:eq(6)");
-        console.log(inis);
-        // for(var i in $("#initial tbody tr:eq(6)") ){
-        //     iniTotal += i.val();
-        //     console.log($(i).val());
-        //     console.log($(i).text());
-        // }
+        for(let i=0; i<fi.length;i++){
+            console.log($(fi[i]).text());
+            fiTotal += parseFloat($(fi[i]).text());
+        }
+
+        $("#iniTotal").text("Initial total score: " + iniTotal);
+        $("#fiTotal").text("Final total score: " + fiTotal);
 
     })
 </script>

@@ -18,19 +18,7 @@ $(document).ready(function () {
             }
         }]
     });
-    $('#dataTableOfSign').DataTable({
-        "columnDefs": [{
-            // 定义操作列,######以下是重点########
-            "targets": 5,//操作按钮目标列
-            "data": null,
-            "render": function (data, type, row) {
-                var id = '"' + row.id + '"';
-                var html = "<a href='javascript:void(0);' class='delete btn btn-default btn-xs' data-toggle='modal' data-target='#signModal'>" +
-                    "<i class='fa fa-file-alt'></i> 报名</a>";
-                return html;
-            }
-        }]
-    });
+
 
     $('#dataTableNormalRef').DataTable({
         "columnDefs": [{

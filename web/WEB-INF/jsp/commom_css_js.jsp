@@ -22,7 +22,6 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SignUp</title>
 
 <!-- Custom fonts for this template-->
 <link href="<%=prefix%>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

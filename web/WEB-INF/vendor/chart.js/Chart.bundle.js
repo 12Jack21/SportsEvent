@@ -12635,14 +12635,14 @@ function arrayUnique(items) {
  * a decimal between 0 and 1: 0 being the start of the scale (left or top) and 1 the other
  * extremity (left + width or top + height). Note that it would be more optimized to directly
  * store pre-computed pixels, but the scale dimensions are not guaranteed at the time we need
- * to create the lookup table. The table ALWAYS contains at least two items: min and max.
+ * to create the lookup compTable. The compTable ALWAYS contains at least two items: min and max.
  *
  * @param {number[]} timestamps - timestamps sorted from lowest to highest.
  * @param {string} distribution - If 'linear', timestamps will be spread linearly along the min
- * and max range, so basically, the table will contains only two items: {min, 0} and {max, 1}.
+ * and max range, so basically, the compTable will contains only two items: {min, 0} and {max, 1}.
  * If 'series', timestamps will be positioned at the same distance from each other. In this
  * case, only timestamps that break the time linearity are registered, meaning that in the
- * best case, all timestamps are linear, the table contains only min and max.
+ * best case, all timestamps are linear, the compTable contains only min and max.
  */
 function buildLookupTable(timestamps, min, max, distribution) {
 	if (distribution === 'linear' || !timestamps.length) {
@@ -12691,7 +12691,7 @@ function lookup(table, key, value) {
 		i1 = table[mid];
 
 		if (!i0) {
-			// given value is outside table (before first item)
+			// given value is outside compTable (before first item)
 			return {lo: null, hi: i1};
 		} else if (i1[key] < value) {
 			lo = mid + 1;
@@ -12702,20 +12702,20 @@ function lookup(table, key, value) {
 		}
 	}
 
-	// given value is outside table (after last item)
+	// given value is outside compTable (after last item)
 	return {lo: i1, hi: null};
 }
 
 /**
- * Linearly interpolates the given source `value` using the table items `skey` values and
- * returns the associated `tkey` value. For example, interpolate(table, 'time', 42, 'pos')
+ * Linearly interpolates the given source `value` using the compTable items `skey` values and
+ * returns the associated `tkey` value. For example, interpolate(compTable, 'time', 42, 'pos')
  * returns the position for a timestamp equal to 42. If value is out of bounds, values at
  * index [0, 1] or [n - 1, n] are used for the interpolation.
  */
 function interpolate$1(table, skey, sval, tkey) {
 	var range = lookup(table, skey, sval);
 
-	// Note: the lookup table ALWAYS contains at least 2 items (min and max)
+	// Note: the lookup compTable ALWAYS contains at least 2 items (min and max)
 	var prev = !range.lo ? table[0] : !range.hi ? table[table.length - 2] : range.lo;
 	var next = !range.lo ? table[1] : !range.hi ? table[table.length - 1] : range.hi;
 
@@ -13109,7 +13109,7 @@ var scale_time = core_scale.extend({
 		min = min === MAX_INTEGER ? +adapter.startOf(Date.now(), unit) : min;
 		max = max === MIN_INTEGER ? +adapter.endOf(Date.now(), unit) + 1 : max;
 
-		// Make sure that max is strictly higher than min (required by the lookup table)
+		// Make sure that max is strictly higher than min (required by the lookup compTable)
 		me.min = Math.min(min, max);
 		me.max = Math.max(min + 1, max);
 

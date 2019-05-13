@@ -17,7 +17,10 @@ public interface TeamService {
     Athlete getAthlete(int athid);
 
     //根据年龄组获取运动员
-    List<Athlete> getAthletesByAgegGroup(int ageGroup,int teamid);
+    List<Athlete> getAthletesByAgeGroup(int ageGroup, int teamid);
+
+    //根据年龄组和性别组获取运动员
+    List<Athlete> getAthletesByGroup(int ageGroup, int sexGroup,int teamid);
 
     //添加运动员
     boolean addAthlete(Athlete athlete);
@@ -70,6 +73,9 @@ public interface TeamService {
 
     //设置报名完成
     boolean setSignUpFinish(int teamid);
+
+    //查询某比赛是否以报名
+    boolean ifSignUpForComp(int teamid,int compid);
 
     //查询所有队伍中的运动员
     List<Athlete> getTeamAthletes(int teamid);
