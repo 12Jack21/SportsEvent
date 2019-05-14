@@ -7,7 +7,7 @@
 
 <!--    加上id 属性以区分 裁判类型相同的给分记录-->
     <resultMap id="CompJudges" type="po.Judge">
-        <id property="id" column="id"/>
+        <id property="id" column="j_id"/>
         <result property="groupno" column="groupno"/>
         <result property="reftype" column="reftype"/>
         <association property="competition" javaType="po.Competition">
@@ -31,6 +31,10 @@
             <result property="name" column="name"/>
             <result property="refID" column="refID"/>
             <result property="phone" column="phone"/>
+            <association property="team" javaType="po.Team">
+                <id property="id" column="id"/>
+                <result property="name" column="teamName"/>
+            </association>
         </association>
     </resultMap>
 
@@ -44,18 +48,29 @@
     </select>
 
     <select id="getJudgesByComp" resultMap="RefJudges" parameterType="int">
-        SELECT r.*,j.groupno,j.reftype
+        SELECT r.*,j.groupno,j.reftype,t.name teamName
         FROM judge j 
         LEFT JOIN referee r
         ON j.ref_id=r.id
+        LEFT JOIN team t
+        ON r.teamid = t.id
         WHERE j.comp_id=#{compid}
+    </select>
+
+    <select id="getJudgeByRefComp" parameterType="int" resultMap="CompJudges">
+        SELECT c.* ,j.id j_id,j.groupno,j.reftype
+        FROM judge j
+        LEFT JOIN competition c
+        ON j.comp_id=c.id
+        WHERE ref_id=#{param2}
+        AND c.id=#{param1}
     </select>
 
     <select id="getReftype" resultType="int" parameterType="int">
         SELECT j.reftype FROM judge WHERE ref_id=#{param1} AND comp_id=#{param2}
     </select>
 
-    <select id="getMaxRefGroupNoOfComp" parameterType="int" resultType="int">
+    <select id="getMaxRefGroupNoOfComp" parameterType="int" resultType="integer">
         SELECT MAX(groupno)
         FROM judge j
         WHERE j.comp_id = #{compid}

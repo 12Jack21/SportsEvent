@@ -96,13 +96,26 @@ public class AdminServiceImp implements AdminService {
     }
 
     @Override
-    public int getMaxAthGroupOfComp(int compid) {
-        return participateDAO.getMaxAthGroupNoOfComp(compid);
+    public List<Referee> getUnGroupRef(int compid) {
+        return refereeDAO.getUnGroupRef(compid);
     }
 
     @Override
-    public int getMaxRefGroupOfComp(int compid) {
-        return judgeDAO.getMaxRefGroupNoOfComp(compid);
+    public Integer getMaxAthGroupOfComp(int compid) {
+        Integer no = participateDAO.getMaxAthGroupNoOfComp(compid);
+        if (no == null)
+            return 1;
+        else
+            return no + 1;
+    }
+
+    @Override
+    public Integer getMaxRefGroupOfComp(int compid) {
+        Integer no = judgeDAO.getMaxRefGroupNoOfComp(compid);
+        if (no == null)
+            return 1;
+        else
+            return no + 1;
     }
 
 

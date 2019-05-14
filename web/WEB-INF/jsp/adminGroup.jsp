@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Johnson
@@ -56,19 +57,19 @@
                                 </div>
                                 <div class="col-lg-3 offset-md-1 offset-lg-0">
                                     <div>
-                                        <span class="text-lg float-left">Project: </span>
+                                        <span class="text-lg float-left">Project: &nbsp;</span>
                                         <p class="text-lg " style="margin-left: 22%">
                                             ${competition.project}
                                         </p>
                                     </div>
                                     <div>
-                                        <span class="text-lg float-left">SexGroup: </span>
+                                        <span class="text-lg float-left">SexGroup: &nbsp;</span>
                                         <p class="text-lg " style="margin-left: 22%">
                                             ${competition.sexgroup}
                                         </p>
                                     </div>
                                     <div>
-                                        <span class="text-lg float-left">AgeGroup: </span>
+                                        <span class="text-lg float-left">AgeGroup: &nbsp;</span>
                                         <p class="text-lg " style="margin-left: 22%">
                                             ${competition.agegroup}
                                         </p>
@@ -76,15 +77,21 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div>
-                                        <span class="text-lg float-left">Place: </span>
+                                        <span class="text-lg float-left">Place: &nbsp;</span>
                                         <p class="text-lg " style="margin-left: 22%">
-                                            ${competition.place}
+                                            <c:choose><c:when
+                                                    test="${competition.place == null}">未定</c:when>
+                                                <c:otherwise>${competition.place}</c:otherwise>
+                                            </c:choose>
                                         </p>
                                     </div>
                                     <div>
-                                        <span class="text-lg float-left">Date: </span>
+                                        <span class="text-lg float-left">Date: &nbsp;</span>
                                         <p class="text-lg " style="margin-left: 22%">
-                                            ${competition.date}
+                                            <c:choose><c:when
+                                                    test="${competition.date == null}">未定</c:when>
+                                                <c:otherwise>${competition.date}</c:otherwise>
+                                            </c:choose>
                                         </p>
                                     </div>
                                 </div>
@@ -120,9 +127,9 @@
                             <div class="card-header">
 
                                 <div class="row">
-                                    <div class="col-lg-4 position-relative">
+                                    <div class="col-lg-2 position-relative">
                                         <h3 class="font-weight-bold text-primary" style="position: absolute;top: 26%;">
-                                            Athlete Participation
+                                            Athlete
                                         </h3>
                                     </div>
                                     <div class="col-lg-4">
@@ -140,14 +147,14 @@
                                     </div>
                                 </div>
 
-
                             </div>
                             <!-- Group Athlete -->
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-hover dataTableDefault" id="groupAthTable">
+                                    <table class="table table-bordered table-hover dataTableDefault display" id="groupAthTable" width="100%">
                                         <thead>
                                         <tr>
+                                            <th>athid</th>
                                             <th>GroupNo</th>
                                             <th>Name</th>
                                             <th>Age</th>
@@ -155,15 +162,6 @@
                                             <th>Team</th>
                                         </tr>
                                         </thead>
-                                        <tfoot>
-                                        <tr>
-                                            <th>GroupNo</th>
-                                            <th>Name</th>
-                                            <th>Age</th>
-                                            <th>No</th>
-                                            <th>Team</th>
-                                        </tr>
-                                        </tfoot>
                                         <tbody>
                                         </tbody>
                                     </table>
@@ -200,21 +198,15 @@
                             <!-- Card Content - Collapse -->
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-hover dataTableDefault" id="groupRefTable">
+                                    <table class="table table-bordered table-hover dataTableDefault display" id="groupRefTable" width="100%">
                                         <thead>
                                         <tr>
+                                            <th>refid</th>
                                             <th>GroupNo</th>
                                             <th>Name</th>
                                             <th>Type</th>
                                         </tr>
                                         </thead>
-                                        <tfoot>
-                                        <tr>
-                                            <th>GroupNo</th>
-                                            <th>Name</th>
-                                            <th>Type</th>
-                                        </tr>
-                                        </tfoot>
                                         <tbody>
                                         </tbody>
                                     </table>
@@ -229,6 +221,7 @@
 
             </div>
             <!-- End of Content Wrapper -->
+            <div id="comp_id" hidden="hidden">${competition.id}</div>
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -279,15 +272,15 @@
                         </button>
                     </div>
                     <div class="modal-body text-lg">
-                        <p class="text-gray-700">当前组别： &nbsp;<span class="text-primary" id="groupNoSpan">${maxGroup + 1}</span></p>
+                        <p class="text-gray-700">当前组别： &nbsp;<span class="text-primary" id="groupNoSpan">${maxGroupNo}</span></p>
                         <p class="text-primary">Please select 8 person to set a group.</p>
                         <form>
                             <div class="table-responsive">
-                                <table class="table table-bordered table-hover dataTableOfSign"
-                                       id="athDataTableOfGroup">
+                                <table class="table table-bordered table-hover dataTableOfSign display"
+                                       id="athDataTableOfGroup" width="100%">
                                     <thead>
                                     <tr>
-                                        <th>id</th>
+                                        <th>ath_id</th>
                                         <th>Name</th>
                                         <th>No</th>
                                         <th>Team</th>
@@ -297,7 +290,14 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <button type="submit" class="btn btn-lg btn-primary ">Confirm</button>
+                            <button type="button" class="btn btn-lg btn-primary " id="athGroupConfirm">Confirm</button>
+                            <!--select警告框-->
+                            <div class="alert alert-warning fade show" role="alert" id="selectAlertAth" hidden="hidden">
+                                <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <strong>You should select 8 athletes to be a group if there are more than 8 athletes left.</strong>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -318,10 +318,10 @@
                     <div class="modal-body text-lg">
                         <div class="row">
                             <div class="col-lg-6">
-                                <p class="text-primary">Select the major referee of this group.</p>
+                                <p class="text-primary">One major referee</p>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-hover dataTableOfSign"
-                                           id="majorRefDataTableOfGroup">
+                                    <table class="table table-bordered table-hover dataTableOfSign display"
+                                           id="majorRefDataTableOfGroup" width="100%">
                                         <thead>
                                         <tr>
                                             <th>id</th>
@@ -336,10 +336,10 @@
 
                             </div>
                             <div class="col-lg-6">
-                                <p class="text-primary">Select several normal referees of this group.</p>
+                                <p class="text-primary">Several normal referees</p>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-hover dataTableOfSign"
-                                           id="normalRefDataTableOfGroup">
+                                    <table class="table table-bordered table-hover dataTableOfSign display"
+                                           id="normalRefDataTableOfGroup" width="100%">
                                         <thead>
                                         <tr>
                                             <th>id</th>
@@ -353,7 +353,14 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-lg btn-primary ">Submit</button>
+                        <button type="button" class="btn btn-lg btn-primary " id="refGroupConfirm">Submit</button>
+                        <!--select警告框-->
+                        <div class="alert alert-warning fade show" role="alert" id="selectAlertRef" hidden="hidden">
+                            <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>You should select a major referee and several referees, a referee cannot selected in two side.</strong>
+                        </div>
                     </div>
                 </div>
             </div>

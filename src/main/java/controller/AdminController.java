@@ -64,7 +64,9 @@ public class AdminController {
         Competition competition = teamService.getCompetition(compid);
         CompetitionVO cVO = MyConvertor.convertComp(competition);
 
+        Integer groupNo = adminService.getMaxAthGroupOfComp(compid);
         map.put("competition",cVO);
+        map.put("maxGroupNo",groupNo + 1);
         return "adminGroup";
     }
 
@@ -109,26 +111,22 @@ public class AdminController {
         return parVO;
     }
 
+    //找到未分组的裁判，对于 major和normal都是相同的
     @ResponseBody
     @RequestMapping("/group/{compid}/ref/group")
     public Object refGroup(@PathVariable int compid){
-        List<Judge> judges = teamService.getJudgeByComp(compid);
-        List<Judge> judVO = new ArrayList<>();
-        //找到已分组的
-        for(Judge j : judges){
-            if(j.getGroupno() == 0)
-                judVO.add(j);
-        }
-        return judVO;
+        List<Referee> referees = adminService.getUnGroupRef(compid);
+        return referees;
     }
+
 
     @Transactional
     @ResponseBody
-    @RequestMapping("/group/{compid}/ath/group/add")
+    @RequestMapping("/group/{compid}/addAthGroup")
     public Object addAthGroup(@PathVariable int compid,@RequestParam("data")int[] athIds){
         boolean s = false;
         //最大组号加一
-        int groupNo = adminService.getMaxAthGroupOfComp(compid) + 1;
+        Integer groupNo = adminService.getMaxAthGroupOfComp(compid);
         for(int i=0;i<athIds.length;i++){
             s = adminService.setAthGroupNo(athIds[i],compid,groupNo);
         }
@@ -137,19 +135,19 @@ public class AdminController {
 
     @Transactional
     @ResponseBody
-    @RequestMapping("/group/{compid}/ref/group/add")
-    public Object addNormalRefGroup(@PathVariable int compid,@RequestParam("normal")int[] norIds,@RequestParam("major")int majorId){
+    @RequestMapping("/group/{compid}/addRefGroup")
+    public Object addRefGroup(@PathVariable int compid,@RequestParam("normal")int[] norIds,@RequestParam("major")int majorId){
         boolean s = false;
         Judge judge = null;
-        int refType = 1; //normal referee type symbol
+        int refType = 0;  //normal referee type symbol
         //最大组号加一
-        int groupNo = adminService.getMaxRefGroupOfComp(compid) + 1;
+        Integer groupNo = adminService.getMaxRefGroupOfComp(compid);
         for(int i = 0; i< norIds.length; i++){
             judge = new Judge(new Referee(norIds[i]),new Competition(compid),groupNo,refType);
             s = adminService.setRefereeInComp(judge);
         }
         //设置主裁判
-        refType = 2;
+        refType = 1;
         judge = new Judge(new Referee(majorId),new Competition(compid),groupNo,refType);
         s = adminService.setRefereeInComp(judge);
 

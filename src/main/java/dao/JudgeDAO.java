@@ -12,9 +12,11 @@ public interface JudgeDAO {
 
     List<Judge> getJudgesByComp(int compid);
 
+    Judge getJudgeByRefComp(int compid,int refid);
+
     int getReftype(int refid,int compid);
 
-    int getMaxRefGroupNoOfComp(int compid);
+    Integer getMaxRefGroupNoOfComp(int compid);
 
     boolean addJudge(Judge judge);
 

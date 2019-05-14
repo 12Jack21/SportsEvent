@@ -66,4 +66,15 @@ public class JudgeTest extends BaseTest {
         judge.setId(2);
         assertTrue(judgeDAO.updateJudge(judge));
     }
+
+    @Test
+    public void getMaxGroupNo(){
+        Integer max = judgeDAO.getMaxRefGroupNoOfComp(2);
+        if(max == null)
+            max = 1;
+        else
+            max += 1;
+
+        assertTrue(max == 1);
+    }
 }

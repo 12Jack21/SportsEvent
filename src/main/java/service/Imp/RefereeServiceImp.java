@@ -49,6 +49,11 @@ public class RefereeServiceImp implements RefereeService {
     }
 
     @Override
+    public Judge getJudgeByRefComp(int compid, int refid) {
+        return judgeDAO.getJudgeByRefComp(compid, refid);
+    }
+
+    @Override
     public boolean addScore(Judge judge, int athid, double score) {
         TempScore t = new TempScore(athid,score,judge);
         return tempScoreDAO.addTempScore(t);

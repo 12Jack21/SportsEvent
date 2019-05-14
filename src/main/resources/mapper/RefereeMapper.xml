@@ -11,7 +11,7 @@
         <result property="phone" column="phone"/>
         <result property="user" column="user"/>
         <association property="team" javaType="po.Team">
-            <id property="id" column="id"/>
+            <id property="id" column="teamid"/>
             <result property="name" column="t_name"/>
         </association>
     </resultMap>
@@ -32,6 +32,19 @@
         SELECT * FROM referee WHERE id = #{refid}
     </select>
 
+    <select id="getUnGroupRef" parameterType="int" resultMap="RefereeInf">
+        SELECT r.id,r.`name` ,r.teamid,t.`name` t_name
+        FROM referee r
+        LEFT JOIN team t
+        ON r.teamid=t.id
+        WHERE r.id
+        NOT IN
+        (
+            SELECT ref_id
+            FROM judge
+            WHERE comp_id = #{compid}
+        )
+    </select>
 <!--    <select id="getCompReferees" resultType="po.Referee" parameterType="int">-->
 <!--        SELECT * FROM referee WHERE compid = #{teamid}-->
 <!--    </select>-->

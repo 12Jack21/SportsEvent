@@ -8,7 +8,7 @@ $(document).ready(function () {
         "searching": true,
         "responsive": true,
         "ajax": {
-            url: "competition/list", //TODO 需要改成 session
+            url: "competition/list",
             dataSrc: ""
         },
         "columns": [

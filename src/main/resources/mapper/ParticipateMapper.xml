@@ -100,7 +100,7 @@
         HAVING a.teamid = #{param2}
     </select>
 
-    <select id="getMaxAthGroupNoOfComp" parameterType="int" resultType="int">
+    <select id="getMaxAthGroupNoOfComp" parameterType="int" resultType="integer">
         SELECT MAX(groupno)
         FROM participate p
         WHERE p.comp_id = #{compid}
