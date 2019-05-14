@@ -55,6 +55,12 @@
         SELECT j.reftype FROM judge WHERE ref_id=#{param1} AND comp_id=#{param2}
     </select>
 
+    <select id="getMaxRefGroupNoOfComp" parameterType="int" resultType="int">
+        SELECT MAX(groupno)
+        FROM judge j
+        WHERE j.comp_id = #{compid}
+    </select>
+
     <insert id="addJudge" parameterType="po.Judge" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO judge (comp_id,ref_id,groupno,reftype)
         VALUES (#{competition.id},#{referee.id},#{groupno},#{reftype})

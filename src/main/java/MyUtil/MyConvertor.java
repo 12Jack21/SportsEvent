@@ -1,13 +1,25 @@
 package MyUtil;
 
+import org.springframework.beans.BeanUtils;
 import po.Competition;
+import po.Referee;
 import vo.CompetitionVO;
+import vo.RefereeVO;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MyConvertor {
+
+    public static RefereeVO convertRef(Referee referee){
+        RefereeVO rVO = new RefereeVO();
+        BeanUtils.copyProperties(referee,rVO);
+
+        rVO.setTeam(referee.getTeam().getName());
+
+        return rVO;
+    }
 
     public static CompetitionVO convertComp(Competition competition){
         CompetitionVO c = new CompetitionVO();

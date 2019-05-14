@@ -102,13 +102,13 @@
             <div class="myOperate myAdd" data-toggle="modal" data-target="#addModal" >
                 <i class="fa fa-plus" style="margin-top: 10%;"></i>
             </div>
-            <div class="myOperate myUpdate " data-toggle="modal" onclick="updateBtn()">
+            <div class="myOperate myUpdate  " data-toggle="modal" onclick="updateBtn()">
                 <i class="fa fa-wrench" style="margin-top: 10%;"></i>
             </div>
             <div class="myOperate myDelete" data-toggle="modal"  id="deleteBtn">
                 <i class="fa fa-trash" style="margin-top: 10%;"></i>
             </div>
-            <div class="myOperate myHost" data-toggle="modal" data-target="#hostModal">
+            <div class="myOperate myHost" data-toggle="modal" onclick="setHost()">
                 <i class="fa fa-pen-alt" style="margin-top: 10%;"></i>
             </div>
         </div>

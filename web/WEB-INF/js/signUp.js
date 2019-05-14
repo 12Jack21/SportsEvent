@@ -1,5 +1,5 @@
 var compTable = null;
-var signTable = null;
+var athGroupTable = null;
 var comp_id = null; //报名的比赛 id
 $(document).ready(function () {//TODO 不行就返回jsp
 
@@ -67,7 +67,7 @@ function hideAlert(ele) {
 $("#signUpSub").click(function (e) {
     e.preventDefault();
     var select = $("#selectAlert");
-    var sLength = signTable.rows(".selected")[0].length;
+    var sLength = athGroupTable.rows(".selected")[0].length;
 
     if(sLength < 5){
         select.removeClass("alert-danger").removeClass("alert-success").addClass("alert-warning");
@@ -75,7 +75,7 @@ $("#signUpSub").click(function (e) {
         alertReport(select);
     }
     else if (sLength == 5){
-        var selection = signTable.rows(".selected").data();
+        var selection = athGroupTable.rows(".selected").data();
         console.log(selection);
         var addAthIds = [];
         for (var i = 0; i < selection.length; i++) {
@@ -120,8 +120,8 @@ $("#signUpSub").click(function (e) {
 function sign(compid) {
     var url = "/sports/team/sign/" + compid;
     comp_id = compid;
-    if(signTable == null){
-        signTable = $('#athDataTableOfSign').DataTable({
+    if(athGroupTable == null){
+        athGroupTable = $('#athDataTableOfSign').DataTable({
             "select": true, //开启选择
             "searching": false,
             "paging":false,
@@ -153,7 +153,7 @@ function sign(compid) {
             }]
         });
     }else
-        signTable.ajax.url(url).load();
+        athGroupTable.ajax.url(url).load();
 
     $("#signModal").modal("show");
 

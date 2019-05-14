@@ -26,6 +26,14 @@ $(document).ready(function () {
             "searchable":false,
             "visible":false
         },{
+            "targets":1,
+            //TODO 根据 isHost 设置不同颜色
+            "createdCell": function (td, cellData, rowData, row, col) {
+                if (cellData == "1") {
+                    $(td).addClass('host');
+                }
+            }
+        },{
             //对 password 关闭搜索功能
             "targets":3,
             "searchable":false
@@ -34,14 +42,14 @@ $(document).ready(function () {
             "targets":5,
             "searchable":false,
             "visible":false,
-            "className":function (data, row, type) {
-                if(data.isHost == 1)
-                    return "host";
-                else
-                    return "";
-            }
-        }]
 
+            // "className":function (data, row, type) {
+            //     if(data.isHost == 1)
+            //         return "host";
+            //     else
+            //         return "";
+            // }
+        },]
     });
 
     $('#teamTable tbody').on( 'click', 'tr', function () {
@@ -85,7 +93,8 @@ $("#addTeam").submit(function (event) {
         data: $form.serialize(),
         success: function (result) {
             console.log(result, status);//打印服务端返回的数据(调试用)
-            console.log(result);
+            console.log("form data flow: ");
+            console.log($form.serialize());
 
             add.children("strong").text("Add team success !!!");
             add.removeClass("alert-danger").addClass("alert-success");

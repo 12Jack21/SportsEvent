@@ -100,6 +100,13 @@
         HAVING a.teamid = #{param2}
     </select>
 
+    <select id="getMaxAthGroupNoOfComp" parameterType="int" resultType="int">
+        SELECT MAX(groupno)
+        FROM participate p
+        WHERE p.comp_id = #{compid}
+    </select>
+
+
     <insert id="addParticipate" parameterType="po.Participate">
         INSERT INTO participate (ath_id,comp_id)
         VALUES (#{param1},#{param2})

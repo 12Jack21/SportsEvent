@@ -55,6 +55,10 @@ public interface AdminService {
 
     boolean deleteCompetition(int compid);
 
+    int getMaxAthGroupOfComp(int compid);
+
+    int getMaxRefGroupOfComp(int compid);
+
     //设置分组并生成赛事表(对运动员)
     boolean setAthGroupNo(int athid,int compid,int groupno);
 

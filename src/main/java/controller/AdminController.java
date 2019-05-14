@@ -6,9 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import po.Coach;
-import po.Competition;
-import po.Team;
+import po.*;
 import service.AdminService;
 import service.TeamService;
 import vo.CompetitionVO;
@@ -63,8 +61,99 @@ public class AdminController {
 
     @RequestMapping("/group/{compid}")
     public String adminGroup(@PathVariable int compid, ModelMap map){
+        Competition competition = teamService.getCompetition(compid);
+        CompetitionVO cVO = MyConvertor.convertComp(competition);
 
-        return "adminGroup";//TODO not done
+        map.put("competition",cVO);
+        return "adminGroup";
+    }
+
+    @ResponseBody
+    @RequestMapping("/group/{compid}/ath")
+    public Object athList(@PathVariable int compid){
+        List<Participate> pars = teamService.getParticipateByComp(compid);
+        List<Participate> parVO = new ArrayList<>();
+        //找到已分组的
+        for(Participate p : pars){
+            if(p.getGroupno() != 0)
+                parVO.add(p);
+        }
+
+        return parVO;
+    }
+
+    @ResponseBody
+    @RequestMapping("/group/{compid}/ref")
+    public Object refList(@PathVariable int compid){
+        List<Judge> judges = teamService.getJudgeByComp(compid);
+        List<Judge> judVO = new ArrayList<>();
+        //找到已分组的
+        for(Judge j : judges){
+            if(j.getGroupno() != 0)
+                judVO.add(j);
+        }
+        return judVO;
+    }
+
+    @ResponseBody
+    @RequestMapping("/group/{compid}/ath/group")
+    public Object athGroup(@PathVariable int compid){
+        List<Participate> pars = teamService.getParticipateByComp(compid);
+        List<Participate> parVO = new ArrayList<>();
+        //找到未分组的
+        for(Participate p : pars){
+            if(p.getGroupno() == 0)
+                parVO.add(p);
+        }
+
+        return parVO;
+    }
+
+    @ResponseBody
+    @RequestMapping("/group/{compid}/ref/group")
+    public Object refGroup(@PathVariable int compid){
+        List<Judge> judges = teamService.getJudgeByComp(compid);
+        List<Judge> judVO = new ArrayList<>();
+        //找到已分组的
+        for(Judge j : judges){
+            if(j.getGroupno() == 0)
+                judVO.add(j);
+        }
+        return judVO;
+    }
+
+    @Transactional
+    @ResponseBody
+    @RequestMapping("/group/{compid}/ath/group/add")
+    public Object addAthGroup(@PathVariable int compid,@RequestParam("data")int[] athIds){
+        boolean s = false;
+        //最大组号加一
+        int groupNo = adminService.getMaxAthGroupOfComp(compid) + 1;
+        for(int i=0;i<athIds.length;i++){
+            s = adminService.setAthGroupNo(athIds[i],compid,groupNo);
+        }
+        return s;
+    }
+
+    @Transactional
+    @ResponseBody
+    @RequestMapping("/group/{compid}/ref/group/add")
+    public Object addNormalRefGroup(@PathVariable int compid,@RequestParam("normal")int[] norIds,@RequestParam("major")int majorId){
+        boolean s = false;
+        Judge judge = null;
+        int refType = 1; //normal referee type symbol
+        //最大组号加一
+        int groupNo = adminService.getMaxRefGroupOfComp(compid) + 1;
+        for(int i = 0; i< norIds.length; i++){
+            judge = new Judge(new Referee(norIds[i]),new Competition(compid),groupNo,refType);
+            s = adminService.setRefereeInComp(judge);
+        }
+        //设置主裁判
+        refType = 2;
+        judge = new Judge(new Referee(majorId),new Competition(compid),groupNo,refType);
+        s = adminService.setRefereeInComp(judge);
+
+        return s;
     }
 
     @RequestMapping("/team")
@@ -107,5 +196,30 @@ public class AdminController {
         success = adminService.updateTeamAccount(team);
         return success;
     }
+
+    @RequestMapping("/referee")
+    public String refereePage(){
+        return "adminReferee";
+    }
+
+    @ResponseBody
+    @RequestMapping("/referee/list")
+    public Object refereeList(){
+        List<Referee> referees = adminService.getAllReferees();
+//        List<RefereeVO> rVO = new ArrayList<>();
+//        for(Referee r:referees){
+//            rVO.add(MyConvertor.convertRef(r));
+//        }
+//        return  rVO;
+        return referees;
+    }
+
+    @ResponseBody
+    @RequestMapping("/referee/update")
+    public Object updateRefereeUser(@RequestParam("id")int id,@RequestParam("user")String user){
+        return adminService.addRefereeAccount(id,user); //TODO 类似这样重新优化代码
+    }
+
+
 
 }

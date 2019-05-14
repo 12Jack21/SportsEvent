@@ -9,6 +9,7 @@
         <result property="name" column="name"/>
         <result property="refID" column="refID"/>
         <result property="phone" column="phone"/>
+        <result property="user" column="user"/>
         <association property="team" javaType="po.Team">
             <id property="id" column="id"/>
             <result property="name" column="t_name"/>

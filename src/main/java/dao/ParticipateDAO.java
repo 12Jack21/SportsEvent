@@ -24,6 +24,8 @@ public interface ParticipateDAO {
 
     Double getCompTotalScoreByTeam(int compid,int teamid);//这里应只取前四名的成绩来计算，所以用getCompScoreByTeam更好
 
+    int getMaxAthGroupNoOfComp(int compid);
+
     boolean addParticipate(int athid,int compid);
 
     boolean deleteParticipate(int athid,int compid);

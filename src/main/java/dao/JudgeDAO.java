@@ -14,6 +14,8 @@ public interface JudgeDAO {
 
     int getReftype(int refid,int compid);
 
+    int getMaxRefGroupNoOfComp(int compid);
+
     boolean addJudge(Judge judge);
 
     boolean deleteJudge(int judgeid);
