@@ -22,7 +22,6 @@ public interface TempScoreDAO {
 
     List<TempScore> getAthTempScores(int athid,int compid);
 
-
     List<TempScore> getAthValidScores(int athid,int compid);
 
     Double getAthResultScore(int athid,int compid);

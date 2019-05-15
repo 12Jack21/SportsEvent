@@ -110,9 +110,8 @@ public class RefereeServiceImp implements RefereeService {
     }
 
     @Override
-    public Double figureResultScore(int athid, int compid,Double otherScore) {
-        Double avgScore = tempScoreDAO.getAthResultScore(athid, compid);
-        return avgScore + otherScore;
+    public boolean figureResultScore(int athid, int compid,Double score) {
+        return participateDAO.updateScore(athid,compid,score);
     }
 
     @Override

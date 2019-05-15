@@ -52,7 +52,7 @@
     </select>
 
     <select id="getNewestScoreOfRef" parameterType="int" resultType="po.TempScore">
-        SELECT id,score
+        SELECT id,score,isValid
         FROM tempscore
         WHERE id=
               (SELECT MAX(t.id)
@@ -129,7 +129,7 @@
 
     <update id="updateTempScore" parameterType="int">
         UPDATE tempscore
-        SET valid = #{param2}
+        SET isValid = #{param2}
         WHERE id = #{param1}
     </update>
 </mapper>

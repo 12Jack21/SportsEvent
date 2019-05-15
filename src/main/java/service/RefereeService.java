@@ -55,7 +55,7 @@ public interface RefereeService {
     List<TempScore> getAthleteTempScores(int athid,int compid);
 
     //计算并设置个人最终单项成绩（主）
-    Double figureResultScore(int athid,int compid,Double otherScore);
+    boolean figureResultScore(int athid,int compid,Double score);
 
     //得到某项比赛的 单项排名表
     List<Participate> getAthleteRank(int compid);

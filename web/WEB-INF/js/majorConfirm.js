@@ -4,9 +4,10 @@ var compid = null; //比赛 id
 var athid = null;
 
 $(document).ready(function () {
-    athid = parseInt($("#athid").val().trim());
+    athid = parseInt($("#athid").text().trim());
     compid = parseInt($("#compid").text().trim());
-
+    console.log(athid);
+    console.log(compid);
     var url = "/sports/referee/majorConfirm/refList";
     table = $("#dataTableMajorConfirm").DataTable({
         "select": false, //开启选择
@@ -142,8 +143,11 @@ function accept(tempId,isValid){
                 alertReport(scoreAlert);
             }
         })
-    }else
+    }else{
+        scoreAlert.children("strong").text("Accept operation should execute if the state is unchecked !!!");
+        scoreAlert.addClass("alert-danger").removeClass("alert-success");
         alertReport(scoreAlert);
+    }
 
 }
 function reject(tempId,isValid){
@@ -174,8 +178,11 @@ function reject(tempId,isValid){
                 alertReport(scoreAlert);
             }
         })
-    }else
+    }else{
+        scoreAlert.children("strong").text("Reject operation should execute if the state is unchecked !!!");
+        scoreAlert.addClass("alert-danger").removeClass("alert-success");
         alertReport(scoreAlert);
+    }
 
 }
 
@@ -201,6 +208,7 @@ function setFinalScore() {
         }
         //设置平均成绩
         $("#averageScoreLabel").text(total/(scoreDatas.length));
+        $("#finalScoreLabel").text(total/(scoreDatas.length));
 
         $("#figureModal").modal("show");
     }else {
@@ -221,14 +229,16 @@ function changePoint() {
 
 }
 
+//最终成绩提交
 function figureOut() {
-    var finalScore = parseFloat($("#figureModalLabel").text());
+    var finalScore = parseFloat($("#finalScoreLabel").text());
+    console.log("final score:...");
+    console.log(finalScore);
     var url = "/sports/referee/majorConfirm/setScore";
 
     $.ajax({
         type: "POST",//方法类型
         dataType: "json",//预期服务器返回的数据类型
-        contentType: "double",
         data: {
             compid: compid,
             athid: athid,
@@ -264,14 +274,16 @@ function getFinalScore() {
         traditional: true,////这里设置为true,使传递参数变成 data:1
         url: url,
         success: function (result) {
-            console.log("final score: ...");
+            console.log("Final score: \n");
             console.log(result);//打印服务端返回的数据(调试用)
 
             scoreAlert.children("strong").text("Refresh final score success !!!");
             scoreAlert.removeClass("alert-danger").addClass("alert-success");
             $("#finalScore").text(result);
         },
-        error: function () {
+        error: function (result) {
+            console.log("Error when refresh,result: ");
+            console.log(result);//打印服务端返回的数据(调试用)
             scoreAlert.children("strong").text("Refresh final score fail !!!");
             scoreAlert.addClass("alert-danger").removeClass("alert-success");
         },

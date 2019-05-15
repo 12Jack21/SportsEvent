@@ -48,8 +48,8 @@
                     <!-- Card Content - Collapse -->
                     <div class="collapse show" id="collapseCard">
                         <div class="card-body">
-                            <div id="athid" hidden="hidden">${par.ath_id}</div>
-                            <div id="compid" hidden="hidden">${par.comp_id}</div>
+                            <div id="athid" hidden="hidden">${ath_id}</div>
+                            <div id="compid" hidden="hidden">${compid}</div>
                             <div class="row">
                                 <div class="col-lg-3 offset-md-1 offset-lg-2">
                                     <div>
@@ -64,16 +64,19 @@
                                     <div>
                                         <span class="text-lg float-left">No: </span>
                                         <p class="text-lg " style="margin-left: 22%">
-                                            ${par.athlete.no}
+                                            <c:choose><c:when
+                                                    test="${par.athlete.no == null}">未定</c:when>
+                                                <c:otherwise>${par.athlete.no}</c:otherwise>
+                                            </c:choose>
                                         </p>
                                     </div>
                                 </div>
                                 <div  class="col-lg-3 ">
                                     <div>
-                                        <span class="text-lg float-left">Score </span>
+                                        <span class="text-lg float-left">Score: &nbsp;</span>
                                         <p class="text-lg " style="margin-left: 22%" id="finalScore">
                                             <c:choose><c:when
-                                                    test="${par.score == null}">未定</c:when>
+                                                    test="${par.score == 0.0}">未定</c:when>
                                                 <c:otherwise>${par.score}</c:otherwise>
                                             </c:choose>
                                         </p>
@@ -100,13 +103,14 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover" id="dataTableMajorConfirm">
+                            <table class="table table-bordered table-hover display" id="dataTableMajorConfirm" width="100%">
                                 <thead>
                                 <tr>
+                                    <th>tempScore_id</th>
                                     <th>refid</th>
                                     <th>RefName</th>
                                     <th>Score</th>
-                                    <th>isConfirm</th>
+                                    <th>State</th>
                                     <th>Operation</th>
                                 </tr>
                                 </thead>
@@ -135,7 +139,7 @@
     <!-- End of Content Wrapper -->
 
     <!--计算最终成绩-->
-    <div class="athleteAdd" data-toggle="modal" data-target="#figureModal" style="z-index: 3;" onclick="setFinalScore()">
+    <div class="athleteAdd" data-toggle="modal" style="z-index: 3;" onclick="setFinalScore()">
         <i class="fa fa-file-archive" ></i>
     </div>
 
@@ -182,13 +186,13 @@
                 <form>
                     <div class="form-group">
                         <label for="Pinput">P point</label>
-                        <input type="text" class="form-control" id="Pinput" placeholder="your name"
+                        <input type="number" class="form-control" id="Pinput" placeholder="D point"
                                min="0.0" max="10.0" step="0.1" onchange="changePoint()">
                     </div>
                     <div class="form-group">
                         <label for="Dinput">D point</label>
-                        <input type="number" class="form-control" id="Dinput" placeholder="age"
-                               min="0.0" max="10.0" step="0.1" onchange="changePoint()">
+                        <input type="number" class="form-control" id="Dinput" placeholder="P point"
+                               min="0" max="10" step="0.1" onchange="changePoint()">
                     </div>
                     <div class="form-group">
                         <label >Average Score:</label>
@@ -196,7 +200,7 @@
                     </div>
                     <div class="form-group">
                         <label >Final Score:</label>
-                        <label id="finalScoreLabel">87.34</label> <!--TODO 动态计算最终成绩 -->
+                        <label id="finalScoreLabel"></label> <!--TODO 动态计算最终成绩 -->
                     </div>
                     <button type="button" class="btn btn-lg btn-primary " onclick="figureOut()">Submit</button>
                 </form>
@@ -218,7 +222,7 @@
             </div>
             <div class="modal-body text-lg">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover dataTableOfSign" id="logTable">
+                    <table class="table table-bordered table-hover dataTableOfSign display" id="logTable" width="100%">
                         <thead>
                         <tr>
                             <th>_id</th>

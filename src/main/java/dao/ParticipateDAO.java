@@ -43,5 +43,5 @@ public interface ParticipateDAO {
 
     boolean updateGroupNo(int athid,int compid,int groupno);
 
-    boolean updateScore(int athid,int compid,double score);
+    boolean updateScore(int athid,int compid,Double score);
 }

@@ -128,11 +128,14 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
 
 
     @RequestMapping("/major/{compid}/{athid}") //查看某运动员的 裁判 给分列表，进行与normal相似的 对应的组装
-    public String majorConfirm(@PathVariable("compid")int compid,@PathVariable("athid")int athid,@ModelAttribute("refID")int refId,ModelMap map){
+    public String majorConfirm(@PathVariable("compid")int compid,@PathVariable("athid")int athid,@ModelAttribute("refId")int refId,ModelMap map){
         //显示运动员信息 和最终成绩
         Participate par = refereeService.getSingleAthById(compid, athid);
 
+        map.put("ath_id",athid);
+        map.put("comp_id",compid);
         map.put("par",par);
+
         return "majorConfirm";
     }
 
