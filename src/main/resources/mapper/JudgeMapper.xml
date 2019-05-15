@@ -6,6 +6,7 @@
 <mapper namespace="dao.JudgeDAO">
 
 <!--    加上id 属性以区分 裁判类型相同的给分记录-->
+    <!--带上比赛以及比赛相关信息-->
     <resultMap id="CompJudges" type="po.Judge">
         <id property="id" column="j_id"/>
         <result property="groupno" column="groupno"/>
@@ -22,6 +23,7 @@
         </association>
     </resultMap>
 
+    <!--带上裁判以及裁判所属队伍-->
     <resultMap id="RefJudges" type="po.Judge">
         <id property="id" column="id"/>
         <result property="reftype" column="reftype"/>
@@ -61,6 +63,15 @@
         SELECT id j_id,groupno,comp_id id
         FROM judge
         WHERE id=#{jud_id}
+    </select>
+
+    <select id="getJudgeByCompGroup" parameterType="int" resultType="po.Referee">
+        SELECT r.id,r.name
+        FROM judge j
+        LEFT JOIN referee r
+        ON j.ref_id=r.id
+        WHERE j.comp_id=#{param1}
+        AND j.groupno=#{param2}
     </select>
 
     <select id="getJudgeByRefComp" parameterType="int" resultMap="CompJudges">

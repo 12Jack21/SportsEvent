@@ -14,6 +14,9 @@ public interface ParticipateDAO {
 
     List<Participate> getAthScoresByCompName(int athid,String compName); //TODO 没有写对应的测试类来测试
 
+    //得到具体某个运动员的信息和给分
+    Participate getSingleAthById(int compid,int athid);
+
     List<Participate> getAthletesRankByComp(int comid);
 
     List<Participate> getScoresByComp(int compid);

@@ -5,12 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import po.Athlete;
-import po.Judge;
-import po.TempScore;
+import po.*;
 import service.RefereeService;
 import service.TeamService;
 import vo.AthTempListNormal;
+import vo.RefTempListMajor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +50,7 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
     }
 
     @ResponseBody
-    @RequestMapping("/tempScore/list") //得到一个裁判下每个运动员的最新给分
+    @RequestMapping("/tempScore/list") //得到一个裁判下每个运动员的最新给分，进行了相应的组装
     public Object normalScoreList(@RequestParam("jud_id")int jud_id){
         Judge j = refereeService.getJudge(jud_id);
         List<Integer> athIds = teamService.getAthByCompGroup(j.getCompetition().getId(),j.getGroupno());
@@ -114,12 +113,48 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
     }
 
 
-    @RequestMapping("/major/{compid}/{athid}") //查看某运动员的 裁判 给分列表
-    public String majorConfirm(@PathVariable("compid")int compid,@PathVariable("athid")int athid,@ModelAttribute("refID")int refId){
-        Judge j = refereeService.getJudgeByRefComp(compid,refId);
+    @RequestMapping("/major/{compid}/{athid}") //查看某运动员的 裁判 给分列表，进行与normal相似的 对应的组装
+    public String majorConfirm(@PathVariable("compid")int compid,@PathVariable("athid")int athid,@ModelAttribute("refID")int refId,ModelMap map){
+        //显示运动员信息 和最终成绩
+        Participate par = refereeService.getSingleAthById(compid, athid);
 
+        map.put("par",par);
+        return "majorConfirm";
+    }
 
+    @ResponseBody
+    @RequestMapping("/majorConfirm/refList")  //主裁判对于某个运动员 下的裁判表
+    public Object majorConfirmList(@RequestParam("compid")int compid,@RequestParam("athid")int athid,@ModelAttribute("refID")int refId){
+        Judge judge = refereeService.getJudgeByRefComp(compid,refId);
 
+        List<Referee> referees = refereeService.getJudgeByCompGroup(compid,judge.getGroupno());
+        List<RefTempListMajor> listMajors = new ArrayList<>();
+        RefTempListMajor major = null;
+        TempScore t = null;
+
+        for(Referee r:referees){
+            major = new RefTempListMajor();
+            t = refereeService.getNewestScoreOfRef(compid,r.getId(),athid);
+            if(t != null){
+                major.setReferee(r);
+                major.setTempScore_id(t.getId());
+                major.setScore(t.getScore());
+                major.setIsValid(t.getIsValid());
+
+            }else {
+                major.setReferee(r);
+            }
+
+            listMajors.add(major);
+        }
+        return listMajors;
+    }
+
+    @ResponseBody
+    @RequestMapping("/majorConfirm/showLog/{refid}")
+    public Object showLogOfRef(@PathVariable int refid,@RequestParam("compid")int compid,@RequestParam("athid")int athid){
+        List<TempScore> tempScores = refereeService.getRefLogOfSingleAth(compid,refid,athid);
+        return tempScores;
     }
 
 }

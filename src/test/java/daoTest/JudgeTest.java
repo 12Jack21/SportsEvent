@@ -85,4 +85,11 @@ public class JudgeTest extends BaseTest {
         int comp_id = j.getCompetition().getId();
         assertTrue(comp_id==8);
     }
+
+    @Test
+    public void getJudgeByCompGroup(){
+        int compid = 2,groupno=1;
+        List<Referee> judges = judgeDAO.getJudgeByCompGroup(compid,groupno);
+
+    }
 }

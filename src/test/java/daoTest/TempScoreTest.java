@@ -51,4 +51,12 @@ public class TempScoreTest extends BaseTest {
         assertTrue(tempScoreDAO.updateTempScore(3,1));
     }
 
+    @Test
+    public void getNewestScoreOfSingleRef(){
+        int compid = 2,refid = 1,athid = 2;
+        TempScore tempScore = tempScoreDAO.getNewestScoreOfRef(compid,refid,athid);
+
+        assertEquals(tempScore.getScore(),90.8,DELTA);
+    }
+
 }

@@ -60,7 +60,8 @@
                         LEFT JOIN judge j
                                   ON t.judge_id=j.id
                WHERE j.comp_id=#{param1}
-                 AND j.ref_id=#{param2}
+                AND j.ref_id=#{param2}
+                AND t.ath_id = #{param3}
               )
     </select>
 
@@ -69,6 +70,16 @@
         FROM tempscore
         WHERE ath_id= #{param2}
         AND judge_id= #{param1}
+    </select>
+
+    <select id="getRefLogOfSingleAth" parameterType="int" resultType="po.TempScore">
+        SELECT t.score,t.isValid
+        FROM tempscore t
+                 LEFT JOIN judge j
+                           ON t.judge_id=j.id
+        WHERE j.comp_id=#{param1}
+          AND j.ref_id=#{param2}
+          AND t.ath_id =#{param3}
     </select>
 
     <select id="getAthTempScores" resultMap="AthTempScore" parameterType="int">

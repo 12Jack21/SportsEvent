@@ -59,6 +59,26 @@ public class RefereeServiceImp implements RefereeService {
     }
 
     @Override
+    public List<Referee> getJudgeByCompGroup(int compid, int groupno) {
+        return judgeDAO.getJudgeByCompGroup(compid, groupno);
+    }
+
+    @Override
+    public TempScore getNewestScoreOfRef(int compid, int refid,int athid) {
+        return tempScoreDAO.getNewestScoreOfRef(compid, refid, athid);
+    }
+
+    @Override
+    public Participate getSingleAthById(int compid, int athid) {
+        return participateDAO.getSingleAthById(compid, athid);
+    }
+
+    @Override
+    public List<TempScore> getRefLogOfSingleAth(int compid, int refid, int athid) {
+        return tempScoreDAO.getRefLogOfSingleAth(compid, refid, athid);
+    }
+
+    @Override
     public boolean addScore(Judge judge, int athid, double score) {
         TempScore t = new TempScore(athid,score,judge);
         return tempScoreDAO.addTempScore(t);

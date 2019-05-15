@@ -5,7 +5,7 @@ import po.Athlete;
 public class AthTempListNormal {
     private Athlete athlete;
     private Double score;
-    private int isValid;
+    private Integer isValid;
 
     public AthTempListNormal() {
     }
@@ -26,11 +26,11 @@ public class AthTempListNormal {
         this.score = score;
     }
 
-    public int getIsValid() {
+    public Integer getIsValid() {
         return isValid;
     }
 
-    public void setIsValid(int isValid) {
+    public void setIsValid(Integer isValid) {
         this.isValid = isValid;
     }
 }

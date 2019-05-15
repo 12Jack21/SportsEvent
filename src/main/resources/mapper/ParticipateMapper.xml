@@ -21,6 +21,7 @@
         </association>
     </resultMap>
 
+    <!--带有运动员信息（包括所属代表队）和成绩-->
     <resultMap id="AthScores" type="po.Participate">
         <id property="athlete.id" column="id"/>
         <result property="groupno" column="groupno"/>
@@ -54,6 +55,14 @@
         AND c.name IS LIKE '%#{param2}%'
     </select>
 
+    <select id="getSingleAthById" parameterType="int" resultMap="AthScores">
+        SELECT a.name,a.no,p.score
+        FROM participate p
+        LEFT JOIN athlete a
+        ON p.ath_id=a.id
+        WHERE a.id=#{param2}
+        AND p.comp_id=#{param1}
+    </select>
     <select id="getAthletesRankByComp" resultMap="AthScores" parameterType="int">
         SELECT a.*,p.groupno,p.score FROM participate p
         LEFT JOIN athlete a

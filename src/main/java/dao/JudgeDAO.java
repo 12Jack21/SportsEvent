@@ -2,6 +2,7 @@ package dao;
 
 import org.springframework.stereotype.Repository;
 import po.Judge;
+import po.Referee;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public interface JudgeDAO {
     List<Judge> getJudgesByComp(int compid);
 
     Judge getJudge(int jud_id);
+
+    List<Referee> getJudgeByCompGroup(int compid, int groupno);
 
     Judge getJudgeByRefComp(int compid,int refid);
 

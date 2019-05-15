@@ -22,6 +22,17 @@ public interface RefereeService {
     //根据比赛和裁判获取该 判决的信息
     Judge getJudgeByRefComp(int compid,int refid);
 
+    List<Referee> getJudgeByCompGroup(int compid,int groupno);
+
+    //得到一个裁判对某位运动员最新的给分
+    TempScore getNewestScoreOfRef(int compid,int refid,int athid);
+
+    //得到具体某个运动员的信息和给分
+    Participate getSingleAthById(int compid,int athid);
+
+    //得到一个普通裁判对于某个运动员的所有评分（一般为 isValid = false)
+    List<TempScore> getRefLogOfSingleAth(int compid,int refid,int athid);
+
     //普通裁判给运动员打分
     boolean addScore(Judge judge, int athid, double score);
 
