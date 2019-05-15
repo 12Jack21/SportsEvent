@@ -44,6 +44,11 @@ public class RefereeServiceImp implements RefereeService {
     }
 
     @Override
+    public Judge getJudge(int jud_id) {
+        return judgeDAO.getJudge(jud_id);
+    }
+
+    @Override
     public List<Judge> getJudges(int refid, int refType) {
         return judgeDAO.getJudgesByRef(refid,refType);
     }
@@ -62,6 +67,16 @@ public class RefereeServiceImp implements RefereeService {
     @Override
     public boolean checkScore(int tempid, int isValid) {
         return tempScoreDAO.updateTempScore(tempid,isValid);
+    }
+
+    @Override
+    public TempScore getAthScoreListNormal(int jud_id, int athid) {
+        return tempScoreDAO.getAthScoreListNormal(jud_id, athid);
+    }
+
+    @Override
+    public List<TempScore> getSingleAthTemp(int jud_id, int athid) {
+        return tempScoreDAO.getSingleAthTemp(jud_id, athid);
     }
 
     @Override

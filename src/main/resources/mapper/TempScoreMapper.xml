@@ -5,7 +5,7 @@
 
 
 <mapper namespace="dao.TempScoreDAO">
-    <resultMap id="AthTempSocre" type="po.TempScore">
+    <resultMap id="AthTempScore" type="po.TempScore">
         <id property="id" column="t_id"/>
         <result property="score" column="score"/>
         <result property="isValid" column="isValid"/>
@@ -18,6 +18,17 @@
         </association>
     </resultMap>
 
+    <resultMap id="NewestTempOfAth" type="po.TempScore">
+        <id property="id" column="t_id"/>
+        <result property="score" column="score"/>
+        <result property="isValid" column="isValid"/>
+        <association property="athlete" javaType="po.Athlete">
+            <id property="id" column="athid"/>
+            <result property="name" column="name"/>
+            <result property="no" column="no"/>
+        </association>
+    </resultMap>
+
 <!--    <select id="getAthTempScores" resultMap="AthTempSocre" parameterType="int">-->
 <!--        SELECT r.*,t.id tempScore_id,t.score-->
 <!--        FROM tempscore t-->
@@ -26,7 +37,41 @@
 <!--        WHERE t.ath_id = #{param1}-->
 <!--        AND t.comp_id = #{param2}-->
 <!--    </select>-->
-    <select id="getAthTempScores" resultMap="AthTempSocre" parameterType="int">
+
+    <select id="getAthScoreListNormal" parameterType="int" resultMap="NewestTempOfAth">
+        SELECT a.id athid, a.`name`,a.no,t.id t_id,t.score,t.isValid
+        FROM tempscore t
+        LEFT JOIN athlete a
+        ON t.ath_id=a.id
+        WHERE t.id=
+              (SELECT MAX(id) max_tid
+               FROM tempscore
+               WHERE ath_id = #{param2}
+                 AND judge_id =#{param1}
+              )
+    </select>
+
+    <select id="getNewestScoreOfRef" parameterType="int" resultType="po.TempScore">
+        SELECT id,score
+        FROM tempscore
+        WHERE id=
+              (SELECT MAX(t.id)
+               FROM tempscore t
+                        LEFT JOIN judge j
+                                  ON t.judge_id=j.id
+               WHERE j.comp_id=#{param1}
+                 AND j.ref_id=#{param2}
+              )
+    </select>
+
+    <select id="getSingleAthTemp" parameterType="int" resultType="po.TempScore">
+        SELECT id,score,isValid
+        FROM tempscore
+        WHERE ath_id= #{param2}
+        AND judge_id= #{param1}
+    </select>
+
+    <select id="getAthTempScores" resultMap="AthTempScore" parameterType="int">
         SELECT r.id r_id,r.name,j.id j_id,t.id t_id,t.score,t.valid
         FROM tempscore t
         LEFT JOIN judge j
@@ -37,7 +82,7 @@
         AND t.ath_id = #{param1}
     </select>
 
-    <select id="getAthValidScores" resultMap="AthTempSocre" parameterType="int">
+    <select id="getAthValidScores" resultMap="AthTempScore" parameterType="int">
         SELECT r.id r_id,r.name,j.id j_id,t.id t_id,t.score,t.valid
         FROM tempscore t
         LEFT JOIN judge j

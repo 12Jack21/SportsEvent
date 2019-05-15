@@ -77,4 +77,12 @@ public class JudgeTest extends BaseTest {
 
         assertTrue(max == 1);
     }
+
+    @Test
+    public void getJudge(){
+        int id = 18;
+        Judge j=judgeDAO.getJudge(id);
+        int comp_id = j.getCompetition().getId();
+        assertTrue(comp_id==8);
+    }
 }

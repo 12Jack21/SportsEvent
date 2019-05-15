@@ -12,6 +12,8 @@ public interface JudgeDAO {
 
     List<Judge> getJudgesByComp(int compid);
 
+    Judge getJudge(int jud_id);
+
     Judge getJudgeByRefComp(int compid,int refid);
 
     int getReftype(int refid,int compid);

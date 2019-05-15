@@ -106,6 +106,12 @@
         WHERE p.comp_id = #{compid}
     </select>
 
+    <select id="getAthByCompGroup" parameterType="int" resultType="integer">
+        SELECT ath_id
+        FROM participate
+        WHERE comp_id = #{param1}
+        AND groupno=#{param2}
+    </select>
 
     <insert id="addParticipate" parameterType="po.Participate">
         INSERT INTO participate (ath_id,comp_id)

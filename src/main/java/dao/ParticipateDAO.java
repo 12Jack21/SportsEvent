@@ -26,6 +26,8 @@ public interface ParticipateDAO {
 
     Integer getMaxAthGroupNoOfComp(int compid);
 
+    List<Integer> getAthByCompGroup(int compid,int groupno);
+
     boolean addParticipate(int athid,int compid);
 
     boolean deleteParticipate(int athid,int compid);

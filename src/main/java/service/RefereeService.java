@@ -14,6 +14,8 @@ public interface RefereeService {
     //取得裁判信息
     Referee getReferee(int refid);
 
+    Judge getJudge(int jud_id);
+
     //获得裁判 吹判的比赛(作为主裁判或者作为普通裁判)
     List<Judge> getJudges(int refid,int refType);
 
@@ -25,6 +27,12 @@ public interface RefereeService {
 
     //主裁判检查成绩是否有效
     boolean checkScore(int tempid,int isValid);
+
+    //得到某判决 的运动员的最新成绩
+    TempScore getAthScoreListNormal(int jud_id,int athid);
+
+    //得到某判决中 单个运动员的所有给分记录
+    List<TempScore> getSingleAthTemp(int jud_id,int athid);
 
 //    //得到所有打分信息(主裁判)
 //    List<TempScore> getAllTempScores();

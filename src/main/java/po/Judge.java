@@ -13,6 +13,10 @@ public class Judge {
     public Judge() {
     }
 
+    public Judge(int id) {
+        this.id = id;
+    }
+
     public Judge(Referee referee, Competition competition, int groupno, int reftype) {
         this.referee = referee;
         this.competition = competition;

@@ -3,6 +3,7 @@ package po;
 public class TempScore {
     private int id;
     private int athid;
+    private int jud_id;
     private double score;
     private Integer isValid;
 
@@ -32,6 +33,14 @@ public class TempScore {
 
     public void setAthid(int athid) {
         this.athid = athid;
+    }
+
+    public int getJud_id() {
+        return jud_id;
+    }
+
+    public void setJud_id(int jud_id) {
+        this.jud_id = jud_id;
     }
 
     public double getScore() {

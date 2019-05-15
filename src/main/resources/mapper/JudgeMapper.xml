@@ -57,6 +57,12 @@
         WHERE j.comp_id=#{compid}
     </select>
 
+    <select id="getJudge" resultMap="CompJudges" parameterType="int">
+        SELECT id j_id,groupno,comp_id id
+        FROM judge
+        WHERE id=#{jud_id}
+    </select>
+
     <select id="getJudgeByRefComp" parameterType="int" resultMap="CompJudges">
         SELECT c.* ,j.id j_id,j.groupno,j.reftype
         FROM judge j

@@ -103,6 +103,8 @@ public interface TeamService {
     //查询某比赛的运动员
     List<Participate> getParticipateByComp(int compid);
 
+    List<Integer> getAthByCompGroup(int compid,int groupno);
+
     //查询某比赛的裁判
     List<Judge> getJudgeByComp(int compid);
 

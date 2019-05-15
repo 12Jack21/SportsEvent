@@ -10,6 +10,12 @@ public interface TempScoreDAO {
 
 //    List<TempScore> getAllTempScores();
 
+    TempScore getAthScoreListNormal(int jud_id,int athid);
+
+    TempScore getNewestScoreOfRef(int compid,int refid);
+
+    List<TempScore> getSingleAthTemp(int jud_id,int athid);
+
     List<TempScore> getAthTempScores(int athid,int compid);
 
     List<TempScore> getAthValidScores(int athid,int compid);

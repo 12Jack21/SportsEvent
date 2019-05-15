@@ -204,6 +204,11 @@ public class TeamServiceImp implements TeamService {
     }
 
     @Override
+    public List<Integer> getAthByCompGroup(int compid, int groupno) {
+        return participateDAO.getAthByCompGroup(compid, groupno);
+    }
+
+    @Override
     public List<Judge> getJudgeByComp(int compid) {
         return judgeDAO.getJudgesByComp(compid);
     }
