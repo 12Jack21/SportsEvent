@@ -31,6 +31,7 @@ public interface TempScoreDAO {
 
     boolean deleteTempScore(int tempScoreid);
 
+    //主裁判设置 接收 或者 拒绝
     boolean updateTempScore(int tempScoreid,Integer valid);
 
 }

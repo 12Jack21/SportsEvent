@@ -59,7 +59,7 @@
                                     <div>
                                         <span class="text-lg float-left">Project: </span>
                                         <p class="text-lg " style="margin-left: 22%">
-                                            ${jud.competitonVO.project}
+                                            ${jud.competitionVO.project}
                                         </p>
                                     </div>
                                     <div>
@@ -101,7 +101,7 @@
                                         </p>
                                     </div>
                                 </div>
-
+                                <div id="jud_id" hidden="hidden">${jud.id}</div>
                             </div>
                         </div>
                     </div>
@@ -109,6 +109,14 @@
 
                 <!--分隔上下卡片-->
                 <div style="margin-bottom: 30px"></div>
+
+                <!--给分警告框-->
+                <div class="alert fade show" role="alert" id="scoreAlert" hidden="hidden">
+                    <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong></strong>
+                </div>
 
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
@@ -186,14 +194,14 @@
     <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-primary" id="scoreModalLabelTitle">MaScar's Score Log</h4>
+                <h4 class="modal-title text-primary" id="scoreModalLabelTitle">Score Log</h4>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body text-lg">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover dataTableOfSign display" id="athDataTableOfSign" width="100%">
+                    <table class="table table-bordered table-hover dataTableOfSign display" id="scoreLogTable" width="100%">
                         <thead>
                         <tr>
                             <th>_id</th>

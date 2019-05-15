@@ -74,7 +74,7 @@
                                     <c:forEach items="${majors}" var="major">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <a href="${pageContext.request.contextPath}/referee/competition/${major.id}"
+                                                <a href="${pageContext.request.contextPath}/referee/major/${major.id}"
                                                    class="message card px-5 py-3 mb-4 bg-hover-gradient-primary no-anchor-style border-left-success ">
                                                     <div class="row">
                                                         <div class="col-lg-4 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
@@ -111,7 +111,7 @@
                                     <c:forEach items="${normals}" var="normal">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <a href="${pageContext.request.contextPath}/team/competition/${normal.id}"
+                                                <a href="${pageContext.request.contextPath}/referee/normal/${normal.id}"
                                                    class="message card px-5 py-3 mb-4 bg-hover-gradient-primary no-anchor-style border-left-success ">
                                                     <div class="row">
                                                         <div class="col-lg-4 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">

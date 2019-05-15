@@ -6,11 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import po.*;
+import service.AthleteService;
 import service.RefereeService;
 import service.TeamService;
 import vo.AthTempListNormal;
+import vo.CompetitionVO;
 import vo.RefTempListMajor;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +25,14 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
     private RefereeService refereeService;
     @Autowired
     private TeamService teamService;
+    @Autowired
+    private AthleteService athleteService;
 
     @RequestMapping("/setSession")
-    public void setSession(ModelMap map){
+    public String setSession(ModelMap map, HttpSession session){
+        session.setMaxInactiveInterval(18000);//TODO session有效期
         map.put("refId",1);
+        return "teamSidebar";
     }
 
     @RequestMapping("/competitionList")
@@ -33,13 +40,20 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
         List<Judge> majors = refereeService.getJudges(refid,1);
         List<Judge> normals = refereeService.getJudges(refid,0);
 
-        map.put("majors",majors);
-        map.put("normals",normals);
+        List<CompetitionVO> majorVO = new ArrayList<>();
+        List<CompetitionVO> normalVO = new ArrayList<>();
+        for(Judge j : majors){
+            majorVO.add(MyConvertor.convertComp(j.getCompetition()));
+        }
+        for(Judge j : normals){
+            normalVO.add(MyConvertor.convertComp(j.getCompetition()));
+        }
+
+        map.put("majors",majorVO);
+        map.put("normals",normalVO);
 
         return "refCompetition";
     }
-
-
 
     @RequestMapping("/normal/{compid}")
     public String normal(@PathVariable int compid,@ModelAttribute("refId")int refid,ModelMap map){
@@ -85,14 +99,14 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
     }
 
     @ResponseBody
-    @RequestMapping("tempScore/log") //一个裁判对于一个运动员的所有打分记录（一般都是 isValid = false）
-    public Object normalScoreLog(@RequestParam("jud_id")int jud_id,@RequestParam("athId")int athid){
+    @RequestMapping("/tempScore/log") //一个裁判对于一个运动员的所有打分记录（一般都是 isValid = false）
+    public Object normalScoreLog(@RequestParam("jud_id")int jud_id,@RequestParam("ath_id")int athid){
         List<TempScore> logs = refereeService.getSingleAthTemp(jud_id, athid);
         return logs;
     }
 
 
-    /* 以下为主裁判的相关 resolve method */
+    /* 以下为主裁判的相关的 resolve method */
 
     @RequestMapping("/major/{compid}")  //主裁判下的运动员表
     public String major(@PathVariable int compid,@ModelAttribute("refId")int refid,ModelMap map){
@@ -124,7 +138,7 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
 
     @ResponseBody
     @RequestMapping("/majorConfirm/refList")  //主裁判对于某个运动员 下的裁判表
-    public Object majorConfirmList(@RequestParam("compid")int compid,@RequestParam("athid")int athid,@ModelAttribute("refID")int refId){
+    public Object majorConfirmList(@RequestParam("compid")int compid,@RequestParam("athid")int athid,@ModelAttribute("refId")int refId){
         Judge judge = refereeService.getJudgeByRefComp(compid,refId);
 
         List<Referee> referees = refereeService.getJudgeByCompGroup(compid,judge.getGroupno());
@@ -134,6 +148,7 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
 
         for(Referee r:referees){
             major = new RefTempListMajor();
+            //最新给分
             t = refereeService.getNewestScoreOfRef(compid,r.getId(),athid);
             if(t != null){
                 major.setReferee(r);
@@ -151,10 +166,35 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
     }
 
     @ResponseBody
-    @RequestMapping("/majorConfirm/showLog/{refid}")
+    @RequestMapping("/majorConfirm/showLog/{refid}") //显示某个裁判对 一个运动员的所有给分记录
     public Object showLogOfRef(@PathVariable int refid,@RequestParam("compid")int compid,@RequestParam("athid")int athid){
         List<TempScore> tempScores = refereeService.getRefLogOfSingleAth(compid,refid,athid);
         return tempScores;
+    }
+
+    @ResponseBody
+    @RequestMapping("/majorConfirm/accept/{tempScore_id}")
+    public Object acceptScore(@PathVariable int tempScore_id){
+        return refereeService.updateTempScore(tempScore_id,1);
+    }
+
+    @ResponseBody
+    @RequestMapping("/majorConfirm/reject/{tempScore_id}")
+    public Object rejectScore(@PathVariable int tempScore_id){
+        return refereeService.updateTempScore(tempScore_id,0);
+    }
+
+    @ResponseBody
+    @RequestMapping("/majorConfirm/setScore") //计算最终成绩，其中 otherScore 为 D - P
+    public Object setScore(@RequestParam("compid")int compid,@RequestParam("athid")int athid,@RequestParam("finalScore")Double finalScore){
+        return refereeService.figureResultScore(athid,compid,finalScore);
+    }
+
+    @ResponseBody
+    @RequestMapping("/majorConfirm/getFinalScore") //计算最终成绩后，刷新该运动员的最终成绩并显示
+    public Object getFinalScore(@RequestParam("compid")int compid,@RequestParam("athid")int athid){
+        Double finalScore = athleteService.getFinalScore(compid, athid);
+        return finalScore;
     }
 
 }

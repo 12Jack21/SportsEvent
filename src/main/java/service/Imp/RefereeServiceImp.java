@@ -85,6 +85,11 @@ public class RefereeServiceImp implements RefereeService {
     }
 
     @Override
+    public boolean updateTempScore(int tempScoreid, Integer valid) {
+        return tempScoreDAO.updateTempScore(tempScoreid, valid);
+    }
+
+    @Override
     public boolean checkScore(int tempid, int isValid) {
         return tempScoreDAO.updateTempScore(tempid,isValid);
     }
@@ -105,9 +110,9 @@ public class RefereeServiceImp implements RefereeService {
     }
 
     @Override
-    public double figureResultScore(double D, double P, int athid, int compid) {
+    public Double figureResultScore(int athid, int compid,Double otherScore) {
         Double avgScore = tempScoreDAO.getAthResultScore(athid, compid);
-        return avgScore + D - P;
+        return avgScore + otherScore;
     }
 
     @Override

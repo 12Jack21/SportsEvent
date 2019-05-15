@@ -54,6 +54,11 @@ public class AthleteServiceImp implements AthleteService {
     }
 
     @Override
+    public Double getFinalScore(int compid, int athid) {
+        return participateDAO.getFinalScore(compid, athid);
+    }
+
+    @Override
     public List<Participate> getAthScoresByCompName(int athid, String compName) {
         return participateDAO.getAthScoresByCompName(athid, compName);
     }

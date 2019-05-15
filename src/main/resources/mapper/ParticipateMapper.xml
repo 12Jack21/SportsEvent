@@ -100,6 +100,13 @@
         AND c.type = #{param2}
     </select>
 
+    <select id="getFinalScore" parameterType="int" resultType="double">
+        SELECT score
+        FROM participate
+        WHERE comp_id = #{param1}
+        AND ath_id = #{param2}
+    </select>
+
     <select id="getCompTotalScoreByTeam" resultType="double" parameterType="int">
         SELECT SUM(p.score) FROM participate p
         LEFT JOIN athlete a

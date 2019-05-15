@@ -23,7 +23,9 @@ public interface ParticipateDAO {
 
     List<Participate> getCompScoresByTeam(int compid,int teamid);
 
-    Double getPersonalScore(int athid,int compType); //TODO 此为单项成绩，若求成绩组则需要另写带有 GROUP BY语句的查询
+    Double getPersonalScore(int athid,int compType); //TODO 此为单项个人初赛总成绩或决赛总成绩，若求成绩组则需要另写带有 GROUP BY语句的查询
+
+    Double getFinalScore(int compid,int athid);
 
     Double getCompTotalScoreByTeam(int compid,int teamid);//这里应只取前四名的成绩来计算，所以用getCompScoreByTeam更好
 

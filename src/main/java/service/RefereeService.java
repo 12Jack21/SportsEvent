@@ -36,6 +36,9 @@ public interface RefereeService {
     //普通裁判给运动员打分
     boolean addScore(Judge judge, int athid, double score);
 
+    //主裁判设置 接收 或者 拒绝
+    boolean updateTempScore(int tempScoreid,Integer valid);
+
     //主裁判检查成绩是否有效
     boolean checkScore(int tempid,int isValid);
 
@@ -52,7 +55,7 @@ public interface RefereeService {
     List<TempScore> getAthleteTempScores(int athid,int compid);
 
     //计算并设置个人最终单项成绩（主）
-    double figureResultScore(double D,double P,int athid,int compid);
+    Double figureResultScore(int athid,int compid,Double otherScore);
 
     //得到某项比赛的 单项排名表
     List<Participate> getAthleteRank(int compid);

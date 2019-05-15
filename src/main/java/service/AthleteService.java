@@ -20,6 +20,9 @@ public interface AthleteService {
     //得到个人所有成绩详情
     List<Participate> getAthScores(int athid,int type);
 
+    //得到某场比赛 该运动员的最终成绩，一般由该组别的主裁判确定
+    Double getFinalScore(int compid,int athid);
+
     //得到相应的名称比赛的个人成绩
     List<Participate> getAthScoresByCompName(int athid,String compName);
 
