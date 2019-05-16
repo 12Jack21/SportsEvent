@@ -66,14 +66,14 @@
                             <div class="collapse show" id="collapseCard1">
                                 <div class="card-body">
                                     <section class="py-5" id="section0">
-                                        <c:forEach items="${athletes0}" var="ath">
+                                        <c:forEach items="${athletes0}" var="par">
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <a href="${pageContext.request.contextPath}/team/athleteInf/${ath.id}"
+                                                    <a href="${pageContext.request.contextPath}/team/athleteInf/${par.id}"
                                                        class="message card px-5 py-2 mb-4 bg-hover-gradient-primary no-anchor-style border-left-primary ">
                                                         <div class="row">
                                                             <div class="col-lg-4 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                                                                <h5 class="mb-0 ">${ath.name}</h5>
+                                                                <h5 class="mb-0 ">${par.name}</h5>
                                                             </div>
                                                             <div class="col-lg-4 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
                                                                 <p class=" mb-0 mt-3 mt-lg-0">
@@ -120,14 +120,14 @@
                             <div class="collapse show" id="collapseCard2">
                                 <div class="card-body">
                                     <section class="py-5" id="section1">
-                                        <c:forEach items="${athletes1}" var="ath">
+                                        <c:forEach items="${athletes1}" var="par">
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <a href="${pageContext.request.contextPath}/team/athleteInf/${ath.id}"
+                                                    <a href="${pageContext.request.contextPath}/team/athleteInf/${par.id}"
                                                        class="message card px-5 py-2 mb-4 bg-hover-gradient-primary no-anchor-style border-left-primary ">
                                                         <div class="row">
                                                             <div class="col-lg-4 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                                                                <h5 class="mb-0 ">${ath.name}</h5>
+                                                                <h5 class="mb-0 ">${par.name}</h5>
                                                             </div>
                                                             <div class="col-lg-4 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
                                                                 <p class=" mb-0 mt-3 mt-lg-0">
@@ -176,14 +176,14 @@
                             <div class="collapse show" id="collapseCard3">
                                 <div class="card-body">
                                     <section class="py-5" id="section2">
-                                        <c:forEach items="${athletes2}" var="ath">
+                                        <c:forEach items="${athletes2}" var="par">
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <a href="${pageContext.request.contextPath}/team/athleteInf/${ath.id}"
+                                                    <a href="${pageContext.request.contextPath}/team/athleteInf/${par.id}"
                                                        class="message card px-5 py-2 mb-4 bg-hover-gradient-primary no-anchor-style border-left-primary ">
                                                         <div class="row">
                                                             <div class="col-lg-4 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                                                                <h5 class="mb-0 ">${ath.name}</h5>
+                                                                <h5 class="mb-0 ">${par.name}</h5>
                                                             </div>
                                                             <div class="col-lg-4 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
                                                                 <p class=" mb-0 mt-3 mt-lg-0">

@@ -23,7 +23,7 @@ $(document).ready(function () {
             {"data": "athlete.name"},
             {"data": "athlete.no"},
             {"data": "score"},
-            {"data": "isValid"},
+            {"data": null},
             {"data": null}
         ],
         "columnDefs": [{
@@ -32,12 +32,14 @@ $(document).ready(function () {
             "visible": false
         }, {
             "targets": 4,
-            "render":function (data) {
-                console.log(data);
-                if(data == null)
+            "data": null,
+            "render": function (data,type,row) {
+                if (data.score == null || data.score == 0.0)
+                    return "未给分";
+                if (data.isValid == null)
                     return "未审核";
-                var isValid = parseInt(data);
-                if(isValid == 1)
+                var isValid = parseInt(data.isValid);
+                if (isValid == 1)
                     return "接受";
                 else
                     return "拒绝";
@@ -45,11 +47,12 @@ $(document).ready(function () {
         },{
             "targets": 5,//操作按钮目标列
             "data": null,
+            "width": "33%",
             "render": function (data, type, row) {
                 var id = '"' + row.id + '"';
                 console.log(data.athlete.id);//用于调试
-                var html = "<form  style='width: 300px;'><div class='form-inline'><input class='form-control' style='width: 100px;' " +
-                    "type='number' step='0.01' name='score' id='athScore'>" +
+                var html = "<form  style='width: 80%;margin: -10px;'><div class='form-inline'><input class='form-control' style='width: 50%;' " +
+                    "type='number' step='0.01' name='score' id='athScore' oninput='if(value >100)value=100;if(value<0)value=0;'>" +
                     "<button type='button' class='btn btn-primary' onclick='setScore(" + data.athlete.id + ",this)'>给分</button>";
                 html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs'  data-toggle='modal' " +
                     "onclick='showLog(" + data.athlete.id + ")'>" +
@@ -113,7 +116,7 @@ function setScore(athid,btn){
     var scoreAlert = $("#scoreAlert");
     var score = $(btn).parent().children("input").val();
     if(score == "" || score == null ||
-        parseFloat(score) > 10.0 || parseFloat(score) < 0.0){
+        parseFloat(score) > 100.0 || parseFloat(score) < 0.0){
         scoreAlert.children("strong").text("Score should not be null and is between 0.0 and 10.0 !!!");
         scoreAlert.addClass("alert-danger").removeClass("alert-success");
         alertReport(scoreAlert);

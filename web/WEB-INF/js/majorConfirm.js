@@ -13,10 +13,10 @@ $(document).ready(function () {
         "select": false, //开启选择
         "searching": true,
         "responsive": true,
-        "traditional":true,
+        "traditional": true,
         "ajax": {
             url: url,//TODO
-            data:{
+            data: {
                 compid: compid,
                 athid: athid
             },
@@ -27,7 +27,8 @@ $(document).ready(function () {
             {"data": "referee.id"},
             {"data": "referee.name"},
             {"data": "score"},
-            {"data": "isValid"},
+            // {"data": "isValid"},
+            {"data": null},
             {"data": null}
         ],
         "columnDefs": [{
@@ -36,27 +37,30 @@ $(document).ready(function () {
             "visible": false
         }, {
             "targets": 4,
-            "render":function (data) {
+            "data": null,
+            "render": function (data, type, row) {
                 console.log(data);
-                if(data == null)
+                if (data.score == null || data.score == 0.0)
+                    return "未给分";
+                if (data.isValid == null)
                     return "未审核";
-                var isValid = parseInt(data);
-                if(isValid == 1)
+                var isValid = parseInt(data.isValid);
+                if (isValid == 1)
                     return "接受";
                 else
                     return "拒绝";
             }
-        },{
+        }, {
             "targets": 5,//操作按钮目标列
             "data": null,
             //data 为null时，可以取到整个的对象数据，不为null时，只能取到当前给定的单元格的值
             "render": function (data, type, row) {
                 var id = '"' + row.id + '"';
                 var html = "<a href='javascript:void(0);' class='up btn btn-default btn-xs text-success' " +
-                    "onclick='accept(" + data.tempScore_id + "," + data.isValid + ")'>" +
+                    "onclick='accept(" + data.tempScore_id + "," + data.isValid + "," + data.score + ")'>" +
                     "<i class='fa fa-edit'></i> Accept</a>";
                 html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs text-danger'" +
-                    "onclick='reject(" + data.tempScore_id + "," + data.isValid + ")'>" +
+                    "onclick='reject(" + data.tempScore_id + "," + data.isValid + "," + data.score + ")'>" +
                     "<i class='fa fa-edit'></i> Reject</a>";
                 html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs'  data-toggle='modal'" +
                     "onclick='showLogs(" + data.referee.id + ")'>" +
@@ -69,17 +73,17 @@ $(document).ready(function () {
 
 });
 
-function showLogs(refid){
+function showLogs(refid) {
     var url = "/sports/referee/majorConfirm/showLog/" + refid;
-    if(logTable == null){
+    if (logTable == null) {
         logTable = $('#logTable').DataTable({
             "select": true, //开启选择
             "searching": false,
-            "paging":false,
+            "paging": false,
             "responsive": true,
             "ajax": {
                 url: url,
-                data:{
+                data: {
                     compid: compid,
                     athid: athid
                 },
@@ -94,13 +98,13 @@ function showLogs(refid){
                 "targets": 0,
                 "searchable": false,
                 "visible": false
-            },{
-                "targets":2,
-                "render":function (data) {
+            }, {
+                "targets": 2,
+                "render": function (data) {
                     var result = null;
-                    if(data == null)
+                    if (data == null)
                         result = "未审核";
-                    else if(data == 0)
+                    else if (data == 0)
                         result = "拒绝";
                     else
                         result = "接受"
@@ -108,18 +112,18 @@ function showLogs(refid){
                 }
             }]
         });
-    }else
+    } else
         logTable.ajax.url(url).load();
 
     $("#scoreModal").modal("show");
 
 }
 
-function accept(tempId,isValid){
+function accept(tempId, isValid, score) {
     var scoreAlert = $("#scoreAlert");
 
     //只有在未审核状态下才能进行操作
-    if(isValid == null){
+    if (isValid == null && score != null && score != 0.0) {
         var url = "/sports/referee/majorConfirm/accept/" + tempId;
         $.ajax({
             type: "POST",//方法类型
@@ -143,18 +147,19 @@ function accept(tempId,isValid){
                 alertReport(scoreAlert);
             }
         })
-    }else{
+    } else {
         scoreAlert.children("strong").text("Accept operation should execute if the state is unchecked !!!");
         scoreAlert.addClass("alert-danger").removeClass("alert-success");
         alertReport(scoreAlert);
     }
 
 }
-function reject(tempId,isValid){
+
+function reject(tempId, isValid, score) {
     var scoreAlert = $("#scoreAlert");
 
     //只有在未审核状态下才能进行操作
-    if(isValid == null){
+    if (isValid == null && score != null && score != 0.0) {
         var url = "/sports/referee/majorConfirm/reject/" + tempId;
         $.ajax({
             type: "POST",//方法类型
@@ -178,7 +183,7 @@ function reject(tempId,isValid){
                 alertReport(scoreAlert);
             }
         })
-    }else{
+    } else {
         scoreAlert.children("strong").text("Reject operation should execute if the state is unchecked !!!");
         scoreAlert.addClass("alert-danger").removeClass("alert-success");
         alertReport(scoreAlert);
@@ -186,32 +191,32 @@ function reject(tempId,isValid){
 
 }
 
-
+//显示给分modal
 function setFinalScore() {
     var scoreAlert = $("#scoreAlert");
     var scoreDatas = table.rows().data();
     var canFigure = true;
 
     //当全部的成绩都接受后，才可以计算最终成绩
-    for(let i=0;i<scoreDatas.length;i++){
-        if(scoreDatas[i].isValid == 0){
+    for (let i = 0; i < scoreDatas.length; i++) {
+        if (scoreDatas[i].isValid == 0 || scoreDatas[i].score == null) {
             canFigure = false;
             break;
         }
     }
 
-    if(canFigure == true){
+    if (canFigure == true) {
         //计算出平均成绩
         var total = 0.0;
-        for(let i=0;i<scoreDatas.length;i++){
+        for (let i = 0; i < scoreDatas.length; i++) {
             total += scoreDatas[i].score;
         }
         //设置平均成绩
-        $("#averageScoreLabel").text(total/(scoreDatas.length));
-        $("#finalScoreLabel").text(total/(scoreDatas.length));
+        $("#averageScoreLabel").text(total / (scoreDatas.length));
+        $("#finalScoreLabel").text(total / (scoreDatas.length));
 
         $("#figureModal").modal("show");
-    }else {
+    } else {
         scoreAlert.children("strong").text("You should accept all the score before you figure out the final score of this athlete !!!");
         scoreAlert.addClass("alert-danger").removeClass("alert-success");
         alertReport(scoreAlert);
@@ -220,12 +225,31 @@ function setFinalScore() {
 
 //当输入P , D变化时，动态计算并显示 finalScore的值
 function changePoint() {
+    let dPoint = $("#Dinput").val();
+    let pPoint = $("#Pinput").val();
+    //限制范围在 0-10 之间
+    if (dPoint > 10) {
+        $("#Dinput").val(10.0);
+    } else if (dPoint < 0) {
+        $("#Dinput").val(0.0);
+    }
+    if (pPoint > 10) {
+        $("#Pinput").val(10.0);
+    } else if (pPoint < 0) {
+        $("#Pinput").val(0.0);
+    }
+
+    dPoint = $("#Dinput").val();
+    pPoint = $("#Pinput").val();
+
     //计算奖惩分
-    var otherScore = $("#Dinput").val() - $("#Pinput").val();
+    var otherScore = dPoint - pPoint;
 
     var avg = parseFloat($("#averageScoreLabel").text());
 
-    $("#finalScoreLabel").text(avg + otherScore);
+    //保留两位小数
+    let score = (avg + otherScore).toFixed(2);
+    $("#finalScoreLabel").text(score);
 
 }
 
@@ -250,6 +274,9 @@ function figureOut() {
             console.log(result, status);//打印服务端返回的数据(调试用)
             //刷新运动员最终成绩
             getFinalScore();
+            //刷新给分表单
+            $("#finalForm")[0].reset();
+            changePoint();
         },
         error: function () {
             alert("Set final score fail !!!");
@@ -261,12 +288,14 @@ function figureOut() {
 
 
 }
+
+//得到最新的最终成绩
 function getFinalScore() {
     var scoreAlert = $("#scoreAlert");
     var url = "/sports/referee/majorConfirm/getFinalScore";
     $.ajax({
         type: "POST",//方法类型
-        dataType: "double",//预期服务器返回的数据类型
+        dataType: "json",//预期服务器返回的数据类型
         data: {
             compid: compid,
             athid: athid

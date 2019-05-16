@@ -28,10 +28,11 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
     @Autowired
     private AthleteService athleteService;
 
-    @RequestMapping("/setSession")
-    public String setSession(ModelMap map, HttpSession session){
+    @RequestMapping("/setSession/{ref_id}") //调试用：设置 ref_id
+    public String setSession(@PathVariable int ref_id,ModelMap map, HttpSession session){
         session.setMaxInactiveInterval(18000);//TODO session有效期
-        map.put("refId",1);
+//        session.setAttribute();
+        map.put("refId",ref_id);
         return "teamSidebar";
     }
 
@@ -74,8 +75,8 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
         TempScore t = null;
         for(Integer i:athIds){
             t = refereeService.getAthScoreListNormal(jud_id,i);
+            normal = new AthTempListNormal();
             if(t != null){
-                normal = new AthTempListNormal();
                 normal.setAthlete(t.getAthlete());
                 normal.setScore(t.getScore());
                 normal.setIsValid(t.getIsValid());
@@ -114,14 +115,14 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
         j.setCompetitionVO(MyConvertor.convertComp(j.getCompetition()));
         List<Integer> athIds = teamService.getAthByCompGroup(j.getCompetition().getId(),j.getGroupno());
 
-        List<Athlete> athletes = new ArrayList<>();
+        List<Participate> pars = new ArrayList<>();
         for(Integer i:athIds){
-            Athlete athlete = teamService.getAthlete(i);
-            athletes.add(athlete);
+            Participate par = refereeService.getSingleAthById(compid, i);
+            pars.add(par);
         }
 
         map.put("jud",j);
-        map.put("athletes",athletes);
+        map.put("pars",pars);
 
         return "majorRef";
     }
@@ -198,6 +199,12 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
     public Object getFinalScore(@RequestParam("compid")int compid,@RequestParam("athid")int athid){
         Double finalScore = athleteService.getFinalScore(compid, athid);
         return finalScore;
+    }
+
+    @ResponseBody
+    @RequestMapping("/majorConfirm/setFinalCompetition")
+    public Object setFinalCompetition(@RequestParam("compid")int compid){
+
     }
 
 }

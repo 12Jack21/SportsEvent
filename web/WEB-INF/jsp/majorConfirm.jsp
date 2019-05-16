@@ -183,20 +183,20 @@
                 </button>
             </div>
             <div class="modal-body text-lg">
-                <form>
+                <form id="finalForm">
                     <div class="form-group">
                         <label for="Pinput">P point</label>
                         <input type="number" class="form-control" id="Pinput" placeholder="D point"
-                               min="0.0" max="10.0" step="0.1" onchange="changePoint()">
+                               min="0.0" max="10.0" step="0.1" onchange="changePoint()" oninput="changePoint()">
                     </div>
                     <div class="form-group">
                         <label for="Dinput">D point</label>
                         <input type="number" class="form-control" id="Dinput" placeholder="P point"
-                               min="0" max="10" step="0.1" onchange="changePoint()">
+                               min="0" max="10" step="0.1"  oninput="changePoint()">
                     </div>
                     <div class="form-group">
                         <label >Average Score:</label>
-                        <label id="averageScoreLabel">87.34</label>
+                        <label id="averageScoreLabel">0.0</label>
                     </div>
                     <div class="form-group">
                         <label >Final Score:</label>
@@ -215,7 +215,7 @@
     <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-primary" id="scoreModalLabelTitle">MaScar's Score Log</h4>
+                <h4 class="modal-title text-primary" id="scoreModalLabelTitle">Score Log</h4>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -227,7 +227,7 @@
                         <tr>
                             <th>_id</th>
                             <th>Score</th>
-                            <th>isValid</th>
+                            <th>State</th>
                         </tr>
                         </thead>
                         <tbody>

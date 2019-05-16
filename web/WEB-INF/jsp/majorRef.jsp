@@ -121,19 +121,29 @@
                                     <th>athid</th>
                                     <th>Name</th>
                                     <th>No</th>
+                                    <th>Score</th>
                                     <th>Operation</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${athletes}" var="ath">
+                                <c:forEach items="${pars}" var="par">
                                     <tr>
-                                        <td>${ath.id}</td>
-                                        <td>${ath.name}</td>
-                                        <td>${ath.no}</td>
+                                        <td>${par.athlete.id}</td>
+                                        <td>${par.athlete.name}</td>
+                                        <td><c:choose><c:when
+                                                test="${par.athlete.no == null}">未定</c:when>
+                                            <c:otherwise>${par.athlete.no }</c:otherwise>
+                                        </c:choose>
+                                        </td>
+                                        <td><c:choose><c:when
+                                                test="${par.score == 0.0}">未定</c:when>
+                                            <c:otherwise>${par.score}</c:otherwise>
+                                        </c:choose>
+                                        </td>
                                         <td>
-                                            <a href="${jud.competitionVO.id}/${ath.id}" class='up btn btn-default btn-xs' >
+                                            <a href="${jud.competitionVO.id}/${par.athlete.id}" class='up btn btn-default btn-xs' >
                                             <i class='fa fa-edit'></i>
-                                                查看给分
+                                                查看具体裁判给分
                                             </a>
                                         </td>
                                     </tr>
@@ -161,6 +171,10 @@
     </div>
     <!-- End of Content Wrapper -->
 
+    <!--计算得出比赛成绩表，以及决赛表-->
+    <div class="athleteAdd" data-toggle="modal" style="z-index: 3;" onclick="setRank()">
+        <i class="fa fa-file-archive" ></i>
+    </div>
 
 </div>
 <!-- End of Page Wrapper -->
@@ -190,80 +204,6 @@
     </div>
 </div>
 
-<!--给分记录-->
-<div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog " role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title text-primary" id="scoreModalLabelTitle">MaScar's Score Log</h4>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body text-lg">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover dataTableOfSign" id="athDataTableOfSign">
-                        <thead>
-                        <tr>
-                            <th>_id</th>
-                            <th>Score</th>
-                            <th>isValid</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Tokyo</td>
-                            <td>33</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>New York</td>
-                            <td>61</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>San Francisco</td>
-                            <td>59</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Tokyo</td>
-                            <td>55</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>San Francisco</td>
-                            <td>59</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 </body>
 

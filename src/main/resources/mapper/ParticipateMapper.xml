@@ -56,7 +56,7 @@
     </select>
 
     <select id="getSingleAthById" parameterType="int" resultMap="AthScores">
-        SELECT a.name,a.no,p.score
+        SELECT a.id,a.name,a.no,p.score
         FROM participate p
         LEFT JOIN athlete a
         ON p.ath_id=a.id
