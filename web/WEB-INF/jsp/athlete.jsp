@@ -353,7 +353,7 @@
     // $(document).addEventListener("click", clickOper,false);
 </script>
 
-<script src="/sports/js/athlete.js"></script>
+<script src="/sports/js.action/athlete.js"></script>
 </body>
 
 </html>

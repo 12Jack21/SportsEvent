@@ -16,7 +16,7 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
 
-    <jsp:include page="teamSidebar.jsp"></jsp:include>
+    <jsp:include page="adminSidebar.jsp"></jsp:include>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -265,7 +265,7 @@
 </div>
 
 
-<script src="/sports/js/adminTeam.js"></script>
+<script src="/sports/js.action/adminTeam.js"></script>
 </body>
 
 </html>

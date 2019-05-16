@@ -10,7 +10,7 @@ $(document).ready(function () {
         "searching":true,
         "responsive":true,
         "ajax": {
-            url:"list", //TODO 需要改成 session
+            url:"coach/list", //TODO 需要改成 session
             dataSrc:""
         },
         "columns": [
@@ -97,24 +97,28 @@ $("#addCoach").submit(function (event) {
         url: $form.attr("action"),
         data: $form.serialize(),
         success: function (result) {
-            console.log(result, status);//打印服务端返回的数据(调试用)
             console.log(result);
 
-            add.children("strong").text("Add coach success !!!");
-            add.removeClass("alert-danger").addClass("alert-success");
-            table.ajax.reload();//刷新DataTable
-            $form[0].reset();
+            if(result == true){
+                add.children("strong").text("Add coach success !!!");
+                add.removeClass("alert-danger").addClass("alert-success");
+                table.ajax.reload();//刷新DataTable
+                $form[0].reset();
+            }else{
+                add.children("strong").text("Add coach fail !!!");
+                add.removeClass("alert-success").addClass("alert-danger");
+            }
         },
         error : function() {
             add.children("strong").text("Add coach fail !!!");
-            add.removeClass("alert-danger").addClass("alert-success");
+            add.removeClass("alert-success").addClass("alert-danger");
         },
         complete:function () {
             $("#addModal").modal("hide");
             alertReport(add);
         }
     });
-})
+});
 
 //更新按钮 判断
 function updateBtn(){
@@ -179,9 +183,15 @@ $("#updateCoach").submit(function (event) {
             success: function (result) {
                 console.log(result, status);//打印服务端返回的数据(调试用)
 
-                update.children("strong").text("Update coach success !!!");
-                update.removeClass("alert-danger").removeClass("alert-warning").addClass("alert-success");
-                table.ajax.reload();//刷新DataTable
+                if(result == true){
+
+                    update.children("strong").text("Update coach success !!!");
+                    update.removeClass("alert-danger").removeClass("alert-warning").addClass("alert-success");
+                    table.ajax.reload();//刷新DataTable
+                }else {
+                    update.children("strong").text("Update coach fail !!!");
+                    update.addClass("alert-danger").removeClass("alert-success").removeClass("alert-warning");
+                }
             },
             error : function() {
                 update.children("strong").text("Update coach fail !!!");
@@ -218,10 +228,15 @@ function deleteCoach(btn){
         url: "/sports/team/coach/delete",
         success: function (result) {
             console.log(result, status);//打印服务端返回的数据(调试用)
+            if (result == true){
 
-            del.children("strong").text("Delete operation success !!!");
-            del.removeClass("alert-danger").addClass("alert-success");
-            table.ajax.reload();//刷新DataTable
+                del.children("strong").text("Delete operation success !!!");
+                del.removeClass("alert-danger").addClass("alert-success");
+                table.ajax.reload();//刷新DataTable
+            } else {
+                update.children("strong").text("Update coach fail !!!");
+                update.addClass("alert-danger").removeClass("alert-success").removeClass("alert-warning");
+            }
 
 
         },

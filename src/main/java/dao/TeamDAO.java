@@ -16,6 +16,8 @@ public interface TeamDAO {
 
     List<Team> getUnSignTeams();
 
+    Integer getTeamIdByUser(String user,String password);
+
     Team getHostTeam();
 
     boolean addTeam(Team team);

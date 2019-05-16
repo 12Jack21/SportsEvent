@@ -268,5 +268,5 @@
 
 </body>
 
-<script src="/sports/js/coach.js"></script>
+<script src="/sports/js.action/coach.js"></script>
 </html>

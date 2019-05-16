@@ -96,7 +96,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="defaultPage/login.html">Logout</a>
+                <a class="btn btn-primary" href="/sports/login/page">Logout</a>
             </div>
         </div>
     </div>
@@ -114,7 +114,7 @@
                 </button>
             </div>
             <div class="modal-body text-lg">
-                <form id="addCoach" action="${pageContext.request.contextPath}/team/captain/jumbotron_captain">
+                <form id="addCap" action="${pageContext.request.contextPath}/team/captain">
                     <div class="form-group">
                         <label for="nameAdd">Name</label>
                         <input type="text" class="form-control" id="nameAdd" placeholder="your name" name="name">
@@ -137,7 +137,33 @@
 </body>
 
 <script>
+    $(document).ready(function () {
 
+        $("#addCap").submit(function (e) {
+            e.preventDefault();
+            var $form = $(this);
+            var url = "/sports/team/captain/add";
+            $.ajax({
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: url,
+                data: $form.serialize(),
+                success: function (result) {
+                    console.log(result, status);//打印服务端返回的数据(调试用)
+                    if(result == true){
+                        alert("Add success!");
+                        window.location.href = $form.attr("action");
+                    }
+                },
+                error: function () {
+                    alert("Add fail !!!");
+                },
+            });
+
+            return false;
+        })
+
+    });
 
 </script>
 </html>

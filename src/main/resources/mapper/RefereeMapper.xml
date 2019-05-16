@@ -32,6 +32,9 @@
         SELECT * FROM referee WHERE id = #{refid}
     </select>
 
+    <select id="getRefIdByUser" parameterType="string" resultType="integer">
+        SELECT id FROM referee WHERE name=#{param1} AND user=#{param2}
+    </select>
     <select id="getUnGroupRef" parameterType="int" resultMap="RefereeInf">
         SELECT r.id,r.`name` ,r.teamid,t.`name` t_name
         FROM referee r

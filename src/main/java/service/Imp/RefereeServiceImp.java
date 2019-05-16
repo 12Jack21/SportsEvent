@@ -33,6 +33,11 @@ public class RefereeServiceImp implements RefereeService {
     }
 
     @Override
+    public Integer getRefIdByUser(String name, String user) {
+        return refereeDAO.getRefIdByUser(name, user);
+    }
+
+    @Override
     public boolean isMajorReferee(int refid, int compid) {
         int refType = judgeDAO.getReftype(refid, compid);
         return refType != 0;

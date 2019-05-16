@@ -17,7 +17,7 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
 
-    <jsp:include page="teamSidebar.jsp"></jsp:include>
+    <jsp:include page="refSidebar.jsp"></jsp:include>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">

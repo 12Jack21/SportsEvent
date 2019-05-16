@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import po.*;
+import service.AdminService;
 import service.AthleteService;
 import service.RefereeService;
 import service.TeamService;
@@ -15,7 +16,9 @@ import vo.RefTempListMajor;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/referee")
@@ -27,6 +30,8 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
     private TeamService teamService;
     @Autowired
     private AthleteService athleteService;
+    @Autowired
+    private AdminService adminService;
 
     @RequestMapping("/setSession/{ref_id}") //调试用：设置 ref_id
     public String setSession(@PathVariable int ref_id,ModelMap map, HttpSession session){
@@ -202,9 +207,13 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
     }
 
     @ResponseBody
-    @RequestMapping("/majorConfirm/setFinalCompetition")
+    @RequestMapping("/majorConfirm/setFinalCompetition") //某项比赛结束后设置该类比赛的决赛
     public Object setFinalCompetition(@RequestParam("compid")int compid){
+        Competition competition = teamService.getCompetition(compid);
+        //设置为决赛
+        competition.setType(1);
 
+        return adminService.addCompetition(competition);
     }
 
 }

@@ -262,5 +262,5 @@
 
 </body>
 
-<script src="/sports/js/referee.js"></script>
+<script src="/sports/js.action/referee.js"></script>
 </html>

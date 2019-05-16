@@ -39,11 +39,11 @@
                     <strong></strong>
                 </div>
 
-                <div class="jumbotron" >
+                <div class="jumbotron">
                     <div class="container" style="margin-top: 5%;margin-bottom: 5%;transition-duration: 0.8s;">
                         <h1>There is no ${role} here, please add a new ${role}</h1>
                         <div class="position-relative">
-                            <div class="newAdd " data-toggle="modal" data-target="#addModal" >
+                            <div class="newAdd " data-toggle="modal" data-target="#addModal">
                                 <i class="fa fa-3x fa-plus myPlus"></i>
                                 <div class="btnContent">
                                     Add
@@ -114,7 +114,7 @@
                 </button>
             </div>
             <div class="modal-body text-lg">
-                <form id="addCoach" action="${pageContext.request.contextPath}/team/coach/jumbotron_coach">
+                <form id="addCoach" action="${pageContext.request.contextPath}/team/coach">
                     <div class="form-group">
                         <label for="nameAdd">Name</label>
                         <input type="text" class="form-control" id="nameAdd" placeholder="your name" name="name">
@@ -145,7 +145,33 @@
 </body>
 
 <script>
+    $(document).ready(function () {
 
+        $("#addCoach").submit(function (e) {
+            e.preventDefault();
+            var $form = $(this);
+            var url = "/sports/team/coach/add";
+            $.ajax({
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: url,
+                data: $form.serialize(),
+                success: function (result) {
+                    console.log(result, status);//打印服务端返回的数据(调试用)
+                    if(result == true){
+                        alert("Add success!");
+                        window.location.href = $form.attr("action");
+                    }
+                },
+                error: function () {
+                    alert("Add fail !!!");
+                },
+            });
+
+            return false;
+        })
+
+    });
 
 </script>
 </html>

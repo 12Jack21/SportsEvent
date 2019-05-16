@@ -29,7 +29,7 @@ public class AdminServiceImp implements AdminService {
     private JudgeDAO judgeDAO;
 
     @Override
-    public boolean canLogin(String user, String password) {
+    public boolean canLogin(String user, String password) { //TODO 自定义管理员账户
         if(user.equals("Sports") && password.equals("123"))
             return true;
         return false;

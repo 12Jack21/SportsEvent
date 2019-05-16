@@ -8,6 +8,8 @@ public interface RefereeService {
     //登陆是否成功
     boolean canLogin(Referee referee);
 
+    Integer getRefIdByUser(String name,String user);
+
     //是否为小组主裁判
     boolean isMajorReferee(int refid,int compid);
 

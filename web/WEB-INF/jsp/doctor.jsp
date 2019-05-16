@@ -246,5 +246,5 @@
 
 </body>
 
-<script src="/sports/js/doctor.js"></script>
+<script src="/sports/js.action/doctor.js"></script>
 </html>

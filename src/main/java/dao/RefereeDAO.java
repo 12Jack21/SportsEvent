@@ -16,6 +16,8 @@ public interface RefereeDAO {
 
     Referee getReferee(int refid);
 
+    Integer getRefIdByUser(String name,String user);
+
     List<Referee> getUnGroupRef(int compid);
 //    在JudgeDAO中得到了更好的实现
 //    List<Referee> getCompReferees(int compid);

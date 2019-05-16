@@ -8,11 +8,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import po.*;
 import service.AdminService;
+import service.AthleteService;
 import service.TeamService;
 import vo.CompetitionVO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -21,6 +24,8 @@ public class AdminController {
     private AdminService adminService;
     @Autowired
     private TeamService teamService;
+    @Autowired
+    private AthleteService athleteService;
 
     @RequestMapping("/competition")
     public String adminCompetition(){
@@ -202,7 +207,7 @@ public class AdminController {
 
     @ResponseBody
     @RequestMapping("/referee/list")
-    public Object refereeList(){
+    public Object refereeList(){ //TODO 不需要改变吗？
         List<Referee> referees = adminService.getAllReferees();
 //        List<RefereeVO> rVO = new ArrayList<>();
 //        for(Referee r:referees){
@@ -218,6 +223,16 @@ public class AdminController {
         return adminService.addRefereeAccount(id,user); //TODO 类似这样重新优化代码
     }
 
+    @ResponseBody
+    @RequestMapping("/athlete/setNo")  //TODO setSignUpFinish()调用
+    public Object setAtheleteNo(){
+        return athleteService.setAthleteNo();
+    }
 
 
+//    @ResponseBody
+//    @RequestMapping("/team/setSignUp")
+//    public Object setTeamSignUpFinish(){
+//
+//    }
 }

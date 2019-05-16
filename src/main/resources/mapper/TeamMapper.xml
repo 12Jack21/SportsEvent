@@ -21,6 +21,10 @@
         SELECT * FROM team WHERE isSign = 0
     </select>
 
+    <select id="getTeamIdByUser" resultType="integer" parameterType="string">
+        SELECT id FROM team WHERE user=#{param1} AND password=#{param2}
+    </select>
+
     <select id="getHostTeam" resultType="po.Team">
         SELECT * FROM team WHERE isHost = 1
     </select>

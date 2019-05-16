@@ -184,7 +184,7 @@
     </div>
 </div>
 
-<script src="/sports/js/signUp.js"></script>
+<script src="/sports/js.action/signUp.js"></script>
 </body>
 
 </html>

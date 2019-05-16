@@ -39,6 +39,11 @@ public class TeamServiceImp implements TeamService {
     }
 
     @Override
+    public Integer getTeamId(String user, String password) {
+        return teamDAO.getTeamIdByUser(user, password);
+    }
+
+    @Override
     public boolean updatePassWord(Team team) {
         return teamDAO.updateTeam(team);
     }

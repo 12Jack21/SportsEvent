@@ -114,7 +114,7 @@
                 </button>
             </div>
             <div class="modal-body text-lg">
-                <form id="addDoc" action="${pageContext.request.contextPath}/team/doctor/jumbotron_doctor">
+                <form id="addDoc" action="${pageContext.request.contextPath}/team/doctor">
                     <div class="form-group">
                         <label for="nameAdd">Name</label>
                         <input type="text" class="form-control" id="nameAdd" placeholder="your name" name="name">
@@ -138,7 +138,33 @@
 </body>
 
 <script>
+    $(document).ready(function () {
 
+        $("#addDoc").submit(function (e) {
+            e.preventDefault();
+            var $form = $(this);
+            var url = "/sports/team/doctor/add";
+            $.ajax({
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: url,
+                data: $form.serialize(),
+                success: function (result) {
+                    console.log(result, status);//打印服务端返回的数据(调试用)
+                    if(result == true){
+                        alert("Add success!");
+                        window.location.href = $form.attr("action");
+                    }
+                },
+                error: function () {
+                    alert("Add fail !!!");
+                },
+            });
+
+            return false;
+        })
+
+    });
 
 </script>
 </html>

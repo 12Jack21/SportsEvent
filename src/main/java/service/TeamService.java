@@ -10,6 +10,8 @@ public interface TeamService {
     //登陆成功与否
     boolean canLogin(Team team);
 
+    Integer getTeamId(String user,String password);
+
     //更改密码
     boolean updatePassWord(Team team);
 
