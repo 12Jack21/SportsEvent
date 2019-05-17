@@ -6,7 +6,6 @@ public class Sign {
     private Competition competition;
     private CompetitionVO competitionVO;
     private Team team;
-    private int isSign;
 
     public Sign() {
     }
@@ -35,11 +34,4 @@ public class Sign {
         this.team = team;
     }
 
-    public int getIsSign() {
-        return isSign;
-    }
-
-    public void setIsSign(int isSign) {
-        this.isSign = isSign;
-    }
 }

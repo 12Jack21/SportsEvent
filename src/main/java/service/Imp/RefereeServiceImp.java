@@ -1,9 +1,6 @@
 package service.Imp;
 
-import dao.JudgeDAO;
-import dao.ParticipateDAO;
-import dao.RefereeDAO;
-import dao.TempScoreDAO;
+import dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import po.Judge;
@@ -11,7 +8,11 @@ import po.Participate;
 import po.Referee;
 import po.TempScore;
 import service.RefereeService;
+import vo.CompSign;
+import vo.Rank;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -24,7 +25,10 @@ public class RefereeServiceImp implements RefereeService {
     private JudgeDAO judgeDAO;
     @Autowired
     private TempScoreDAO tempScoreDAO;
-
+    @Autowired
+    private SignDAO signDAO;
+    @Autowired
+    private TeamDAO teamDAO;
 
     @Override
     public boolean canLogin(Referee referee) {
@@ -120,8 +124,75 @@ public class RefereeServiceImp implements RefereeService {
     }
 
     @Override
-    public List<Participate> getAthleteRank(int compid) {
-        return participateDAO.getAthletesRankByComp(compid);
+    public List<Rank> getAthleteRank(int compid) {
+        List<Participate> participates = participateDAO.getAthletesRankByComp(compid);
+        List<Rank> ranks = new ArrayList<>();
+        Rank r, preRank = null;
+        int rank = 1;
+        for (Participate p:participates){
+            r = new Rank();
+            r.setId(p.getAthlete().getId());
+            r.setName(p.getAthlete().getName());
+            r.setScore(p.getScore());
+            r.setRank(rank++);
+
+            //同分数的设置同名次
+            if(preRank == null){
+                preRank = r;
+            }else if (p.getScore() == preRank.getScore())
+                r.setRank(preRank.getRank());
+            else
+                preRank = r;
+
+            ranks.add(r);
+        }
+
+        return ranks;
+    }
+
+    @Override
+    public List<Rank> getTeamRank(int compid) {
+        List<Integer> teamIds = signDAO.getTeamidsOfComp(compid);
+        List<Rank> ranks = new ArrayList<>();
+        Rank r = null;
+        //遍历所有队伍
+        for (Integer id: teamIds){
+            List<Participate> pars = participateDAO.getCompScoresByTeam(compid,id);
+
+            //少于四个则不计算团体成绩
+            if(pars.toArray().length >= 4){
+                r = new Rank();
+                r.setId(id);
+                r.setName(teamDAO.getTeam(id).getName());
+
+                Double score = pars.get(0).getScore() + pars.get(1).getScore()
+                        + pars.get(2).getScore() + pars.get(3).getScore();
+                r.setScore(score);
+
+                ranks.add(r);
+            }
+        }
+        //排序
+        Collections.sort(ranks);
+        //倒排
+        Collections.reverse(ranks);
+
+        if(ranks.toArray().length != 0){
+            //设置名次
+            Rank preRank = ranks.get(0);
+            int rankIndex = 1;
+            for(Rank rrr: ranks){
+                rrr.setRank(rankIndex++);
+                if(rrr.getScore().equals(preRank.getScore()))
+                    rrr.setRank(preRank.getRank());
+                else
+                    preRank = rrr;
+            }
+
+        }
+
+        return ranks;
+
     }
 
     @Override

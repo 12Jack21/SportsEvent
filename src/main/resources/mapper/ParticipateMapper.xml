@@ -68,7 +68,7 @@
         LEFT JOIN athlete a
         ON p.ath_id=a.id
         WHERE p.comp_id=#{compid}
-        ORDER BY p.score
+        ORDER BY p.score DESC
     </select>
 
     <select id="getScoresByComp" resultMap="AthScores" parameterType="int">

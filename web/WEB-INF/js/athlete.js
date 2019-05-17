@@ -1,9 +1,13 @@
-
+var athId = null;
 $(document).ready(function () {
 
+    //删除运动员
     $(".athDelete").click(function () {
+        console.log($(this).parent().children("p").text().trim(),"...");
+        athId = parseInt($(this).parent().children("p").text().trim()) ;
+        $("#deleteModal").modal("show");
+    });
 
-    })
 });
 
 //进行相关操作后用警告框通知前端
@@ -27,7 +31,6 @@ $("#addAthlete").submit(function (event) {
         data: $form.serialize(),
         success: function (result) {
             console.log(result, status);//打印服务端返回的数据(调试用)
-            console.log(result);
 
             add.children("strong").text("Add athlete success !!!");
             add.removeClass("alert-danger").addClass("alert-success");
@@ -49,6 +52,43 @@ $("#addAthlete").submit(function (event) {
 
     return false;
 });
+
+function deleteAth() {
+    var del = $("#deleteAlert");
+    var url = "/sports/team/athlete/delete";
+    $.ajax({
+        type: "POST",//方法类型
+        dataType: "json",//预期服务器返回的数据类型
+        data:{
+            data: athId
+        },
+        traditional:true,////这里设置为true,使传递参数变成 data:1
+        url: url,
+        success: function (result) {
+            console.log(result, status);//打印服务端返回的数据(调试用)
+            if (result == true){
+
+                del.children("strong").text("Delete operation success !!!");
+                del.removeClass("alert-danger").addClass("alert-success");
+                refresh();
+
+            } else {
+                del.children("strong").text("Delete coach fail !!!");
+                del.addClass("alert-danger").removeClass("alert-success").removeClass("alert-warning");
+            }
+
+        },
+        error : function() {
+            del.children("strong").text("Delete operation fail !!!");
+            del.addClass("alert-danger").removeClass("alert-success");
+        },
+        complete:function () {
+            $("#deleteModal").modal("hide");
+            alertReport(del);
+        }
+    });
+}
+
 
 //刷新对应的卡片Section
 function refresh() {

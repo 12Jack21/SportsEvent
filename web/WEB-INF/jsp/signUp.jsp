@@ -122,10 +122,10 @@
                 </button>
             </div>
             <div class="modal-body text-lg">
-                <p class="text-primary">Select 5 athletes to sign this game up.</p>
+                <p class="text-primary">Select no more than 5 athletes to sign this game up.</p>
                 <form>
                     <div class="table-responsive align-content-center">
-                        <table class="table table-bordered table-hover dataTableOfSign" id="athDataTableOfSign">
+                        <table class="table table-bordered table-hover dataTableOfSign display" id="athDataTableOfSign" width="100%">
                             <thead>
                             <tr>
                                 <th>id</th>

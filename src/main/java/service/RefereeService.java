@@ -1,6 +1,7 @@
 package service;
 
 import po.*;
+import vo.Rank;
 
 import java.util.List;
 
@@ -59,8 +60,11 @@ public interface RefereeService {
     //计算并设置个人最终单项成绩（主）
     boolean figureResultScore(int athid,int compid,Double score);
 
-    //得到某项比赛的 单项排名表
-    List<Participate> getAthleteRank(int compid);
+    //得到某项比赛的 运动员单项排名表
+    List<Rank> getAthleteRank(int compid);
+
+    //得到某项比赛的 队伍单项排名表(只取前四名运动员计算总和，没有四名的就不计算)
+    List<Rank> getTeamRank(int compid);
 
     //得到某项比赛的 决赛名单
     List<Participate> getFinalCompAthletes(int compid);

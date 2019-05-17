@@ -124,8 +124,13 @@ public class TeamServiceImp implements TeamService {
     }
 
     @Override
-    public List<Sign> getSignByTeam(int teamid) {
-        return signDAO.getSignsByTeam(teamid);
+    public Integer getSignByTeamComp(int teamid, int compid) {
+        return signDAO.getSignByTeamComp(teamid, compid);
+    }
+
+    @Override
+    public boolean addCompSign(int teamid, int compid) {
+        return signDAO.addSign(teamid, compid);
     }
 
     @Override

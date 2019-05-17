@@ -75,15 +75,19 @@
                                                             <div class="col-lg-4 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
                                                                 <h5 class="mb-0 ">${par.name}</h5>
                                                             </div>
-                                                            <div class="col-lg-4 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
+                                                            <div class="col-lg-3 offset-lg-1 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
                                                                 <p class=" mb-0 mt-3 mt-lg-0">
-                                                                    description
+                                                                    <c:choose><c:when
+                                                                            test="${par.sex == 0}">女</c:when>
+                                                                        <c:otherwise>男</c:otherwise>
+                                                                    </c:choose>
                                                                 </p>
                                                             </div>
                                                             <div class="col-lg-2 offset-1 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
                                                                 <div class=" bg-gray-100 roundy px-2 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-danger exclode athDelete">
                                                                     Delete
                                                                 </div>
+                                                                <p hidden="hidden">${par.id}</p>
                                                             </div>
                                                         </div>
                                                     </a>
@@ -91,20 +95,6 @@
                                             </div>
                                         </c:forEach>
                                     </section>
-
-                                    <!--分页-->
-                                    <nav aria-label="Page navigation">
-                                        <div class="float-right">
-                                            <ul class="pagination ">
-                                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                            </ul>
-
-                                        </div>
-                                    </nav>
                                 </div>
                             </div>
                         </div>
@@ -129,15 +119,19 @@
                                                             <div class="col-lg-4 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
                                                                 <h5 class="mb-0 ">${par.name}</h5>
                                                             </div>
-                                                            <div class="col-lg-4 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
+                                                            <div class="col-lg-3 offset-lg-1  d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
                                                                 <p class=" mb-0 mt-3 mt-lg-0">
-                                                                    description
+                                                                    <c:choose><c:when
+                                                                            test="${par.sex == 0}">女</c:when>
+                                                                        <c:otherwise>男</c:otherwise>
+                                                                    </c:choose>
                                                                 </p>
                                                             </div>
                                                             <div class="col-lg-2 offset-1 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
                                                                 <div class=" bg-gray-100 roundy px-2 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-danger exclode athDelete">
                                                                     Delete
                                                                 </div>
+                                                                <p hidden="hidden">${par.id}</p>
                                                             </div>
                                                         </div>
                                                     </a>
@@ -146,19 +140,6 @@
                                         </c:forEach>
                                     </section>
 
-                                    <!--分页-->
-                                    <nav aria-label="Page navigation">
-                                        <div class="float-right">
-                                            <ul class="pagination ">
-                                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                            </ul>
-
-                                        </div>
-                                    </nav>
                                 </div>
                             </div>
 
@@ -185,15 +166,19 @@
                                                             <div class="col-lg-4 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
                                                                 <h5 class="mb-0 ">${par.name}</h5>
                                                             </div>
-                                                            <div class="col-lg-4 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
+                                                            <div class="col-lg-3 offset-lg-1  d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
                                                                 <p class=" mb-0 mt-3 mt-lg-0">
-                                                                    description
+                                                                    <c:choose><c:when
+                                                                            test="${par.sex == 0}">女</c:when>
+                                                                        <c:otherwise>男</c:otherwise>
+                                                                    </c:choose>
                                                                 </p>
                                                             </div>
                                                             <div class="col-lg-2 offset-1 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
                                                                 <div class=" bg-gray-100 roundy px-2 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-danger exclode athDelete">
                                                                     Delete
                                                                 </div>
+                                                                <p hidden="hidden">${par.id}</p>
                                                             </div>
                                                         </div>
                                                     </a>
@@ -201,20 +186,6 @@
                                             </div>
                                         </c:forEach>
                                     </section>
-
-                                    <!--分页-->
-                                    <nav aria-label="Page navigation">
-                                        <div class="float-right">
-                                            <ul class="pagination ">
-                                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                            </ul>
-
-                                        </div>
-                                    </nav>
                                 </div>
                             </div>
                         </div>
@@ -230,7 +201,7 @@
         <!-- End of Main Content -->
 
         <!--添加运动员-->
-        <div class="athleteAdd" data-toggle="modal" data-target="#addModal" >
+        <div class="athleteAdd" data-toggle="modal" data-target="#addModal">
             <i class="fa fa-plus" style="margin-top: 12%;"></i>
         </div>
 
@@ -328,10 +299,11 @@
                 <h5 class="modal-title" id="deleteModalLabelTitle">Sure to delete?</h5>
             </div>
             <div class="modal-body">Select "Delete" below if you are ready to delete the
-                <span class="text-danger" id="confirmDelete">athlete</span> you select.</div>
+                <span class="text-danger" id="confirmDelete">athlete</span> you select.
+            </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-danger" type="button" onclick="deleteCoach(this)">Delete</button>
+                <button class="btn btn-danger" type="button" onclick="deleteAth(this)">Delete</button>
             </div>
         </div>
     </div>

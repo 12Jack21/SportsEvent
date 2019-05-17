@@ -217,12 +217,11 @@ function deleteCoach(btn){
         deleteIds.push(selection[i].id);
     }
     var del = $("#deleteAlert");
-    var url = "/delete";
     $.ajax({
         type: "POST",//方法类型
         dataType: "json",//预期服务器返回的数据类型
         data:{
-          data:deleteIds
+          data: deleteIds
         },
         traditional:true,////这里设置为true,使传递参数变成 data:1
         url: "/sports/team/coach/delete",
@@ -234,8 +233,8 @@ function deleteCoach(btn){
                 del.removeClass("alert-danger").addClass("alert-success");
                 table.ajax.reload();//刷新DataTable
             } else {
-                update.children("strong").text("Update coach fail !!!");
-                update.addClass("alert-danger").removeClass("alert-success").removeClass("alert-warning");
+                del.children("strong").text("Delete operation fail !!!");
+                del.addClass("alert-danger").removeClass("alert-success").removeClass("alert-warning");
             }
 
 

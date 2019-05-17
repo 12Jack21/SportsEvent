@@ -87,7 +87,7 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <a href="${pageContext.request.contextPath}/team/competition/${major.id}"
-                                                   class="message card px-5 py-3 mb-4 bg-hover-gradient-primary no-anchor-style border-left-success ">
+                                                   class="message card px-5 py-3 mb-4 bg-hover-gradient-primary no-anchor-style border-left-primary ">
                                                     <div class="row">
                                                         <div class="col-lg-4 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
                                                             <span hidden="hidden">${major.id}</span>
@@ -124,7 +124,7 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <a href="${pageContext.request.contextPath}/team/competition/${normal.id}"
-                                                   class="message card px-5 py-3 mb-4 bg-hover-gradient-primary no-anchor-style border-left-success ">
+                                                   class="message card px-5 py-3 mb-4 bg-hover-gradient-primary no-anchor-style border-left-primary ">
                                                     <div class="row">
                                                         <div class="col-lg-4 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
                                                             <span hidden="hidden">${normal.id}</span>

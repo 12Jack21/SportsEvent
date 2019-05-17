@@ -70,7 +70,11 @@ public interface TeamService {
     //删除裁判
     boolean deleteReferee(int id);
 
-    List<Sign> getSignByTeam(int teamid);
+    //判断是否报名了某比赛
+    Integer getSignByTeamComp(int teamid,int compid);
+
+    //添加队伍对某场比赛的报名
+    boolean addCompSign(int teamid,int compid);
 
     //给运动员报名
     boolean signUpAthlete(int athid,int compid);

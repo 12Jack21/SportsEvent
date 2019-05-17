@@ -12,11 +12,11 @@ $(document).ready(function () {//TODO 不行就返回jsp
             dataSrc: ""
         },
         "columns": [
-            {"data": "id"},
-            {"data": "project"},
-            {"data": "sexgroup"},
-            {"data": "agegroup"},
-            {"data": "isEnd"},
+            {"data": "competitionVO.id"},
+            {"data": "competitionVO.project"},
+            {"data": "competitionVO.sexgroup"},
+            {"data": "competitionVO.agegroup"},
+            {"data": "isSign"},
             {"data": null}
         ],
         "columnDefs": [{
@@ -29,7 +29,7 @@ $(document).ready(function () {//TODO 不行就返回jsp
             "render": function (data, type, row) {
                 var id = '"' + row.id + '"';
                 var html = "<a href='javascript:void(0);' class='delete btn btn-default btn-xs' " +
-                    "data-toggle='modal' onclick='sign( " + data.id + ")'>" +
+                    "data-toggle='modal' onclick='sign( " + data.competitionVO.id + ")'>" +
                     "<i class='fa fa-file-alt'></i> 报名</a>";
                 return html;
             }
@@ -69,12 +69,12 @@ $("#signUpSub").click(function (e) {
     var select = $("#selectAlert");
     var sLength = athGroupTable.rows(".selected")[0].length;
 
-    if(sLength < 5){
+    if(sLength > 5){
         select.removeClass("alert-danger").removeClass("alert-success").addClass("alert-warning");
-        select.children("strong").text("You have selected less than five athletes to sign up !!!");
+        select.children("strong").text("You have selected more than five athletes to sign up !!!");
         alertReport(select);
     }
-    else if (sLength == 5){
+    else if (sLength <= 5){
         var selection = athGroupTable.rows(".selected").data();
         console.log(selection);
         var addAthIds = [];
@@ -109,9 +109,7 @@ $("#signUpSub").click(function (e) {
         });
     }
     else {
-        select.removeClass("alert-danger").removeClass("alert-success").addClass("alert-warning");
-        select.children("strong").text("You have selected more than five athletes to sign up !!!");
-        alertReport(select);
+
     }
     return false;
 });

@@ -14,6 +14,7 @@
             <result property="agegroup" column="agegroup"/>
         </association>
     </resultMap>
+
     <select id="getSignsByTeam" parameterType="int" resultMap="SignOfTeam">
         SELECT c.id,c.project,c.sexgroup,c.agegroup,s.isSign
         FROM sign s
@@ -21,4 +22,23 @@
         ON s.compid=c.id
         WHERE s.teamid=#{teamid}
     </select>
+
+    <select id="getSignByTeamComp" resultType="integer" parameterType="int">
+        SELECT id
+        FROM sign
+        WHERE compid=#{param2}
+        AND teamid=#{param1}
+    </select>
+
+    <select id="getTeamidsOfComp" parameterType="int" resultType="integer">
+        SELECT teamid
+        FROM sign
+        WHERE compid=#{compid}
+    </select>
+
+    <insert id="addSign" parameterType="int" keyProperty="id" keyColumn="id">
+        INSERT INTO sign(compid,teamid)
+        VALUES (#{param2},#{param1})
+    </insert>
+
 </mapper>

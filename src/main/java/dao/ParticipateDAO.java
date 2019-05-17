@@ -17,10 +17,12 @@ public interface ParticipateDAO {
     //得到具体某个运动员的信息和给分
     Participate getSingleAthById(int compid,int athid);
 
+    //得到运动员在一场比赛里的参赛表现，按成绩从高到低排列
     List<Participate> getAthletesRankByComp(int comid);
 
     List<Participate> getScoresByComp(int compid);
 
+    //得到一个队伍中运动员在某比赛中的所有成绩，成绩从高到低排（团体成绩取前四名）
     List<Participate> getCompScoresByTeam(int compid,int teamid);
 
     Double getPersonalScore(int athid,int compType); //TODO 此为单项个人初赛总成绩或决赛总成绩，若求成绩组则需要另写带有 GROUP BY语句的查询

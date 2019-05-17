@@ -35,7 +35,7 @@
 
     <!-- Nav Item - Referee -->
     <li class="nav-item ">
-        <a class="nav-link" href="__referee.html">
+        <a class="nav-link" href="/sports/team/referee">
             <i class="fas fa-fw fa-users-cog"></i>
             <span>Referee</span></a>
     </li>
