@@ -11,6 +11,7 @@ public interface JudgeDAO {
 
     List<Judge> getJudgesByRef(int refid,int refType);
 
+    //得到比赛中吹罚的裁判
     List<Judge> getJudgesByComp(int compid);
 
     Judge getJudge(int jud_id);

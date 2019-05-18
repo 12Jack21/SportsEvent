@@ -27,7 +27,6 @@ public class AthleteServiceImp implements AthleteService {
         int hostTeam = teamDAO.getHostTeam().getId();
         List<Athlete> males = athleteDAO.getMaleAthletes(hostTeam);
         List<Athlete> females = athleteDAO.getFemaleAthletes(hostTeam);
-
         //组装id 和 no
         //female
         int intNo = 0;
@@ -38,7 +37,6 @@ public class AthleteServiceImp implements AthleteService {
             intNo += 2;
         }
         boolean result1 = athleteDAO.updateNoBatch(females);
-
         //male
         intNo = 1;
         for (Athlete a : males) {
@@ -47,7 +45,6 @@ public class AthleteServiceImp implements AthleteService {
             intNo += 2;
         }
         boolean result2 = athleteDAO.updateNoBatch(males);
-
         return result1 && result2;
     }
 

@@ -57,6 +57,7 @@
         LEFT JOIN team t
         ON r.teamid = t.id
         WHERE j.comp_id=#{compid}
+        ORDER BY j.groupno ASC,j.reftype DESC
     </select>
 
     <select id="getJudge" resultMap="CompJudges" parameterType="int">

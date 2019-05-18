@@ -47,6 +47,8 @@
     <mvc:resources mapping="/js.action/**" location="/WEB-INF/js/"/>
     <mvc:resources mapping="/css.action/**" location="/WEB-INF/css/"/>
     <mvc:resources mapping="/vendor.action/**" location="/WEB-INF/vendor/"/>
+    <mvc:resources mapping="/img.action/**" location="/WEB-INF/img/"/>
+
 
     <!--    <mvc:default-servlet-handler/>-->
 

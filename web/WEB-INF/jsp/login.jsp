@@ -24,7 +24,7 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                        <div class="col-lg-6 d-none d-lg-block "><img src="/sports/img.action/login.jpg"></div>
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
@@ -58,9 +58,9 @@
                                     </a>
                                 </form>
                                 <hr>
-                                <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                </div>
+<%--                                <div class="text-center">--%>
+<%--                                    <a class="small" href="forgot-password.html">Forgot Password?</a>--%>
+<%--                                </div>--%>
 
                                 <!--登陆提示警告框-->
                                 <div class="alert fade show" role="alert" id="loginAlert" hidden="hidden">

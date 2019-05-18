@@ -76,7 +76,7 @@
                                         <span class="text-lg float-left">Score: &nbsp;</span>
                                         <p class="text-lg " style="margin-left: 22%" id="finalScore">
                                             <c:choose><c:when
-                                                    test="${par.score == 0.0}">未定</c:when>
+                                                    test="${par.score == 0.0 || par.score == null}">未定</c:when>
                                                 <c:otherwise>${par.score}</c:otherwise>
                                             </c:choose>
                                         </p>
@@ -166,12 +166,12 @@
                 <form id="finalForm">
                     <div class="form-group">
                         <label for="Pinput">P point</label>
-                        <input type="number" class="form-control" id="Pinput" placeholder="D point"
+                        <input type="number" class="form-control" id="Pinput" placeholder="P point"
                                min="0.0" max="10.0" step="0.1" onchange="changePoint()" oninput="changePoint()">
                     </div>
                     <div class="form-group">
                         <label for="Dinput">D point</label>
-                        <input type="number" class="form-control" id="Dinput" placeholder="P point"
+                        <input type="number" class="form-control" id="Dinput" placeholder="D point"
                                min="0" max="10" step="0.1"  oninput="changePoint()">
                     </div>
                     <div class="form-group">

@@ -80,7 +80,7 @@
         WHERE
             p.comp_id = #{compid}
         ORDER BY
-            t.`name`
+            p.groupno
     </select>
 
     <select id="getCompScoresByTeam" resultMap="AthScores" parameterType="int">

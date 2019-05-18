@@ -28,14 +28,14 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <!--面包屑导航-->
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="__athlete.html">Athlete List</a></li>
-                        <li class="breadcrumb-item"><a href="#">Library</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Data</li>
-                    </ol>
-                </nav>
+<%--                <!--面包屑导航-->--%>
+<%--                <nav aria-label="breadcrumb">--%>
+<%--                    <ol class="breadcrumb">--%>
+<%--                        <li class="breadcrumb-item"><a href="__athlete.html">Athlete List</a></li>--%>
+<%--                        <li class="breadcrumb-item"><a href="#">Library</a></li>--%>
+<%--                        <li class="breadcrumb-item active" aria-current="page">Data</li>--%>
+<%--                    </ol>--%>
+<%--                </nav>--%>
 
                 <!--裁判信息-->
                 <div class="card shadow mb-12">
@@ -62,8 +62,8 @@
                         <div class="row">
                             <div class="col-lg-3 ">
                                 <div class="">
-                                    <img src="../img/avatar-2.jpg" alt="avatra-2"
-                                         style="border-radius: 50%;overflow: auto;"/>
+                                    <img src="/sports/img.action/referee.png" alt="referee img"
+                                         style="border-radius: 50%;overflow: auto;width: 100%;"/>
                                 </div>
                             </div>
                             <div class="col-lg-6 offset-md-1 offset-lg-0">

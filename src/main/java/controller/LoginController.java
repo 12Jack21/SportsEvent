@@ -42,7 +42,7 @@ public class LoginController {
             map.put("canLogin",canLogin);
             if(canLogin){
                 int id = teamService.getTeamId(user, password);
-                map.put("location","/sports/team/athlete");
+                map.put("location","/sports/team/profile");
                 session.setAttribute("teamId",id);
             }
         }else if(tag == 1){//Referee login
@@ -50,7 +50,7 @@ public class LoginController {
             map.put("canLogin",canLogin);
             if(canLogin){
                 int id = refereeService.getRefIdByUser(user, password);
-                map.put("location","/sports/referee/competitionList");
+                map.put("location","/sports/referee/profile");
                 session.setAttribute("refId",id);
             }
         }else {//Admin login

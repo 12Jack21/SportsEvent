@@ -5,17 +5,23 @@ var majorRefTable = null;
 var normalRefTable = null;
 var comp_id = null;
 
+//最大组号
+var maxGroupNo = null;
+
 $(document).ready(function () {
 
     comp_id = parseInt($("#comp_id").text().trim());
     console.log(comp_id);
 
+    maxGroupNo = parseInt($("#groupNoSpan").text().trim());
     var urlAth = comp_id + "/ath";
     var urlRef = comp_id + "/ref";
     athTable = $("#groupAthTable").DataTable({
         "retrieve": true,
         "select": false, //开启选择
         "searching": false,
+        //设置默认排序为第二列
+        "order": [[ 1, 'asc' ]],
         "paging": false,
         "responsive": true,
         "ajax": {
@@ -43,6 +49,8 @@ $(document).ready(function () {
         "retrieve": true,
         "select": false, //开启选择
         "searching": false,
+        //设置默认排序为第二列
+        "order": [[ 1, 'asc' ]],
         "paging": false,
         "responsive": true,
         "ajax": {
@@ -107,7 +115,7 @@ $(document).ready(function () {
         var totalLength = athGroupTable.rows().data().length;
 
         //设置选中的运动员的个数 （作为一组）
-        if (totalLength >= 5 && sLength != 5) {
+        if (totalLength >= 8 && sLength != 8) {
             select.removeClass("alert-danger").removeClass("alert-success").addClass("alert-warning");
             alertReport(select);
         } else {
@@ -188,9 +196,18 @@ $(document).ready(function () {
                 success: function (result) {
                     console.log(result, status);//打印服务端返回的数据(调试用)
 
-                    addGroupRefAlert.children("strong").text("Add group for referee success !!!");
-                    addGroupRefAlert.removeClass("alert-danger").addClass("alert-success");
-                    refTable.ajax.reload();//刷新DataTable
+                    if(result == true){
+                        addGroupRefAlert.children("strong").text("Add group for referee success !!!");
+                        addGroupRefAlert.removeClass("alert-danger").addClass("alert-success");
+                        refTable.ajax.reload();//刷新DataTable
+
+                        //最大组号加一
+                        maxGroup();
+                    }else {
+                        addGroupRefAlert.children("strong").text("Add group for referee fail !!!");
+                        addGroupRefAlert.addClass("alert-danger").removeClass("alert-success");
+                    }
+
                 },
                 error: function () {
                     addGroupRefAlert.children("strong").text("Add group for referee fail !!!");
@@ -207,6 +224,10 @@ $(document).ready(function () {
 
 });
 
+function maxGroup() {
+    maxGroupNo++;
+    $("#groupNoSpan").text(maxGroupNo);
+}
 
 function setAthGroup() {
 

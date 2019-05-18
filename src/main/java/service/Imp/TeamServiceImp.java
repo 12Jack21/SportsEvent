@@ -268,7 +268,6 @@ public class TeamServiceImp implements TeamService {
 
     @Override
     public boolean uploadFile(MultipartFile file,int teamid) throws IOException {
-
         if (file == null) {
             System.out.println("文件未上传");
         } else {

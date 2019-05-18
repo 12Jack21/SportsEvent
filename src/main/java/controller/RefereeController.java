@@ -163,6 +163,9 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
         TempScore t = null;
 
         for(Referee r:referees){
+            //如果是主裁判自己就跳过
+            if(refId == r.getId())
+                continue;
             major = new RefTempListMajor();
             //最新给分
             t = refereeService.getNewestScoreOfRef(compid,r.getId(),athid);
@@ -201,7 +204,7 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
     }
 
     @ResponseBody
-    @RequestMapping("/majorConfirm/setScore") //计算最终成绩，其中 otherScore 为 D - P
+    @RequestMapping("/majorConfirm/setScore") //计算最终成绩，其中 otherScore 为 D - P;如果所有参与的运动员都有成绩，则比赛结束
     public Object setScore(@RequestParam("compid")int compid,@RequestParam("athid")int athid,@RequestParam("finalScore")Double finalScore){
         boolean succeed = refereeService.figureResultScore(athid,compid,finalScore);
         if(succeed){

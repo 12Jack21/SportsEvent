@@ -43,6 +43,13 @@
                     </button>
                     <strong></strong>
                 </div>
+                <!--update警告框-->
+                <div class="alert fade show" role="alert" id="updateAlert" hidden="hidden">
+                    <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong></strong>
+                </div>
                 <!--delete警告框-->
                 <div class="alert fade show" role="alert" id="deleteAlert" hidden="hidden">
                     <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
@@ -56,7 +63,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover" id="dataTableOfAdminCompetition">
+                            <table class="table table-bordered table-hover display" id="dataTableOfAdminCompetition" width="100%">
                                 <thead>
                                 <tr>
                                     <th>id</th>
@@ -84,10 +91,13 @@
         <!--对比赛的操作按钮-->
         <div class="position-fixed btn-group" style="right: 2%;bottom: 9%;transition-duration: 0.8s;z-index: 3">
             <div class="myOperate myAdd" data-toggle="modal" data-target="#addModal" >
-                <i class="fa fa-plus" ></i>
+                <i class="fa fa-plus" style="margin-top: 10%;"></i>
             </div>
-            <div class="myOperate myDelete" data-toggle="modal"  id="deleteBtn">
-                <i class="fa fa-trash"></i>
+            <div class="myOperate myUpdate" onclick="updateBtnComp()">
+                <i class="fa fa-wrench" style="margin-top: 10%;"></i>
+            </div>
+            <div class="myOperate myDelete" data-toggle="modal"  id="deleteBtn" >
+                <i class="fa fa-trash" style="margin-top: 10%;"></i>
             </div>
         </div>
 
@@ -167,6 +177,35 @@
                     <div class="form-group">
                         <label for="dateAdd">Date</label>
                         <input type="date" class="form-control" id="dateAdd" name="date">
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-primary ">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--更新比赛地点以及日期-->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary" id="updateModalLabelTitle">Update Information</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body text-lg">
+                <form id="updateForm" action="${pageContext.request.contextPath}/admin/competition/update">
+                    <input hidden="hidden" id="updateId" name="id">
+                    <div class="form-group">
+                        <label for="placeUpdate">Place</label>
+                        <input type="text" class="form-control" id="placeUpdate" placeholder="place to hold" name="place">
+                    </div>
+                    <div class="form-group">
+                        <label for="dateUpdate">Date</label>
+                        <input type="date" class="form-control" id="dateUpdate" name="date">
                     </div>
                     <button type="submit" class="btn btn-lg btn-primary ">Submit</button>
                 </form>

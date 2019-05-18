@@ -44,8 +44,8 @@
                             <div class="row">
                                 <div class="col-lg-3 ">
                                     <div class="">
-                                        <img src="../img/avatar-2.jpg" alt="avatra-2"
-                                             style="border-radius: 50%;width: 100%;overflow: auto;"/>
+                                        <img src="/sports/img.action/team.jpg" alt="avatra-2"
+                                             style="border-radius: 50%;width: 100%;overflow: auto;width: 100%;"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 offset-md-1 offset-lg-1">
@@ -70,7 +70,7 @@
                                     </div>
                                     <div>
                                         <span class="text-lg float-left">isSign: </span>
-                                        <p class="text-lg text-danger" style="margin-left: 22%;">
+                                        <p class="text-lg text-warning" style="margin-left: 22%;">
                                             <c:choose><c:when
                                                     test="${team.isSign == 0}">未报名结束</c:when>
                                                 <c:otherwise>已报名结束</c:otherwise>

@@ -59,7 +59,6 @@
         WHERE sex = 1
         AND teamid = #{teamid}
         )
-        ORDER BY teamid
     </select>
 
     <select id="getFemaleAthletes" resultType="po.Athlete" parameterType="int">
@@ -74,7 +73,6 @@
         WHERE sex = 0
         AND teamid = #{teamid}
         )
-        ORDER BY teamid
     </select>
 
     <insert id="addAthlete" parameterType="po.Athlete" useGeneratedKeys="true" keyProperty="id" keyColumn="id">

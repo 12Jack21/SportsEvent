@@ -146,7 +146,7 @@ public class RefereeServiceImp implements RefereeService {
             //同分数的设置同名次
             if(preRank == null){
                 preRank = r;
-            }else if (p.getScore() == preRank.getScore())
+            }else if (p.getScore().equals(preRank.getScore()))
                 r.setRank(preRank.getRank());
             else
                 preRank = r;

@@ -86,18 +86,6 @@
     <update id="updateCompetition" parameterType="po.Competition">
         UPDATE competition
         <set>
-            <if test="project!=null">
-                project = #{project},
-            </if>
-            <if test="type!=-1">
-                type = #{type},
-            </if>
-            <if test="sexgroup!=-1">
-                sexgroup = #{sexgroup},
-            </if>
-            <if test="agegroup!=-1">
-                agegroup = #{agegroup},
-            </if>
             <if test="place!=null">
                 place = #{place},
             </if>

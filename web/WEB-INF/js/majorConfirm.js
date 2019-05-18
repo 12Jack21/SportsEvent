@@ -203,19 +203,46 @@ function setFinalScore() {
             canFigure = false;
             break;
         }
+        // if (scoreDatas[i].isValid == 0) {
+        //     canFigure = false;
+        //     break;
+        // }
     }
 
     if (canFigure == true) {
         //计算出平均成绩
         var total = 0.0;
-        for (let i = 0; i < scoreDatas.length; i++) {
-            total += scoreDatas[i].score;
+
+        //裁判人数大于四，进行去掉最高分和最低分的操作
+        if(scoreDatas.length >=4 ){
+            var maxData = scoreDatas[0];
+            var minData= scoreDatas[0];
+            for (var i = 0; i < scoreDatas.length; i++) {
+                if (scoreDatas[i]>maxData) {
+                    maxData = scoreDatas[i];  // 最大值
+                };
+                if (scoreDatas[i]<minData) {
+                    minData = scoreDatas[i];  // 最小值
+                }
+            }
+
+            for (let i = 0; i < scoreDatas.length; i++) {
+                total += scoreDatas[i].score;
+            }
+            //设置平均成绩
+            $("#averageScoreLabel").text((total - minData - maxData) / (scoreDatas.length - 2));
+            $("#finalScoreLabel").text((total - minData - maxData) / (scoreDatas.length - 2));
+        }else {
+            for (let i = 0; i < scoreDatas.length; i++) {
+                total += scoreDatas[i].score;
+            }
+            //设置平均成绩
+            $("#averageScoreLabel").text(total / (scoreDatas.length));
+            $("#finalScoreLabel").text(total / (scoreDatas.length));
         }
-        //设置平均成绩
-        $("#averageScoreLabel").text(total / (scoreDatas.length));
-        $("#finalScoreLabel").text(total / (scoreDatas.length));
 
         $("#figureModal").modal("show");
+
     } else {
         scoreAlert.children("strong").text("You should accept all the score before you figure out the final score of this athlete !!!");
         scoreAlert.addClass("alert-danger").removeClass("alert-success");

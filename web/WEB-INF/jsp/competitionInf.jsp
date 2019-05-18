@@ -224,7 +224,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <c:forEach items="${athRanks}" var="r">
+                                                <c:forEach items="${athRank}" var="r">
                                                     <tr>
                                                         <td hidden="hidden">${r.id}</td>
                                                         <td>${r.rank}</td>
@@ -262,7 +262,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <c:forEach items="${teamRanks}" var="r">
+                                                <c:forEach items="${teamRank}" var="r">
                                                     <tr>
                                                         <td hidden="hidden">${r.id}</td>
                                                         <td>${r.rank}</td>

@@ -73,17 +73,9 @@
                                     <th>User</th>
                                     <th>Password</th>
                                     <th>isSign</th>
+                                    <th>isHost</th>
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>id</th>
-                                    <th>Name</th>
-                                    <th>User</th>
-                                    <th>Password</th>
-                                    <th>isSign</th>
-                                </tr>
-                                </tfoot>
                                 <tbody>
                                 </tbody>
                             </table>

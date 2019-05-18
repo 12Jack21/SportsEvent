@@ -56,8 +56,15 @@
                         <div class="row">
                             <div class="col-lg-3 ">
                                 <div class="">
-                                    <img src="../img/avatar-2.jpg" alt="avatra-2"
-                                         style="border-radius: 50%;overflow: auto;"/>
+                                    <c:choose><c:when
+                                            test="${athlete.sex == 1}">
+                                        <img src="/sports/img.action/athlete_male.png" alt="male athlete"
+                                             style="border-radius: 50%;overflow: auto;width: 100%;"/></c:when>
+                                        <c:otherwise>
+                                            <img src="/sports/img.action/athlete_female.png" alt="female athlete"
+                                                 style="border-radius: 50%;overflow: auto;width: 100%;"/></c:otherwise>
+                                    </c:choose>
+
                                 </div>
                             </div>
                             <div class="col-lg-6 offset-md-1 offset-lg-0" id="athInf">
@@ -98,7 +105,10 @@
                                 <div>
                                     <span class="text-lg float-left">No: </span>
                                     <p class="text-lg " style="margin-left: 22%">
-                                        ${athlete.no}
+                                        <c:choose><c:when
+                                                test="${athlete.no == null}">未定</c:when>
+                                            <c:otherwise>${athlete.no}</c:otherwise>
+                                        </c:choose>
                                     </p>
                                 </div>
                             </div>
@@ -197,6 +207,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        <!--TODO 考虑加入进入比赛信息的界面，以查看排名-->
                                         <c:forEach items="${finals}" var="fi">
                                             <tr>
                                                 <td hidden="hidden">${fi.competitionVO.id}</td>
