@@ -42,15 +42,6 @@
 <!--        </property>-->
 <!--    </bean>>-->
 
-<!--    &lt;!&ndash;避免IE执行AJAX时，返回JSON出现下载文件 &ndash;&gt;-->
-<!--    <bean id="mappingJackson2HttpMessageConverter"-->
-<!--          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
-<!--        <property name="supportedMediaTypes">-->
-<!--            <list>-->
-<!--                <value>text/html;charset=UTF-8</value>-->
-<!--            </list>-->
-<!--        </property>-->
-<!--    </bean>-->
 
 <!--    静态资源可访问的设置方式-->
     <mvc:resources mapping="/js.action/**" location="/WEB-INF/js/"/>

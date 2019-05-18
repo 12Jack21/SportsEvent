@@ -12,6 +12,8 @@ public interface AdminService {
     //登陆成功与否
     boolean canLogin(String user,String password);
 
+    Team getTeam(int teamid);
+
     //添加代表队的信息（包括名字、账号密码以及是否为 东道主）
     boolean addTeamAccount(Team team);
 

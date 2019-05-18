@@ -29,14 +29,14 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <!--面包屑导航-->
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="__athlete.html">Athlete List</a></li>
-                        <li class="breadcrumb-item"><a href="#">Library</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Data</li>
-                    </ol>
-                </nav>
+<%--                <!--面包屑导航-->--%>
+<%--                <nav aria-label="breadcrumb">--%>
+<%--                    <ol class="breadcrumb">--%>
+<%--                        <li class="breadcrumb-item"><a href="__athlete.html">Athlete List</a></li>--%>
+<%--                        <li class="breadcrumb-item"><a href="#">Library</a></li>--%>
+<%--                        <li class="breadcrumb-item active" aria-current="page">Data</li>--%>
+<%--                    </ol>--%>
+<%--                </nav>--%>
 
                 <!--比赛信息-->
                 <div class="card shadow mb-12">
@@ -66,6 +66,13 @@
                                         <span class="text-lg float-left">SexGroup: </span>
                                         <p class="text-lg " style="margin-left: 22%">
                                             ${jud.competitionVO.sexgroup}
+                                                <c:choose><c:when
+                                                        test="${jud.competitionVO.sexgroup == \"男\"}">
+                                                    <i class="fas fa-lg fa-mars"></i>
+                                                </c:when>
+                                                    <c:otherwise><i class="fas fa-lg fa-female"></i>
+                                                    </c:otherwise>
+                                                </c:choose>
                                         </p>
                                     </div>
                                     <div>
@@ -79,7 +86,10 @@
                                     <div>
                                         <span class="text-lg float-left">GroupNo: </span>
                                         <p class="text-lg " style="margin-left: 22%">
-                                            ${jud.groupno}
+                                            <c:choose><c:when
+                                                    test="${jud.groupno == 0}">未定</c:when>
+                                                <c:otherwise>${jud.groupno}</c:otherwise>
+                                            </c:choose>
                                         </p>
                                     </div>
                                     <div>
@@ -151,7 +161,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2019</span>
+                    <span>Copyright &copy; My Manage Website 2019</span>
                 </div>
             </div>
         </footer>
@@ -168,25 +178,6 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="defaultPage/login.html">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!--给分记录-->
 <div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalLabel"

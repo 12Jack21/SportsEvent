@@ -5,6 +5,7 @@ import dao.ParticipateDAO;
 import dao.TeamDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import po.Athlete;
 import po.Participate;
 import service.AthleteService;
@@ -21,6 +22,7 @@ public class AthleteServiceImp implements AthleteService {
     private TeamDAO teamDAO;
 
     @Override
+    @Transactional
     public boolean setAthleteNo() {
         int hostTeam = teamDAO.getHostTeam().getId();
         List<Athlete> males = athleteDAO.getMaleAthletes(hostTeam);

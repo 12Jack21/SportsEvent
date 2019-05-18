@@ -1,8 +1,10 @@
 package service;
 
+import org.springframework.web.multipart.MultipartFile;
 import po.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public interface TeamService {
@@ -127,5 +129,5 @@ public interface TeamService {
     List<Double> getCompScoresByTeam(int teamid);
 
     //TODO 上传附件
-//    boolean uploadFile(File file);
+    boolean uploadFile(MultipartFile file,int teamid) throws IOException;
 }

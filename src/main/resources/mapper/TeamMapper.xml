@@ -60,4 +60,11 @@
     <update id="updateTeamHost" parameterType="int">
         UPDATE team SET isHost = 1 WHERE id = #{teamid}
     </update>
+
+    <update id="updateTeamAttach">
+        UPDATE team
+        SET attachment = #{param2,javaType=byte[],jdbcType=BLOB,typeHandler=org.apache.ibatis.type.BlobTypeHandler}
+        WHERE id = #{param1}
+    </update>
+
 </mapper>

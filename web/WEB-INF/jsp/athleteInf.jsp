@@ -29,14 +29,14 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <!--面包屑导航-->
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="__athlete.html">Athlete List</a></li>
-                        <li class="breadcrumb-item"><a href="#">Library</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Data</li>
-                    </ol>
-                </nav>
+<%--                <!--面包屑导航-->--%>
+<%--                <nav aria-label="breadcrumb">--%>
+<%--                    <ol class="breadcrumb">--%>
+<%--                        <li class="breadcrumb-item"><a href="__athlete.html">Athlete List</a></li>--%>
+<%--                        <li class="breadcrumb-item"><a href="#">Library</a></li>--%>
+<%--                        <li class="breadcrumb-item active" aria-current="page">Data</li>--%>
+<%--                    </ol>--%>
+<%--                </nav>--%>
 
                 <!--update警告框-->
                 <div class="alert fade show" role="alert" id="updateAlert" hidden="hidden">
@@ -74,7 +74,13 @@
                                                 test="${athlete.sex == 0}">女</c:when>
                                             <c:otherwise>男</c:otherwise>
                                         </c:choose>
-                                        <i class="fas fa-lg fa-mars"></i>
+                                        <c:choose><c:when
+                                                test="${athlete.sex == 1}">
+                                            <i class="fas fa-lg fa-mars"></i>
+                                        </c:when>
+                                            <c:otherwise><i class="fas fa-lg fa-female"></i>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </p>
                                 </div>
                                 <div>
@@ -229,7 +235,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2019</span>
+                        <span>Copyright &copy; My Manage Website 2019</span>
                     </div>
                 </div>
             </footer>
@@ -242,26 +248,6 @@
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
-
-        <!--TODO  Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="logoutModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="defaultPage/login.html">Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!--Edit Modal-->
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"

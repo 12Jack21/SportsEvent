@@ -29,14 +29,14 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <!--面包屑导航-->
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="__athlete.html">Athlete List</a></li>
-                        <li class="breadcrumb-item"><a href="#">Library</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Data</li>
-                    </ol>
-                </nav>
+<%--                <!--面包屑导航-->--%>
+<%--                <nav aria-label="breadcrumb">--%>
+<%--                    <ol class="breadcrumb">--%>
+<%--                        <li class="breadcrumb-item"><a href="__athlete.html">Athlete List</a></li>--%>
+<%--                        <li class="breadcrumb-item"><a href="#">Library</a></li>--%>
+<%--                        <li class="breadcrumb-item active" aria-current="page">Data</li>--%>
+<%--                    </ol>--%>
+<%--                </nav>--%>
 
                 <!--比赛信息-->
                 <div class="card shadow mb-12">
@@ -66,7 +66,13 @@
                                         <span class="text-lg float-left">SexGroup: </span>
                                         <p class="text-lg " style="margin-left: 22%">
                                             ${competition.sexgroup}
-                                            <i class="fas fa-lg fa-mars"></i>
+                                                <c:choose><c:when
+                                                        test="${competition.sexgroup == \"男\"}">
+                                                    <i class="fas fa-lg fa-mars"></i>
+                                                </c:when>
+                                                    <c:otherwise><i class="fas fa-lg fa-female"></i>
+                                                    </c:otherwise>
+                                                </c:choose>
                                         </p>
                                     </div>
                                     <div>
@@ -127,7 +133,10 @@
                                             <tbody>
                                             <c:forEach items="${participates}" var="par">
                                                 <tr>
-                                                    <td>${par.groupno}</td>
+                                                    <td><c:choose><c:when
+                                                            test="${par.groupno == 0}">未分组</c:when>
+                                                        <c:otherwise>${par.groupno}</c:otherwise>
+                                                    </c:choose></td>
                                                     <td>${par.athlete.name}</td>
                                                     <td>${par.athlete.age}</td>
                                                     <td>${par.athlete.no}</td>
@@ -164,7 +173,11 @@
                                             <tbody>
                                             <c:forEach items="${judges}" var="jud">
                                                 <tr>
-                                                    <td>${jud.groupno}</td>
+                                                    <td><c:choose><c:when
+                                                            test="${jud.groupno == 0}">未分组</c:when>
+                                                        <c:otherwise>${jud.groupno}</c:otherwise>
+                                                    </c:choose>
+                                                    </td>
                                                     <td>${jud.referee.name}</td>
                                                     <td><c:choose><c:when
                                                             test="${jud.reftype == 0}">普通裁判</c:when>
@@ -185,9 +198,89 @@
                 </div>
 
 
-                <!--排名表-->
-                <div class="row">
-                </div>
+                <!--比赛结束判断-->
+                <c:if test="${competition.isEnd == \"是\"}">
+                    <!--排名表-->
+                    <div class="row">
+                        <!--运动员排名-->
+                        <div class="col-lg-8">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Accordion -->
+                                <a href="#collapseCard4" class="d-block card-header py-3" data-toggle="collapse"
+                                   role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                                    <h6 class="m-0 font-weight-bold text-primary">Athlete Rank</h6>
+                                </a>
+                                <!-- Card Content - Collapse -->
+                                <div class="collapse show" id="collapseCard4">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover dataTableOfRef">
+                                                <thead>
+                                                <tr>
+                                                    <th hidden="hidden">ath_id</th>
+                                                    <th>Rank</th>
+                                                    <th>Name</th>
+                                                    <th>Score</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <c:forEach items="${athRanks}" var="r">
+                                                    <tr>
+                                                        <td hidden="hidden">${r.id}</td>
+                                                        <td>${r.rank}</td>
+                                                        <td>${r.name}</td>
+                                                        <td>${r.score}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--队伍排名-->
+                        <div class="col-lg-4">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Accordion -->
+                                <a href="#collapseCard5" class="d-block card-header py-3" data-toggle="collapse"
+                                   role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                                    <h6 class="m-0 font-weight-bold text-primary">Team Rank</h6>
+                                </a>
+                                <!-- Card Content - Collapse -->
+                                <div class="collapse show" id="collapseCard5">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover dataTableOfRef">
+                                                <thead>
+                                                <tr>
+                                                    <th hidden="hidden">team_id</th>
+                                                    <th>Rank</th>
+                                                    <th>Name</th>
+                                                    <th>Score</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <c:forEach items="${teamRanks}" var="r">
+                                                    <tr>
+                                                        <td hidden="hidden">${r.id}</td>
+                                                        <td>${r.rank}</td>
+                                                        <td>${r.name}</td>
+                                                        <td>${r.score}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </c:if>
                 <!-- End of Main Content -->
 
 
@@ -197,7 +290,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2019</span>
+                        <span>Copyright &copy; My Manage Website 2019</span>
                     </div>
                 </div>
             </footer>
@@ -210,26 +303,6 @@
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
-
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="logoutModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="defaultPage/login.html">Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
     </div>
 </div>

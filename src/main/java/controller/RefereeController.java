@@ -41,6 +41,13 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
         return "teamSidebar";
     }
 
+    @RequestMapping("/profile")
+    public String profile(@ModelAttribute("refId")int refid,ModelMap map){
+        Referee referee = refereeService.getReferee(refid);
+        map.put("ref",referee);
+        return "refProfile";
+    }
+
     @RequestMapping("/competitionList")
     public String refCompetitionList(@ModelAttribute("refId")int refid, ModelMap map){
         List<Judge> majors = refereeService.getJudges(refid,1);
@@ -196,7 +203,23 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
     @ResponseBody
     @RequestMapping("/majorConfirm/setScore") //计算最终成绩，其中 otherScore 为 D - P
     public Object setScore(@RequestParam("compid")int compid,@RequestParam("athid")int athid,@RequestParam("finalScore")Double finalScore){
-        return refereeService.figureResultScore(athid,compid,finalScore);
+        boolean succeed = refereeService.figureResultScore(athid,compid,finalScore);
+        if(succeed){
+            //判断是否此比赛的所有参与人员都有分数（假设全部都参加比赛了）
+            List<Participate> pars = teamService.getParticipateByComp(compid);
+            boolean isEnd = true;
+            for(Participate p:pars){
+                if(p.getScore() == null){
+                    isEnd = false;
+                    break;
+                }
+            }
+            //设置比赛结束
+            if(isEnd)
+                refereeService.setCompetitionEnd(compid);
+        }
+
+        return succeed;
     }
 
     @ResponseBody

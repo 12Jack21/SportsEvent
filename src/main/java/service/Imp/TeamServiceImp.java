@@ -3,9 +3,15 @@ package service.Imp;
 import dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import po.*;
 import service.TeamService;
 
+import javax.mail.Multipart;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,22 +61,22 @@ public class TeamServiceImp implements TeamService {
 
     @Override
     public List<Athlete> getAthletesByAgeGroup(int ageGroup, int teamid) {
-        if(ageGroup == 0)
-            return athleteDAO.getGroupAthletes(teamid,-1,7,8);
-        else if(ageGroup == 1)
-            return athleteDAO.getGroupAthletes(teamid,-1,9,10);
+        if (ageGroup == 0)
+            return athleteDAO.getGroupAthletes(teamid, -1, 7, 8);
+        else if (ageGroup == 1)
+            return athleteDAO.getGroupAthletes(teamid, -1, 9, 10);
         else
-            return athleteDAO.getGroupAthletes(teamid,-1,11,12);
+            return athleteDAO.getGroupAthletes(teamid, -1, 11, 12);
     }
 
     @Override
     public List<Athlete> getAthletesByGroup(int ageGroup, int sexGroup, int teamid) {
-        if(ageGroup == 0)
-            return athleteDAO.getGroupAthletes(teamid,sexGroup,7,8);
-        else if(ageGroup == 1)
-            return athleteDAO.getGroupAthletes(teamid,sexGroup,9,10);
+        if (ageGroup == 0)
+            return athleteDAO.getGroupAthletes(teamid, sexGroup, 7, 8);
+        else if (ageGroup == 1)
+            return athleteDAO.getGroupAthletes(teamid, sexGroup, 9, 10);
         else
-            return athleteDAO.getGroupAthletes(teamid,sexGroup,11,12);
+            return athleteDAO.getGroupAthletes(teamid, sexGroup, 11, 12);
     }
 
     @Override
@@ -225,7 +231,7 @@ public class TeamServiceImp implements TeamService {
 
     @Override
     public List<Competition> getCompetitionByType(int type) {
-        return  competitionDAO.getCompetitionsByType(type);
+        return competitionDAO.getCompetitionsByType(type);
     }
 
     @Override
@@ -250,14 +256,29 @@ public class TeamServiceImp implements TeamService {
             //少于四个则不计算成绩，即记为 0.0
             if (compScores.toArray().length < 4)
                 scores.add(0.0);
-            //取前四名来计算成绩总和
-            else
-            {
+                //取前四名来计算成绩总和
+            else {
                 score = compScores.get(0).getScore() + compScores.get(1).getScore() +
                         compScores.get(2).getScore() + compScores.get(3).getScore();
                 scores.add(score);
             }
         }
         return scores;
+    }
+
+    @Override
+    public boolean uploadFile(MultipartFile file,int teamid) throws IOException {
+
+        if (file == null) {
+            System.out.println("文件未上传");
+        } else {
+
+            InputStream is = file.getInputStream();
+            byte[] data = new byte[(int)file.getSize()];
+            is.read(data);
+            return teamDAO.updateTeamAttach(teamid,data);
+        }
+
+        return false;
     }
 }

@@ -36,6 +36,7 @@
                     </button>
                     <strong></strong>
                 </div>
+
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h4 class="m-0 font-weight-bold text-primary">Competition DataTable</h4>
@@ -64,16 +65,22 @@
         </div>
         <!-- End of Main Content -->
 
-        <!--上传附件-->
-        <div class="athleteAdd" data-toggle="modal" data-target="#uploadModal" style="z-index: 3;">
-            <i class="fa fa-plus" style="margin-top: 12%;"></i>
-        </div>
 
+
+        <div class="position-fixed btn-group" style="right: 2%;bottom: 9%;transition-duration: 0.8s;z-index: 3">
+            <!--TODO 上传附件,增加一个报名完成的按钮-->
+            <div class="myOperate myAdd" data-toggle="modal" data-target="#uploadModal" style="z-index: 3;">
+                <i class="fa fa-plus" style="margin-top: 12%;"></i>
+            </div>
+            <div class="myOperate myUpdate" data-toggle="modal" data-target="#finishModal">
+                <i class="fa fa-wrench" style="margin-top: 10%;"></i>
+            </div>
+        </div>
         <!-- Footer -->
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2019</span>
+                    <span>Copyright &copy; My Manage Website 2019</span>
                 </div>
             </div>
         </footer>
@@ -90,21 +97,19 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+
+<!--设置报名结束-->
+<div class="modal fade" id="finishModal" tabindex="-1" role="dialog" aria-labelledby="finishModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
+                <h5 class="modal-title" id="finishModalLabelTitle">Sure to finish sign ?</h5>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-body">Select "finish" below if you are ready to finish sign up .</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="defaultPage/login.html">Logout</a>
+                <button class="btn btn-danger" type="button" onclick="finishSign(this)">Finish</button>
             </div>
         </div>
     </div>
@@ -130,7 +135,7 @@
                             <tr>
                                 <th>id</th>
                                 <th>Name</th>
-                                <th>Gander</th>
+                                <th>Gender</th>
                                 <th>Age</th>
                             </tr>
                             </thead>
@@ -167,17 +172,22 @@
                 </button>
             </div>
             <div class="modal-body text-lg">
-                <form id="uploadForm">
+                <form id="uploadForm" enctype="multipart/form-data" action="${pageContext.request.contextPath}/team/signUp/upload">
                     <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputFileGroup">Upload</span>
-                        </div>
+<%--                        <div class="input-group-prepend">--%>
+<%--                            <span class="input-group-text" id="inputFileGroup">Upload</span>--%>
+<%--                        </div>--%>
+<%--                        <div class="custom-file">--%>
+<%--                            <input type="file" class="custom-file-input" id="inputFile" name="attachment">--%>
+<%--                            <label class="custom-file-label" for="inputFile">Choose file</label>--%>
+<%--                        </div>--%>
+
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputFile" name="attachment">
-                            <label class="custom-file-label" for="inputFile">Choose file</label>
+                            <input type="file" class="" id="inputFile" name="attachment">
+                            <label class="" for="inputFile"></label>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-lg btn-primary ">Submit</button>
+                    <button type="submit" class="btn btn-lg btn-primary ">Submit</button>
                 </form>
             </div>
         </div>

@@ -8,7 +8,7 @@ public class Participate {
     private CompetitionVO competitionVO;
 
     private int groupno;
-    private double score;
+    private Double score;
 
     public Participate() {
     }
@@ -50,11 +50,11 @@ public class Participate {
         this.groupno = groupno;
     }
 
-    public double getScore() {
+    public Double getScore() {
         return score;
     }
 
-    public void setScore(double score) {
+    public void setScore(Double score) {
         this.score = score;
     }
 }

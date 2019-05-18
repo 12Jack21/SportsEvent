@@ -29,6 +29,8 @@ public class RefereeServiceImp implements RefereeService {
     private SignDAO signDAO;
     @Autowired
     private TeamDAO teamDAO;
+    @Autowired
+    private CompetitionDAO competitionDAO;
 
     @Override
     public boolean canLogin(Referee referee) {
@@ -121,6 +123,11 @@ public class RefereeServiceImp implements RefereeService {
     @Override
     public boolean figureResultScore(int athid, int compid,Double score) {
         return participateDAO.updateScore(athid,compid,score);
+    }
+
+    @Override
+    public boolean setCompetitionEnd(int compid) {
+        return competitionDAO.updateCompetitionEnd(compid);
     }
 
     @Override

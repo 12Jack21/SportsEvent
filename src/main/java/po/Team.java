@@ -10,6 +10,8 @@ public class Team {
     private int isSign;
     private int isHost;
 
+    private byte[] attach;
+
 //    private Captain captain;
 //    private List<Athlete> athletes;
 //    private List<Coach> coaches;
@@ -76,6 +78,14 @@ public class Team {
 
     public void setIsHost(int isHost) {
         this.isHost = isHost;
+    }
+
+    public byte[] getAttach() {
+        return attach;
+    }
+
+    public void setAttach(byte[] attach) {
+        this.attach = attach;
     }
 
     //    public Captain getCaptain() {

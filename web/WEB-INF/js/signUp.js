@@ -93,10 +93,16 @@ $("#signUpSub").click(function (e) {
             success: function (result) {
                 console.log(result, status);//打印服务端返回的数据(调试用)
 
-                signAlert.children("strong").text("Sign up operation success !!!");
-                signAlert.removeClass("alert-danger").addClass("alert-success");
-                compTable.ajax.reload();//刷新DataTable
-                refreshColor();
+                if (result == true){
+                    signAlert.children("strong").text("Sign up operation success !!!");
+                    signAlert.removeClass("alert-danger").addClass("alert-success");
+                    compTable.ajax.reload();//刷新DataTable
+                    refreshColor();
+                } else {
+                    signAlert.children("strong").text("Sign up operation fail !!!");
+                    signAlert.addClass("alert-danger").removeClass("alert-success");
+                }
+
             },
             error: function () {
                 signAlert.children("strong").text("Sign up operation fail !!!");
@@ -142,7 +148,8 @@ function sign(compid) {
                 "targets":2,
                 "render":function (data, row) {
                     var result = null;
-                    if(data.sex == 0)
+                    console.log(data,"...");
+                    if(data == 0)
                         result = "女";
                     else
                         result = "男";
@@ -169,4 +176,76 @@ function refreshColor() {
             child.next().addClass("disabled");
         }
     }
+}
+
+$("#uploadForm").submit(function (e) {
+    e.preventDefault();
+    var signAlert = $("#signAlert");
+    var form = $(this);
+    var formData = new FormData(form[0]);
+    console.log(form[0],"...");
+    console.log(formData);
+    $.ajax({
+        type: "POST",//方法类型
+        dataType: "json",//预期服务器返回的数据类型
+        data: formData,
+        traditional: true,////这里设置为true,使传递参数变成 data:1
+        contentType: false,
+        processData: false,
+        url: form.attr("action"),
+        success: function (result) {
+            console.log(result, status);//打印服务端返回的数据(调试用)
+
+            if(result == true){
+                signAlert.children("strong").text("Upload file operation success !!!");
+                signAlert.removeClass("alert-danger").addClass("alert-success");
+            }else {
+                signAlert.children("strong").text("Upload file operation fail !!!");
+                signAlert.addClass("alert-danger").removeClass("alert-success");
+            }
+
+        },
+        error: function () {
+            signAlert.children("strong").text("Upload file operation fail !!!");
+            signAlert.addClass("alert-danger").removeClass("alert-success");
+        },
+        complete: function () {
+            $("#signModal").modal("hide");
+            alertReport(signAlert);
+        }
+    });
+
+    return false;
+});
+
+function finishSign(btn) {
+
+    var url = "/sports/team/signUp/finish";
+    var signAlert = $("#signAlert");
+    $.ajax({
+        type: "POST",//方法类型
+        dataType: "json",//预期服务器返回的数据类型
+        data: null,
+        url: url,
+        success: function (result) {
+            console.log(result, status);//打印服务端返回的数据(调试用)
+
+            if(result == true){
+                signAlert.children("strong").text("Finish sign success !!!");
+                signAlert.removeClass("alert-danger").addClass("alert-success");
+            }else {
+                signAlert.children("strong").text("Finish sign fail !!!");
+                signAlert.addClass("alert-danger").removeClass("alert-success");
+            }
+
+        },
+        error: function () {
+            signAlert.children("strong").text("Finish sign fail !!!");
+            signAlert.addClass("alert-danger").removeClass("alert-success");
+        },
+        complete: function () {
+            $("#finishModal").modal("hide");
+            alertReport(signAlert);
+        }
+    });
 }

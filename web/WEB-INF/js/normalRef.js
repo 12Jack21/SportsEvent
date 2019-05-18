@@ -50,7 +50,7 @@ $(document).ready(function () {
             "width": "33%",
             "render": function (data, type, row) {
                 var id = '"' + row.id + '"';
-                console.log(data.athlete.id);//用于调试
+                // console.log(data.athlete.id);//用于调试
                 var html = "<form  style='width: 80%;margin: -10px;'><div class='form-inline'><input class='form-control' style='width: 50%;' " +
                     "type='number' step='0.01' name='score' id='athScore' oninput='if(value >100)value=100;if(value<0)value=0;'>" +
                     "<button type='button' class='btn btn-primary' onclick='setScore(" + data.athlete.id + ",this)'>给分</button>";
@@ -115,40 +115,51 @@ function showLog(athid){
 function setScore(athid,btn){
     var scoreAlert = $("#scoreAlert");
     var score = $(btn).parent().children("input").val();
-    if(score == "" || score == null ||
-        parseFloat(score) > 100.0 || parseFloat(score) < 0.0){
-        scoreAlert.children("strong").text("Score should not be null and is between 0.0 and 10.0 !!!");
+
+    var state = $(btn).parent().parent().parent().parent().children("td:nth-child(4)").text().trim();
+    console.log(state,"///");
+    if(state == "接受" || state == "未审核"){
+        scoreAlert.children("strong").text("Score can be set only when the state is unScore or rejected !!!");
         scoreAlert.addClass("alert-danger").removeClass("alert-success");
         alertReport(scoreAlert);
     }else {
-        var url = "/sports/referee/tempScore/add";
-        $.ajax({
-            type: "POST",//方法类型
-            dataType: "json",//预期服务器返回的数据类型
-            data: {
-                ath_id: athid,
-                jud_id: parseInt($("#jud_id").text()),
-                score: score
-            },
-            traditional: true,////这里设置为true,使传递参数变成 data:1
-            url: url,
-            success: function (result) {
-                console.log(result, status);//打印服务端返回的数据(调试用)
+        if(score == "" || score == null ||
+            parseFloat(score) > 100.0 || parseFloat(score) < 0.0){
+            scoreAlert.children("strong").text("Score should not be null and is between 0.0 and 10.0 !!!");
+            scoreAlert.addClass("alert-danger").removeClass("alert-success");
+            alertReport(scoreAlert);
+        }else {
+            var url = "/sports/referee/tempScore/add";
+            $.ajax({
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                data: {
+                    ath_id: athid,
+                    jud_id: parseInt($("#jud_id").text()),
+                    score: score
+                },
+                traditional: true,////这里设置为true,使传递参数变成 data:1
+                url: url,
+                success: function (result) {
+                    console.log(result, status);//打印服务端返回的数据(调试用)
 
-                scoreAlert.children("strong").text("Score operation success !!!");
-                scoreAlert.removeClass("alert-danger").addClass("alert-success");
-                table.ajax.reload();//刷新DataTable
-            },
-            error: function () {
-                scoreAlert.children("strong").text("Score operation fail !!!");
-                scoreAlert.addClass("alert-danger").removeClass("alert-success");
-            },
-            complete: function () {
-                $("#scoreModal").modal("hide");
-                alertReport(scoreAlert);
-            }
-        });
+                    scoreAlert.children("strong").text("Score operation success !!!");
+                    scoreAlert.removeClass("alert-danger").addClass("alert-success");
+                    table.ajax.reload();//刷新DataTable
+                },
+                error: function () {
+                    scoreAlert.children("strong").text("Score operation fail !!!");
+                    scoreAlert.addClass("alert-danger").removeClass("alert-success");
+                },
+                complete: function () {
+                    $("#scoreModal").modal("hide");
+                    alertReport(scoreAlert);
+                }
+            });
+        }
     }
+}
 
-
+function controllScore() {
+    
 }

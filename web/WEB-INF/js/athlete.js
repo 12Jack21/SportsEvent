@@ -1,10 +1,12 @@
 var athId = null;
+var deleteAge = null;
 $(document).ready(function () {
 
     //删除运动员
     $(".athDelete").click(function () {
         console.log($(this).parent().children("p").text().trim(),"...");
         athId = parseInt($(this).parent().children("p").text().trim()) ;
+        deleteAge = parseInt($(this).parent().children("span").text().trim());
         $("#deleteModal").modal("show");
     });
 
@@ -32,17 +34,23 @@ $("#addAthlete").submit(function (event) {
         success: function (result) {
             console.log(result, status);//打印服务端返回的数据(调试用)
 
-            add.children("strong").text("Add athlete success !!!");
-            add.removeClass("alert-danger").addClass("alert-success");
-            
-            //刷新对应的卡片Section
-            refresh();
-            
-            $form[0].reset();
+            if(result == true){
+                add.children("strong").text("Add athlete success !!!");
+                add.removeClass("alert-danger").addClass("alert-success");
+
+                //刷新对应的卡片Section
+                refresh();
+
+                $form[0].reset();
+            }else {
+                add.children("strong").text("Add athlete fail !!!");
+                add.removeClass("alert-success").addClass("alert-danger");
+            }
+
         },
         error : function() {
             add.children("strong").text("Add athlete fail !!!");
-            add.removeClass("alert-danger").addClass("alert-success");
+            add.removeClass("alert-success").addClass("alert-danger");
         },
         complete:function () {
             $("#addModal").modal("hide");
@@ -70,7 +78,9 @@ function deleteAth() {
 
                 del.children("strong").text("Delete operation success !!!");
                 del.removeClass("alert-danger").addClass("alert-success");
-                refresh();
+
+                //删除后刷新卡片
+                refreshCard();
 
             } else {
                 del.children("strong").text("Delete coach fail !!!");
@@ -89,8 +99,43 @@ function deleteAth() {
     });
 }
 
+//删除运动员后刷新的卡片Section
+function refreshCard() {
+    var postfix = null;
+    var age = deleteAge;
+    if(age >= 7 && age <= 8)
+        postfix = 0;
+    else if(age >= 9 && age <=10)
+        postfix = 1;
+    else
+        postfix = 2;
 
-//刷新对应的卡片Section
+
+    $.ajax({
+        type: "POST",//方法类型
+        dataType: "html",//预期服务器返回的数据类型
+        url: "/sports/team/athlete/list/" + postfix,
+        // data: $form.serialize(),
+        success: function (result) {
+            console.log(result);
+
+            if(postfix == 0)
+                $("#section0").html(result);
+            else if (postfix == 1)
+                $("#section1").html(result);
+            else
+                $("#section2").html(result);
+
+        },
+        error : function() {
+            console.log("Refresh fail !!!");
+        }
+
+    });
+
+}
+
+//添加运动员后刷新对应的卡片Section
 function refresh() {
     var postfix = null;
     var age = $("#ageInput").val();
@@ -124,4 +169,12 @@ function refresh() {
 
     });
 
+}
+
+function controllAge() {
+    var $age = $("#ageInput");
+    if($age.val() > 12)
+        $age.val(12);
+    else if ($age.val() <7)
+        $age.val(7);
 }

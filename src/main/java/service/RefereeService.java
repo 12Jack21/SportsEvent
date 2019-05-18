@@ -60,6 +60,8 @@ public interface RefereeService {
     //计算并设置个人最终单项成绩（主）
     boolean figureResultScore(int athid,int compid,Double score);
 
+    boolean setCompetitionEnd(int compid);
+
     //得到某项比赛的 运动员单项排名表
     List<Rank> getAthleteRank(int compid);
 

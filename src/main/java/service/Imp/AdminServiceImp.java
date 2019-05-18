@@ -36,6 +36,11 @@ public class AdminServiceImp implements AdminService {
     }
 
     @Override
+    public Team getTeam(int teamid) {
+        return teamDAO.getTeam(teamid);
+    }
+
+    @Override
     public boolean addTeamAccount(Team team) {
         return teamDAO.addTeam(team);
     }

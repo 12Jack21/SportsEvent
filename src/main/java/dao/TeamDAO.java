@@ -29,4 +29,6 @@ public interface TeamDAO {
     boolean updateTeamSign(int teamid);
 
     boolean updateTeamHost(int teamid);
+
+    boolean updateTeamAttach(int teamid,byte[] attach);
 }

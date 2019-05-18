@@ -38,6 +38,7 @@
         <if test="param3!=-1">
             AND age BETWEEN #{param3} AND #{param4}
         </if>
+        ORDER BY a.sex
     </select>
 
     <select id="getCompAthletes" resultType="po.Athlete" parameterType="int">
