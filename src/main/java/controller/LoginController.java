@@ -57,7 +57,7 @@ public class LoginController {
             canLogin = adminService.canLogin(user,password);
             map.put("canLogin",canLogin);
             if(canLogin){
-                map.put("location","/sports/admin/competition");
+                map.put("location","/sports/admin/team");
                 session.setAttribute("admin","Sports");
             }
         }

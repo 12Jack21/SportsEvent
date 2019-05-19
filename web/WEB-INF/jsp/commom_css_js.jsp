@@ -25,7 +25,8 @@
 
 <!-- Custom fonts for this template-->
 <link href="<%=prefix%>/vendor.action/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-<link href="<%=prefix%>/css.action/googleApi.css" rel="stylesheet">
+
+<%--<link href="<%=prefix%>/css.action/googleApi.css" rel="stylesheet">--%>
 
 
 <!-- Custom styles for this template-->

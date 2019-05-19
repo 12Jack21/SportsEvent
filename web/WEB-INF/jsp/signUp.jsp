@@ -76,6 +76,7 @@
                 <i class="fa fa-wrench" style="margin-top: 10%;"></i>
             </div>
         </div>
+
         <!-- Footer -->
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">

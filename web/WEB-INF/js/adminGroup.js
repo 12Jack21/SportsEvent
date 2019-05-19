@@ -14,6 +14,8 @@ $(document).ready(function () {
     console.log(comp_id);
 
     maxGroupNo = parseInt($("#groupNoSpan").text().trim());
+    console.log("Maxgroupno:",maxGroupNo);
+
     var urlAth = comp_id + "/ath";
     var urlRef = comp_id + "/ref";
     athTable = $("#groupAthTable").DataTable({

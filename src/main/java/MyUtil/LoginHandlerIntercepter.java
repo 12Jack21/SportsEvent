@@ -28,7 +28,27 @@ public class LoginHandlerIntercepter implements HandlerInterceptor {
         HttpSession session = request.getSession();
         if(requestURI.contains(".action"))
             return true;
-        if(requestURI.indexOf("team")>0){
+        if(requestURI.indexOf("admin/")>0){
+            String  admin = (String) session.getAttribute("admin");
+            if(admin != null && admin.equals("Sports")){
+                //登陆成功的用户
+                return true;
+            }else{
+                //没有登陆，转向登陆界面
+                request.getRequestDispatcher("/login/page").forward(request,arg1);
+                return false;
+            }
+        }else if (requestURI.indexOf("referee/") > 0){
+            Integer refId = (Integer) session.getAttribute("refId");
+            if(refId != null){
+                //登陆成功的用户
+                return true;
+            }else{
+                //没有登陆，转向登陆界面
+                request.getRequestDispatcher("/login/page").forward(request,arg1);
+                return false;
+            }
+        }else if (requestURI.indexOf("team/") > 0){
             //说明处在队伍管理界面
             Integer teamId = (Integer) session.getAttribute("teamId");
             if(teamId != null){
@@ -39,26 +59,7 @@ public class LoginHandlerIntercepter implements HandlerInterceptor {
                 request.getRequestDispatcher("/login/page").forward(request,arg1);
                 return false;
             }
-        }else if (requestURI.indexOf("referee") > 0){
-            Integer refId = (Integer) session.getAttribute("refId");
-            if(refId != null){
-                //登陆成功的用户
-                return true;
-            }else{
-                //没有登陆，转向登陆界面
-                request.getRequestDispatcher("/login/page").forward(request,arg1);
-                return false;
-            }
-        }else if (requestURI.indexOf("admin") > 0){
-            String  admin = (String) session.getAttribute("admin");
-            if(admin != null && admin.equals("Sports")){
-                //登陆成功的用户
-                return true;
-            }else{
-                //没有登陆，转向登陆界面
-                request.getRequestDispatcher("/login/page").forward(request,arg1);
-                return false;
-            }
+
         }else
             return true;
     }

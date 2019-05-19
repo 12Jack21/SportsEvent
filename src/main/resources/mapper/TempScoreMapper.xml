@@ -57,8 +57,8 @@
         WHERE id=
               (SELECT MAX(t.id)
                FROM tempscore t
-                        LEFT JOIN judge j
-                                  ON t.judge_id=j.id
+               LEFT JOIN judge j
+                ON t.judge_id=j.id
                WHERE j.comp_id=#{param1}
                 AND j.ref_id=#{param2}
                 AND t.ath_id = #{param3}
@@ -75,8 +75,8 @@
     <select id="getRefLogOfSingleAth" parameterType="int" resultType="po.TempScore">
         SELECT t.score,t.isValid
         FROM tempscore t
-                 LEFT JOIN judge j
-                           ON t.judge_id=j.id
+        LEFT JOIN judge j
+        ON t.judge_id=j.id
         WHERE j.comp_id=#{param1}
           AND j.ref_id=#{param2}
           AND t.ath_id =#{param3}

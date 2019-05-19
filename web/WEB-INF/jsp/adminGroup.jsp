@@ -339,7 +339,7 @@
                             <button type="button" class="close" aria-label="Close" onclick="hideAlert(this)">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <strong>You should select a major referee and several referees, a referee cannot selected in two side.</strong>
+                            <strong>You should select a major referee and no more than four normal referees, a referee cannot selected in two side.</strong>
                         </div>
                     </div>
                 </div>

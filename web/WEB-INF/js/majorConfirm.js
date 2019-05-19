@@ -11,9 +11,13 @@ $(document).ready(function () {
     var url = "/sports/referee/majorConfirm/refList";
     table = $("#dataTableMajorConfirm").DataTable({
         "select": false, //开启选择
-        "searching": true,
         "responsive": true,
         "traditional": true,
+        "searching" : false, //去掉搜索框方法一
+        "bFilter": false,   //去掉搜索框方法二
+        "bSort": false,  //禁止排序
+        "paging": false,   //禁止分页
+        "info": false,   //去掉底部文字
         "ajax": {
             url: url,//TODO
             data: {

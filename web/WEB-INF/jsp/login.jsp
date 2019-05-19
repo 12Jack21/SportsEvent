@@ -43,7 +43,7 @@
                                         </label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user"
+                                        <input type="text" class="form-control form-control-user"
                                                id="firstInput" placeholder="Enter the team's username"
                                                 autocomplete="on">
                                     </div>

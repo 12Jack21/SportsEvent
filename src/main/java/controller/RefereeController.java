@@ -1,6 +1,7 @@
 package controller;
 
 import MyUtil.MyConvertor;
+import com.mchange.v1.util.Sublist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,6 +13,7 @@ import service.RefereeService;
 import service.TeamService;
 import vo.AthTempListNormal;
 import vo.CompetitionVO;
+import vo.Rank;
 import vo.RefTempListMajor;
 
 import javax.servlet.http.HttpSession;
@@ -204,7 +206,7 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
     }
 
     @ResponseBody
-    @RequestMapping("/majorConfirm/setScore") //计算最终成绩，其中 otherScore 为 D - P;如果所有参与的运动员都有成绩，则比赛结束
+    @RequestMapping("/majorConfirm/setScore") //TODO 计算最终成绩，其中 otherScore 为 D - P;如果所有参与的运动员都有成绩，则比赛结束
     public Object setScore(@RequestParam("compid")int compid,@RequestParam("athid")int athid,@RequestParam("finalScore")Double finalScore){
         boolean succeed = refereeService.figureResultScore(athid,compid,finalScore);
         if(succeed){
@@ -218,8 +220,31 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
                 }
             }
             //设置比赛结束
-            if(isEnd)
+            if(isEnd){
                 refereeService.setCompetitionEnd(compid);
+
+                //某项比赛结束后设置该类比赛的决赛，并自动将初赛的前十名运动员加入参加表中
+                Competition competition = teamService.getCompetition(compid);
+                //如果是初赛
+                if(competition.getType() == 0){
+                    //设置为决赛
+                    competition.setType(1);
+
+                    adminService.addCompetition(competition);
+                    //添加前十名运动员参加决赛，不足十名则取前五名
+                    List<Rank> ranks = refereeService.getAthleteRank(compid);
+                    List<Rank> r = null;
+                    if(ranks.toArray().length > 10){
+                        r = ranks.subList(0,10);
+                    }else if (ranks.toArray().length > 5)
+                        r = ranks.subList(0,5);
+
+                    for(Rank rrr: r){
+                        teamService.signUpAthlete(rrr.getId(),competition.getId());
+                    }
+                }
+
+            }
         }
 
         return succeed;
@@ -232,14 +257,28 @@ public class RefereeController {//TODO 运动员报名完毕后 设置编号
         return finalScore;
     }
 
-    @ResponseBody
-    @RequestMapping("/majorConfirm/setFinalCompetition") //某项比赛结束后设置该类比赛的决赛
-    public Object setFinalCompetition(@RequestParam("compid")int compid){
-        Competition competition = teamService.getCompetition(compid);
-        //设置为决赛
-        competition.setType(1);
-
-        return adminService.addCompetition(competition);
-    }
+//
+//    @ResponseBody
+//    @RequestMapping("/majorConfirm/setFinalCompetition")
+//    public Object setFinalCompetition(@RequestParam("compid")int compid){
+//        //某项比赛结束后设置该类比赛的决赛，并自动将初赛的前十名运动员加入参加表中
+//        Competition competition = teamService.getCompetition(compid);
+//        //设置为决赛
+//        competition.setType(1);
+//
+//        adminService.addCompetition(competition);
+//        //添加前十名运动员参加决赛，不足十名则取前五名
+//        List<Rank> ranks = refereeService.getAthleteRank(compid);
+//        List<Rank> r = null;
+//        if(ranks.toArray().length > 10){
+//            r = ranks.subList(0,10);
+//        }else if (ranks.toArray().length > 5)
+//            r = ranks.subList(0,5);
+//
+//        for(Rank rrr: r){
+//            teamService.signUpAthlete(rrr.getId(),competition.getId());
+//        }
+//
+//    }
 
 }

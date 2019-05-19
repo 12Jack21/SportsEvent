@@ -77,7 +77,7 @@ public class AdminController {
 
         Integer groupNo = adminService.getMaxAthGroupOfComp(compid);
         map.put("competition", cVO);
-        map.put("maxGroupNo", groupNo + 1);
+        map.put("maxGroupNo", groupNo);
         return "adminGroup";
     }
 
@@ -166,7 +166,7 @@ public class AdminController {
     }
 
     @RequestMapping("/team")
-    public String team() {
+    public String team(ModelMap map) {
         return "adminTeam";
     }
 
